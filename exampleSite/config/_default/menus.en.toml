@@ -1,0 +1,47 @@
+
+############################## navigation ##############################
+[[main]]
+name = "Products"
+url = "products/"
+weight = 1
+
+[[main]]
+name = "Blog"
+url = "blog/"
+weight = 2
+
+[[main]]
+name = "FAQ"
+url = "faq/"
+weight = 3
+
+[[main]]
+name = "Contact"
+url = "contact/"
+weight = 4
+
+############# footer menu #############
+[[footer]]
+name = "Products"
+url = "products/"
+weight = 1
+
+[[footer]]
+name = "Blog"
+url = "blog/"
+weight = 2
+
+[[footer]]
+name = "FAQ"
+url = "faq/"
+weight = 3
+
+[[footer]]
+name = "Terms & Conditions"
+url = "terms-conditions/"
+weight = 4
+
+[[footer]]
+name = "Contact"
+url = "contact/"
+weight = 5
