@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Mise: Install project toolchain",
+      "type": "shell",
+      "command": "mise install",
+      "problemMatcher": []
+    },
+    {
+      "label": "Hugo: Install dependencies",
+      "type": "shell",
+      "command": "mise exec -- pnpm install",
+      "problemMatcher": []
+    },
+    {
+      "label": "Hugo: Start development server",
+      "type": "shell",
+      "command": "mise exec -- pnpm dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "hugo",
+        "pattern": [
+          {
+            "regexp": "^$"
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "(Watching for changes|Environment:)",
+          "endsPattern": "(Web Server is available at|Press Ctrl\\+C to stop)"
+        }
+      }
+    },
+    {
+      "label": "Hugo: Build production site",
+      "type": "shell",
+      "command": "mise exec -- pnpm build",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Hugo: Preview production site",
+      "type": "shell",
+      "command": "mise exec -- pnpm preview",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "hugo",
+        "pattern": [
+          {
+            "regexp": "^$"
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "(Watching for changes|Environment:)",
+          "endsPattern": "(Web Server is available at|Press Ctrl\\+C to stop)"
+        }
+      }
+    }
+  ]
+}

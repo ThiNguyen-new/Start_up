@@ -1,2 +1,5 @@
 [tools]
+go = "1.25.5"
 hugo-extended = "0.163.3"
+node = "lts"
+pnpm = "latest"
