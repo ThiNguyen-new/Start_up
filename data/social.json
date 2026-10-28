@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Facebook",
+    "icon": "ti-facebook",
+    "link": "https://facebook.com/survivalkit.vn"
+  },
+  {
+    "name": "Instagram",
+    "icon": "ti-instagram",
+    "link": "https://instagram.com/survivalkit.vn"
+  },
+  {
+    "name": "TikTok",
+    "icon": "ti-video-camera",
+    "link": "https://tiktok.com/@survivalkit.vn"
+  },
+  {
+    "name": "YouTube",
+    "icon": "ti-youtube",
+    "link": "https://youtube.com/@survivalkit"
+  }
+]

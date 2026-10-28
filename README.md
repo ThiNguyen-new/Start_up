@@ -60,14 +60,24 @@
 
 ```bash
 # clone the repository
-git clone git@github.com:themefisher/hargo-hugo.git
+git clone https://github.com/ThiNguyen-new/Start_up.git
+cd Start_up
 
-# setup project
-$ npm run project-setup
+# install the project toolchain (Node, pnpm, Go, Hugo Extended)
+# install mise first: https://mise.jdx.dev/getting-started.html
+mise install
+
+# install JavaScript dependencies
+mise exec -- pnpm install
+
+# verify the production build
+mise exec -- pnpm build
 
 # Start local dev server
-$ npm run dev
+mise exec -- pnpm dev
 ```
+
+This repository is already in project-setup mode. Do not run `project-setup`, move files between the site root and `themes/`, or edit files under `themes/` directly. Open the repository root in VS Code, install the recommended extensions, then use **Terminal → Run Task** to run the same setup, build, and preview commands.
 Or Check out [Full Documentation](https://docs.gethugothemes.com/hargo/?ref=github).
 
 <!-- edit with sitepins -->

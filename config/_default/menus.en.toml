@@ -1,0 +1,76 @@
+############################## Navigation Menu ##############################
+[[main]]
+name = "Survival Kits"
+url = "products/"
+weight = 1
+
+[[main]]
+name = "Schedule Rescue"
+url = "products/"
+weight = 2
+
+[[main]]
+name = "Send a Rescue"
+url = "contact/"
+weight = 3
+
+[[main]]
+name = "Blog"
+url = "blog/"
+weight = 4
+
+[[main]]
+name = "FAQ"
+url = "faq/"
+weight = 5
+
+[[main]]
+name = "Contact"
+url = "contact/"
+weight = 6
+
+[[main]]
+name = "📦 Tải Setup (.zip)"
+url = "survival-kit-m0-m1-setup.zip"
+weight = 7
+
+############################## Footer Menu ##############################
+[[footer]]
+name = "Survival Kits"
+url = "products/"
+weight = 1
+
+[[footer]]
+name = "Schedule Rescue"
+url = "products/"
+weight = 2
+
+[[footer]]
+name = "Send a Rescue"
+url = "contact/"
+weight = 3
+
+[[footer]]
+name = "Blog"
+url = "blog/"
+weight = 4
+
+[[footer]]
+name = "FAQ"
+url = "faq/"
+weight = 5
+
+[[footer]]
+name = "Terms & Conditions"
+url = "terms-conditions/"
+weight = 6
+
+[[footer]]
+name = "Contact"
+url = "contact/"
+weight = 7
+
+[[footer]]
+name = "📦 Tải Setup (.zip)"
+url = "survival-kit-m0-m1-setup.zip"
+weight = 8

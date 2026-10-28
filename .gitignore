@@ -15,3 +15,11 @@ jsconfig.json
 hugo_stats.json
 go.sum
 yarn.lock
+.aistudio
+.playwright-cli
+*.zip
+static/*.zip.env
+node_modules/
+venv/
+.venv/
+.DS_Store

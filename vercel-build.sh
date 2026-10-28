@@ -1,43 +1,34 @@
 #!/bin/bash
+set -e
 
-# default versions
-NODE_VERSION='24.18.0';
-GO_VERSION='1.25.5';
-HUGO_VERSION='0.163.3';
+NODE_VERSION='22.23.4'
+GO_VERSION='1.23.4'
+HUGO_VERSION='0.163.3'
 
-# install Node.js
-# echo "Installing Node.js $NODE_VERSION..."
-# curl -sSOL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}.tar.gz
-# tar -xzf node-v${NODE_VERSION}.tar.gz
-# export PATH=$PATH:/usr/local/bin
-# rm -rf node-v${NODE_VERSION}.tar.gz
+echo "=== USING NODE VERSION: $(node -v) ==="
 
-echo "USING NODE VERSION: $(node -v)"
-
-# install Go
-echo "Installing Go $GO_VERSION..."
+# Install Go
+echo "=== Installing Go $GO_VERSION... ==="
 curl -sSOL https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz
 tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 rm -rf go${GO_VERSION}.linux-amd64.tar.gz
 go version
 
-# install Hugo
-echo "Installing Hugo $HUGO_VERSION..."
-curl -sSOL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
-tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+# Install Hugo Extended
+echo "=== Installing Hugo Extended $HUGO_VERSION... ==="
+curl -sSOL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz
+tar -xzf hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz
 mv hugo /usr/local/bin/
-rm -rf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+rm -rf hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz
 hugo version
 
-# project setup
-echo "Project setting up..."
-npm run project-setup
+# Install dependencies with pnpm
+echo "=== Installing project dependencies with pnpm... ==="
+corepack enable
+pnpm install --frozen-lockfile || pnpm install
 
-# install dependencies
-echo "Installing project dependencies..."
-npm install
-
-# run the build command
-echo "Running the build command..."
-npm run build
+# Run build
+echo "=== Running production build... ==="
+pnpm run build
+echo "=== Build Complete! Output directory: public/ ==="
