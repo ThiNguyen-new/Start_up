@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tải mã nguồn Survival Kit (M0 & M1 Setup)</title>
+  <link rel="stylesheet" href="/plugins/bootstrap/bootstrap.min.css">
+  <style>
+    body {
+      background: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .download-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-download {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 14px 28px;
+      border-radius: 12px;
+      display: inline-block;
+      text-decoration: none;
+      margin-top: 20px;
+      transition: all 0.2s ease;
+    }
+    .btn-download:hover {
+      background: #1d4ed8;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    .commit-box {
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 14px;
+      margin: 20px 0;
+      text-align: left;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="download-card">
+    <div style="font-size: 48px; margin-bottom: 12px;">📦</div>
+    <h2 class="font-weight-bold" style="color: #0f172a;">Tải Dự Án Survival Kit</h2>
+    <p class="text-muted">Gói mã nguồn đầy đủ đã hoàn tất mốc M0 (Project-setup) và M1 (Cấu hình nền tảng), sẵn sàng để đẩy lên GitHub hoặc chia sẻ cho nhóm.</p>
+    
+    <div class="commit-box">
+      <strong>Lịch sử Git đã tích hợp:</strong><br>
+      • <code>e448f5e</code> - M0: Chuyển đổi sang project-setup<br>
+      • <code>b12fc93</code> - M1: Cấu hình site, menus, CI/CD, docs<br>
+      • <code>49556f4</code> - Tinh chỉnh menus & static assets
+    </div>
+
+    <a href="/survival-kit-m0-m1-setup.zip" download="survival-kit-m0-m1-setup.zip" class="btn-download">
+      ⬇️ Bấm Vào Đây Để Tải File ZIP (9.6 MB)
+    </a>
+
+    <p style="margin-top: 24px; font-size: 0.85rem; color: #64748b;">
+      Sau khi tải về máy, chỉ cần giải nén và chạy <code>git push origin main</code> trên máy tính của bạn là xong!
+    </p>
+  </div>
+</body>
+</html>

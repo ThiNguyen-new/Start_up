@@ -1,0 +1,32 @@
+{
+  "files.associations": {
+    "*.html": "gohtml"
+  },
+  "emmet.includeLanguages": {
+    "gohtml": "html"
+  },
+  "files.exclude": {
+    "**/.hugo_build.lock": true,
+    "**/node_modules": true,
+    "public": true,
+    "resources": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "public": true,
+    "resources": true
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

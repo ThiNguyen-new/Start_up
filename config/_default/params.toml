@@ -1,0 +1,95 @@
+############################# Default Parameters ##############################
+logo = "images/logo.png"
+home = "Home"
+
+# SEO & Meta Data
+description = "Survival Kit - Trạm cứu hộ deadline dành cho sinh viên. Mô hình kết hợp thương mại điện tử, đặt lịch giao kit theo deadline (Schedule Your Rescue) và tặng quà cá nhân hóa (Send a Rescue)."
+author = "Survival Kit Team - HCMUS"
+
+# Contact Information
+location = "227 Nguyễn Văn Cừ, Phường 4, Quận 5, TP. Hồ Chí Minh"
+email = "contact@survivalkit.vn"
+mobile = "0901 234 567"
+copyright = "| Copyright &copy; 2026 [Survival Kit - HCMUS](/) All Rights Reserved |"
+
+# Currency & Commerce
+currencySymbol = "₫"
+snipcartApiKey = "M2E5YjA3NjMtYzRiYS00YzVjLWEyYWYtNDY5ZDI0OWZhYjg5"
+
+# Google Maps API
+gmapAPI = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"
+mapLatitude = "10.762913"
+mapLongitude = "106.682171"
+mapMarker = "images/marker.png"
+
+# Google Analytics
+googleAnalyticsID = ""
+
+# Preloader
+[preloader]
+enable = true
+preloader = ""
+
+# Product Rating
+[rating]
+enable = true
+websiteID = "444334"
+publicKey = "811cf0927332bf51f2e12f84608594ac"
+
+# Contact Form
+[contact]
+formAction = "#"
+
+# OpenRemark Comment
+[open_remark]
+enable = false
+site_key = "cmqnb3wd5000104kww7862ku4"
+embed_url = "https://open-remark.zeon.studio/embed.js"
+
+# Feature Toggles (Chốt bởi Người 1 theo tài liệu phân công & concept Survival Kit)
+[features]
+enable_schedule_rescue = true   # USP: Schedule Your Rescue (đặt lịch giao trước deadline)
+enable_send_rescue = true       # USP: Send a Rescue (tặng kit kèm lời nhắn riêng)
+enable_panic_level = true       # Hệ thống phân loại Panic Level 1-7
+enable_review = true            # Đánh giá sản phẩm
+enable_darkmode = false         # Dark mode (chờ Người 2 thiết kế token và được duyệt)
+enable_multilang = false        # Đa ngôn ngữ (chờ phê duyệt theo quy định)
+
+# Social Media Links
+[[social]]
+icon = "ti-facebook"
+title = "Facebook"
+link = "https://facebook.com/survivalkit.vn"
+
+[[social]]
+icon = "ti-instagram"
+title = "Instagram"
+link = "https://instagram.com/survivalkit.vn"
+
+[[social]]
+icon = "ti-youtube"
+title = "YouTube"
+link = "https://youtube.com/@survivalkit"
+
+[[social]]
+icon = "ti-twitter-alt"
+title = "TikTok"
+link = "https://tiktok.com/@survivalkit.vn"
+
+# CSS & JS Plugins required by Hargo theme
+[plugins]
+[[plugins.css]]
+link = "plugins/bootstrap/bootstrap.min.css"
+[[plugins.css]]
+link = "plugins/slick/slick.css"
+[[plugins.css]]
+link = "plugins/themify-icons/themify-icons.css"
+
+[[plugins.js]]
+link = "plugins/jQuery/jquery.min.js"
+[[plugins.js]]
+link = "plugins/bootstrap/bootstrap.min.js"
+[[plugins.js]]
+link = "plugins/slick/slick.min.js"
+[[plugins.js]]
+link = "plugins/google-map/gmap.js"

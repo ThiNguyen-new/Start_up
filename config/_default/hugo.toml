@@ -1,0 +1,66 @@
+######################## Default Configuration ####################
+baseURL = "/"
+title = "Survival Kit | The Deadline Rescue Station"
+theme = "hargo-hugo"
+locale = "vi"
+timeZone = "Asia/Ho_Chi_Minh"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+relativeURLs = true
+canonifyURLs = false
+
+# Post pagination & excerpt
+pagination.pagerSize = 10
+summaryLength = 20
+timeout = "500s"
+
+############################# Build ##############################
+[build]
+noJSConfigInAssets = false
+useResourceCacheWhen = 'fallback'
+
+[build.buildStats]
+enable = true
+
+[[build.cachebusters]]
+source = 'assets/.*\.(js|ts|jsx|tsx)'
+target = '(js|scripts|javascript)'
+
+[[build.cachebusters]]
+source = 'assets/.*\.(css|sass|scss)$'
+target = '(css|styles|scss|sass)'
+
+[[build.cachebusters]]
+source = 'assets/.*\.(.*)$'
+target = '$1'
+
+############################# Outputs ##############################
+[outputs]
+home = ["HTML", "RSS"]
+page = ["HTML"]
+section = ["HTML", "RSS"]
+
+############################# Imaging ##############################
+[imaging]
+quality = 90
+resampleFilter = "Lanczos"
+
+############################# Caches ###############################
+[caches]
+[caches.images]
+dir = ":resourceDir/_gen"
+maxAge = "720h"
+
+[caches.assets]
+dir = ":resourceDir/_gen"
+maxAge = "720h"
+
+############################# Markup ###############################
+[markup]
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 4
+ordered = false

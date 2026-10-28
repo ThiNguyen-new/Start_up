@@ -1,0 +1,11 @@
+[en]
+label = "English"
+locale = "en-US"
+contentDir = "content"
+weight = 1
+
+[vi]
+label = "Tiếng Việt"
+locale = "vi-VN"
+contentDir = "content"
+weight = 2

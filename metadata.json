@@ -1,0 +1,6 @@
+{
+  "name": "Survival Kit",
+  "description": "Survival Kit - Trạm cứu hộ deadline dành cho sinh viên. Mô hình kết hợp thương mại điện tử, đặt lịch giao kit theo deadline và tặng quà cá nhân hóa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
