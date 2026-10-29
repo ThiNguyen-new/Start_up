@@ -1,0 +1,77 @@
+{
+  "colors": {
+    "default": {
+      "theme_color": {
+        "primary": "#C2412B",
+        "primary_hover": "#9A2F1F",
+        "secondary": "#1C2740",
+        "body": "#FFF7ED",
+        "surface": "#FFFFFF",
+        "border": "#E8D9C8",
+        "light": "#F3E7D8",
+        "accent": "#F5A524",
+        "warning": "#B45309",
+        "success": "#1F7A5C",
+        "info": "#1D6A8A",
+        "dark": "#1C2740"
+      },
+      "text_color": {
+        "default": "#1A1A1A",
+        "dark": "#111827",
+        "light": "#5C5348",
+        "inverted": "#FFF7ED"
+      }
+    },
+    "darkmode": {
+      "theme_color": {
+        "primary": "#E07A66",
+        "primary_hover": "#F0A090",
+        "secondary": "#F5A524",
+        "body": "#141821",
+        "surface": "#1E2430",
+        "border": "#343B4A",
+        "light": "#252B38",
+        "accent": "#F5A524",
+        "warning": "#FBBF24",
+        "success": "#4ADE80",
+        "info": "#7DD3FC",
+        "dark": "#0B0E14"
+      },
+      "text_color": {
+        "default": "#F5EDE3",
+        "dark": "#FFF7ED",
+        "light": "#C4B8AA",
+        "inverted": "#141821"
+      }
+    }
+  },
+  "fonts": {
+    "font_family": {
+      "primary": "Plus Jakarta Sans:wght@400;500;600;700",
+      "primary_type": "sans-serif",
+      "secondary": "Bebas Neue:wght@400",
+      "secondary_type": "sans-serif"
+    },
+    "font_size": {
+      "base": "16",
+      "scale": "1.2"
+    }
+  },
+  "brand": {
+    "name": "Survival Kit",
+    "slogan": "Deadline is coming. We're coming too.",
+    "logo": "images/logo/logo.svg",
+    "logo_mark": "images/logo/mark.svg",
+    "favicon": "images/brand/favicon.svg",
+    "og_image": "images/brand/og-image.svg"
+  },
+  "panic_levels": [
+    { "level": 1, "name": "Chill Mode", "fill": "#E8F5EE", "text": "#1F7A5C" },
+    { "level": 2, "name": "Mild Mode", "fill": "#E8F1F8", "text": "#1D6A8A" },
+    { "level": 3, "name": "Nervous Mode", "fill": "#F3F0E0", "text": "#8A6D1D" },
+    { "level": 4, "name": "Panic Mode", "fill": "#FDECDC", "text": "#C2410C" },
+    { "level": 5, "name": "High Panic", "fill": "#FBE8E4", "text": "#B42318" },
+    { "level": 6, "name": "Final Boss", "fill": "#F3E4E8", "text": "#9B1C3A" },
+    { "level": 7, "name": "SOS", "fill": "#7A0F16", "text": "#FFF7ED" }
+  ]
+}
