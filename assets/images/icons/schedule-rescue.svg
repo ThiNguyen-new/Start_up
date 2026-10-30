@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Schedule Your Rescue">
+  <rect width="64" height="64" rx="16" fill="#E8F1F8"/>
+  <rect x="14" y="16" width="36" height="34" rx="6" fill="#FFFFFF" stroke="#1D6A8A" stroke-width="2"/>
+  <rect x="14" y="16" width="36" height="10" rx="6" fill="#1D6A8A"/>
+  <circle cx="32" cy="40" r="8" fill="#C2412B"/>
+  <path d="M32 36 v5 h4" fill="none" stroke="#FFF7ED" stroke-width="2" stroke-linecap="round"/>
+</svg>
