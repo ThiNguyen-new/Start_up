@@ -1,0 +1,52 @@
+{{ define "main" }}
+
+{{ partial "page-title.html" . }}
+
+<section class="sk-section pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <article class="sk-card">
+          <header class="mb-4">
+            {{ with .Params.panic_level }}
+            {{ if site.Params.features.enable_panic_level }}
+            <span class="sk-badge sk-panic mb-2 d-inline-block" data-level="{{ . }}">{{ or (i18n "sk_panic_badge") "Panic" }} {{ . }}</span>
+            {{ end }}
+            {{ end }}
+            {{ with .Params.kit_type }}
+            <span class="sk-badge-accent mb-2 d-inline-block">{{ . }}</span>
+            {{ end }}
+            <h2 class="sk-display mb-3">{{ .Title }}</h2>
+            <ul class="list-inline text-muted mb-0">
+              {{ with or .Params.author .Params.Author }}
+              <li class="list-inline-item mr-3">
+                <i class="ti-pencil-alt text-primary mr-1" aria-hidden="true"></i> By {{ . }}
+              </li>
+              {{ end }}
+              {{ if not .PublishDate.IsZero }}
+              <li class="list-inline-item">
+                <i class="ti-calendar text-primary mr-1" aria-hidden="true"></i> {{ .PublishDate.Format "02 Jan, 2006" }}
+              </li>
+              {{ end }}
+            </ul>
+          </header>
+
+          {{ $image := or .Params.image .Params.Image }}
+          {{ with $image }}
+          <div class="mb-4">
+            {{ partial "image.html" (dict "Src" . "Alt" $.Title "Class" "img-fluid w-100 rounded") }}
+          </div>
+          {{ end }}
+
+          <div class="content">
+            {{ .Content }}
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ partial "cta.html" . }}
+
+{{ end }}

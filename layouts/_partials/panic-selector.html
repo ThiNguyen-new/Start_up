@@ -1,0 +1,21 @@
+{{/* Panic Level 1–7. Hidden when site.Params.features.enable_panic_level is false (caller). */}}
+<section class="sk-section pt-0" id="panic" aria-labelledby="panic-heading">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h2 id="panic-heading">{{ or (i18n "sk_pick_panic") "What's your Panic Level?" }}</h2>
+        <p>{{ or (i18n "sk_pick_panic_help") "Tap a level to filter kits. Tap again to show all." }}</p>
+      </div>
+      <div class="col-12">
+        <div class="sk-panic-grid" role="group" aria-label="{{ or (i18n "sk_panic_group") "Panic Level" }}">
+          {{ range site.Data.theme.panic_levels }}
+          <button type="button" class="sk-panic sk-focusable js-panic-level" data-level="{{ .level }}" data-panic-level="{{ .level }}" aria-pressed="false">
+            <span class="sr-only">{{ or (i18n "sk_level") "Level" }} </span>{{ .level }}
+            <span class="d-none d-md-inline"> · {{ .name }}</span>
+          </button>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

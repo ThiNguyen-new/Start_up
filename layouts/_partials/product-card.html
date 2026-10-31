@@ -1,0 +1,42 @@
+{{/*
+  Person 4 frontmatter contract (products):
+  - price, priceBefore, productID, shortDescription, images[].image, description, type: products
+  - panic_level (1–7), kit_type (exam | project | club | care)
+  Missing optional fields are omitted, not errors.
+*/}}
+<article class="sk-card h-100 text-center">
+  <a class="d-block sk-focusable" href="{{ .RelPermalink }}">
+    {{ range first 1 .Params.images }}
+    {{ partial "image.html" (dict "Src" .image "Alt" $.Title "Class" "card-img-top") }}
+    {{ end }}
+  </a>
+  <div class="mt-3">
+    {{ with .Params.panic_level }}
+    {{ if site.Params.features.enable_panic_level }}
+    <span class="sk-badge sk-panic mb-2" data-level="{{ . }}">{{ or (i18n "sk_panic_badge") "Panic" }} {{ . }}</span>
+    {{ end }}
+    {{ end }}
+    {{ with .Params.kit_type }}
+    <span class="sk-badge-accent mb-2">{{ . }}</span>
+    {{ end }}
+    <h3 class="h4"><a class="sk-focusable" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    {{ with .Params.description }}
+    <p>{{ . }}</p>
+    {{ end }}
+    <div class="mb-4">
+      {{ with .Params.priceBefore }}
+      <s>{{ site.Params.currencySymbol }}{{ . }}</s>
+      {{ end }}
+      {{ with .Params.price }}
+      <span class="lead text-primary">{{ site.Params.currencySymbol }}{{ . }}</span>
+      {{ end }}
+    </div>
+    {{ with .Params.productID }}
+    <button type="button" class="snipcart-add-item sk-btn sk-btn-primary sk-focusable" data-item-id="{{ . }}"
+      data-item-name="{{ $.Title }}" {{ range first 1 $.Params.images }} data-item-image="{{ .image | absURL }}"
+      {{ end }} data-item-price="{{ $.Params.price }}" data-item-url="{{ $.Permalink }}" data-item-description="{{ $.Params.description }}">
+      {{ or (i18n "add_to_cart") "Add to cart" }}
+    </button>
+    {{ end }}
+  </div>
+</article>

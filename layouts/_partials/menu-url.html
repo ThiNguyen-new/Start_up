@@ -1,0 +1,9 @@
+{{- $fallback := .fallback | default "/" -}}
+{{- $url := $fallback -}}
+{{- $name := .name -}}
+{{- range site.Menus.main -}}
+  {{- if eq .Name $name -}}
+    {{- $url = .URL -}}
+  {{- end -}}
+{{- end -}}
+{{- $url | relLangURL -}}

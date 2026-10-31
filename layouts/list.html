@@ -1,0 +1,63 @@
+{{ define "main" }}
+
+{{ partial "page-title.html" . }}
+
+<section class="sk-section pt-0">
+  <div class="container">
+    {{ if eq .Type "products" }}
+      {{ partial "kit-filters.html" . }}
+      <div class="row">
+        {{ range .Data.Pages }}
+        <div class="col-lg-4 col-sm-6 mb-4 js-kit-card" {{ partial "kit-card-attrs.html" . | safeHTMLAttr }}>
+          {{ partial "product-card.html" . }}
+        </div>
+        {{ end }}
+        <div class="col-12">
+          <p class="js-kit-empty text-center mt-2" hidden>{{ or (i18n "sk_filter_empty") "No kits match this Panic Level yet." }}</p>
+        </div>
+      </div>
+    {{ else }}
+      <div class="row">
+        {{ $paginator := .Paginate .Data.Pages }}
+        {{ range $paginator.Pages }}
+        {{ $postURL := .RelPermalink }}
+        {{ $postTitle := .Title }}
+        <div class="col-lg-8 mx-auto mb-5">
+          <article class="sk-card">
+            {{ $image := or .Params.image .Params.Image }}
+            {{ with $image }}
+            <a href="{{ $postURL }}" class="d-block mb-3 sk-focusable">
+              {{ partial "image.html" (dict "Src" . "Alt" $postTitle "Class" "card-img-top rounded") }}
+            </a>
+            {{ end }}
+            <div class="card-body px-0">
+              <h2 class="h3 mb-2">
+                <a href="{{ $postURL }}" class="sk-focusable">{{ $postTitle | markdownify }}</a>
+              </h2>
+              <ul class="list-inline text-muted mb-3">
+                {{ with or .Params.author .Params.Author }}
+                <li class="list-inline-item mr-3">
+                  <i class="ti-pencil-alt text-primary mr-1" aria-hidden="true"></i> By {{ . }}
+                </li>
+                {{ end }}
+                {{ if not .PublishDate.IsZero }}
+                <li class="list-inline-item">
+                  <i class="ti-calendar text-primary mr-1" aria-hidden="true"></i> {{ .PublishDate.Format "02 Jan, 2006" }}
+                </li>
+                {{ end }}
+              </ul>
+              <p class="mb-4">{{ .Summary }}</p>
+              <a href="{{ $postURL }}" class="sk-btn sk-btn-ghost sk-focusable">{{ or (i18n "read_more") "Read More" }}</a>
+            </div>
+          </article>
+        </div>
+        {{ end }}
+      </div>
+      {{ template "_internal/pagination.html" . }}
+    {{ end }}
+  </div>
+</section>
+
+{{ partial "cta.html" . }}
+
+{{ end }}
