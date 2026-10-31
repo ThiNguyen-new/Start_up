@@ -1,0 +1,14 @@
+{{ $kitsURL := partial "menu-url.html" (dict "name" "Survival Kits" "fallback" "products/") }}
+<section class="sk-section">
+  <div class="container">
+    <div class="sk-cta">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h2>{{ or (i18n "sk_cta_title") "Need a rescue before the deadline hits?" }}</h2>
+          <p>{{ or (i18n "sk_cta_body") "Pick a kit, schedule the drop, or send one to a teammate." }}</p>
+          <a class="sk-btn sk-btn-ghost sk-focusable" href="{{ $kitsURL }}">{{ or (i18n "sk_cta_button") "Get a Survival Kit" }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

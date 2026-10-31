@@ -1,0 +1,17 @@
+{{- $price := 0.0 -}}
+{{- with .Params.price -}}
+  {{- $price = float (replaceRE `[^\d.]` "" (string .)) -}}
+{{- end -}}
+{{- $band := "" -}}
+{{- if ge $price 1000 -}}
+  {{- if and (ge $price 39000) (le $price 59000) -}}{{ $band = "mini" }}
+  {{- else if and (ge $price 79000) (le $price 129000) -}}{{ $band = "standard" }}
+  {{- else if (ge $price 149000) -}}{{ $band = "premium" }}
+  {{- end -}}
+{{- else if gt $price 0 -}}
+  {{- if le $price 59 -}}{{ $band = "mini" }}
+  {{- else if le $price 129 -}}{{ $band = "standard" }}
+  {{- else -}}{{ $band = "premium" }}
+  {{- end -}}
+{{- end -}}
+data-panic-level="{{ with .Params.panic_level }}{{ . }}{{ end }}" data-kit-type="{{ with .Params.kit_type }}{{ . }}{{ end }}" data-price="{{ $price }}" data-price-band="{{ $band }}"

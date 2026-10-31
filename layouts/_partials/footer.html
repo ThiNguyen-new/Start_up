@@ -1,0 +1,151 @@
+<footer class="section pb-0">
+  <div class="container">
+    <div class="row border-bottom pb-5 justify-content-between">
+      <div class="col-12 text-center section-sm">
+        <a class="sk-logo" href="{{ site.Home.RelPermalink }}">
+          {{ with site.Params.logo }}
+          {{ partial "image.html" (dict "Src" . "Alt" site.Title "Class" "img-fluid") }}
+          {{ else }}
+          <span class="sk-display">{{ site.Title }}</span>
+          {{ end }}
+        </a>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <h5 class="font-weight-medium mb-4">{{ or (i18n "important_link") "Important Links" }}</h5>
+        <ul class="list-unstyled">
+          {{ range site.Menus.footer }}
+          {{ $show := true }}
+          {{ if and (eq .Name "Schedule Rescue") (not site.Params.features.enable_schedule_rescue) }}
+            {{ $show = false }}
+          {{ end }}
+          {{ if and (eq .Name "Send a Rescue") (not site.Params.features.enable_send_rescue) }}
+            {{ $show = false }}
+          {{ end }}
+          {{ if $show }}
+          <li class="mb-3"><a class="text-color sk-focusable" href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+          {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <h5 class="font-weight-medium mb-4">{{ or (i18n "connect_us") "Connect With Us" }}</h5>
+        <ul class="list-unstyled mb-5">
+          {{ with site.Params.mobile }}
+          <li class="mb-3"><a class="text-color sk-focusable" href="tel:{{ . }}"><i
+                class="ti-mobile text-primary mr-2"></i>
+              {{ . }}</a></li>
+          {{ end }}
+          {{ with site.Params.email }}
+          <li class="mb-3"><a class="text-color sk-focusable" href="mailto:{{ . }}"><i
+                class="ti-email text-primary mr-2"></i> {{ . }}</a></li>
+          {{ end }}
+          {{ with site.Params.location }}
+          <li class="mb-3"><i class="ti-location-pin text-primary mr-2"></i> {{ . }}
+          </li>
+          {{ end }}
+        </ul>
+        <ul class="list-inline">
+          {{ range site.Params.social }}
+          <li class="list-inline-item"><a class="sk-focusable" href="{{ .link | safeURL }}" {{ with .title }}aria-label="{{ . }}"{{ end }}><i class="{{ .icon }} text-primary" aria-hidden="true"></i></a></li>
+          {{ end }}
+        </ul>
+      </div>
+      <div class="col-lg-4 col-md-5">
+        <h5 class="font-weight-medium mb-4">{{ or (i18n "contact_us") "Contact us" }}</h5>
+        <form class="sk-form" action="{{ site.Params.contact.formAction }}" method="POST">
+          <div class="sk-field">
+            <label class="sk-label sr-only" for="footer-name">{{ or (i18n "your_name") "Your Name" }}</label>
+            <input required type="text" class="form-control sk-input mb-2" id="footer-name" name="name" placeholder="{{ or (i18n "your_name") "Your Name" }}">
+          </div>
+          <div class="sk-field">
+            <label class="sk-label sr-only" for="footer-email">{{ or (i18n "your_email") "Your Email" }}</label>
+            <input required type="email" class="form-control sk-input mb-2" id="footer-email" name="email" placeholder="{{ or (i18n "your_email") "Your Email" }}">
+          </div>
+          <div class="sk-field">
+            <label class="sk-label sr-only" for="footer-message">{{ or (i18n "your_message") "Your Message" }}</label>
+            <textarea required name="message" id="footer-message" class="form-control sk-input mb-2" placeholder="{{ or (i18n "your_message") "Your Message" }}"></textarea>
+          </div>
+          <button type="submit" value="send" class="btn btn-block sk-btn sk-btn-primary rounded">{{ or (i18n "send_now") "Send Now" }}</button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center py-4">
+        {{ site.Params.copyright | markdownify  }}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{{ with site.Params.snipcartApiKey }}
+{{ "<!-- Snipcart -->" | safeHTML }}
+<div id="snipcart" data-api-key="{{ . }}" hidden></div>
+{{ end }}
+
+{{ with site.Params.gmapAPI }}
+{{ "<!-- Google Maps API -->" | safeHTML }}
+<script src="{{ . | absURL }}"></script>
+{{ end }}
+{{ "<!-- JS Plugins -->" | safeHTML }}
+{{ range site.Params.plugins.js}}
+<script src="{{ .link | absURL }}"></script>
+{{ end }}
+
+{{ "<!-- Main Script -->" | safeHTML }}
+{{ $script := resources.Get "js/script.js" | minify}}
+<script src="{{ $script.Permalink }}"></script>
+
+{{ with site.Params.googleAnalyticsID }}
+{{ "<!-- Google Analytics -->" | safeHTML }}
+<script>
+(function (i, s, o, g, r, a, m) {
+  i['GoogleAnalyticsObject'] = r;
+  i[r] = i[r] || function () {
+    (i[r].q = i[r].q || []).push(arguments)
+  }, i[r].l = 1 * new Date();
+  a = s.createElement(o),
+    m = s.getElementsByTagName(o)[0];
+  a.async = 1;
+  a.src = g;
+  m.parentNode.insertBefore(a, m)
+})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+ga('create', '{{ . }}', 'auto');
+ga('send', 'pageview');
+</script>
+{{ end }}
+
+{{ if site.Params.rating.enable }}
+{{ "<!-- Product Ratings -->" | safeHTML }}
+<script>
+(function (d, t, e, m) {
+  window.RW_Async_Init = function () {
+    RW.init({
+      huid: "{{ site.Params.rating.websiteID }}",
+      uid: "{{ site.Params.rating.publicKey }}",
+      source: "website",
+      options: {
+        "size": "medium",
+        "style": "oxygen",
+        "isDummy": false
+      }
+    });
+    RW.render();
+  };
+  var rw, s = d.getElementsByTagName(e)[0],
+    id = "rw-js",
+    l = d.location,
+    ck = "Y" + t.getFullYear() +
+    "M" + t.getMonth() + "D" + t.getDate(),
+    p = l.protocol,
+    f = ((l.search.indexOf("DBG=") > -1) ? "" : ".min"),
+    a = ("https:" == p ? "secure." + m + "js/" : "js." + m);
+  if (d.getElementById(id)) return;
+  rw = d.createElement(e);
+  rw.id = id;
+  rw.async = true;
+  rw.type = "text/javascript";
+  rw.src = p + "//" + a + "external" + f + ".js?ck=" + ck;
+  s.parentNode.insertBefore(rw, s);
+}(document, new Date(), "script", "rating-widget.com/"));
+</script>
+{{ end }}
