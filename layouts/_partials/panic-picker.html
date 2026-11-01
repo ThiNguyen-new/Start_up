@@ -1,0 +1,38 @@
+{{/* Segmented Panic Level Picker 1-7 (Shared across Home & Build Your Own Kit) */}}
+<div class="sk-panic-picker-widget sk-card p-4 mb-4">
+  <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+    <div>
+      <span class="text-muted small text-uppercase font-weight-bold d-block">{{ or (i18n "sk_deadline_status") "Trạng thái deadline hiện tại" }}</span>
+      <h3 class="h4 mb-0 font-weight-bold text-primary" data-panic-level-text>Level 3</h3>
+    </div>
+    <div class="mt-2 mt-sm-0">
+      <span class="sk-badge sk-panic" data-panic-level-badge>{{ or (i18n "sk_panic_mode") "Chế độ Panic" }}</span>
+    </div>
+  </div>
+
+  <p class="sk-panic-message text-muted mb-3 font-italic" data-panic-level-message>
+    Bắt đầu căng: gợi ý đồ uống, snack, dụng cụ tập trung.
+  </p>
+
+  <fieldset class="sk-panic-fieldset">
+    <legend class="sr-only">{{ or (i18n "sk_select_panic_level") "Chọn Panic Level của bạn (1 đến 7)" }}</legend>
+    <div class="sk-panic-segmented-control" role="radiogroup" aria-label="Panic Level 1-7">
+      {{ range seq 1 7 }}
+      <label class="sk-panic-radio-label" for="panic-radio-{{ . }}">
+        <input type="radio"
+               name="panic-level"
+               id="panic-radio-{{ . }}"
+               value="{{ . }}"
+               class="sk-panic-radio-input sr-only"
+               {{ if eq . 3 }}checked{{ end }}>
+        <span class="sk-panic-btn sk-focusable">
+          <span class="sk-panic-num">{{ . }}</span>
+          <span class="sk-panic-tag d-none d-lg-inline">
+            {{ if eq . 1 }}Chill{{ else if eq . 2 }}Mild{{ else if eq . 3 }}Alert{{ else if eq . 4 }}Crunch{{ else if eq . 5 }}Stress{{ else if eq . 6 }}Urgent{{ else }}SOS{{ end }}
+          </span>
+        </span>
+      </label>
+      {{ end }}
+    </div>
+  </fieldset>
+</div>

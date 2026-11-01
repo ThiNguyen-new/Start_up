@@ -91,6 +91,12 @@
 <script src="{{ .link | absURL }}"></script>
 {{ end }}
 
+{{ "<!-- Panic Level Shared Script -->" | safeHTML }}
+{{ with resources.Get "js/panic-level.js" }}
+{{ $panicScript := . | minify }}
+<script src="{{ $panicScript.Permalink }}" defer></script>
+{{ end }}
+
 {{ "<!-- Main Script -->" | safeHTML }}
 {{ $script := resources.Get "js/script.js" | minify}}
 <script src="{{ $script.Permalink }}"></script>

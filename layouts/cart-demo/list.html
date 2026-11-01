@@ -1,0 +1,276 @@
+{{ define "main" }}
+
+{{/* Breadcrumb & Section Header */}}
+{{ partial "page-title.html" . }}
+
+<section class="section pt-4" data-build-url="{{ "build-your-own-kit/" | relLangURL }}">
+  <div class="container">
+    {{/* Demo Disclaimer Notice */}}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="sk-disclaimer-alert d-flex align-items-center" role="note">
+          <i class="ti-info-alt text-primary mr-3 h4 mb-0" aria-hidden="true"></i>
+          <div>
+            <strong>{{ or (i18n "sk_demo_notice") "Bản demo giỏ hàng" }}:</strong>
+            <span>{{ or (i18n "sk_cart_disclaimer") "Giá, tồn kho và đơn hàng chỉ mang tính minh họa. Website không lưu trữ dữ liệu cá nhân và không có giao dịch tài chính thật." }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{/* Empty Cart View */}}
+    <div class="row js-cart-empty-view text-center py-5" hidden>
+      <div class="col-md-8 mx-auto">
+        <div class="sk-card p-5">
+          <i class="ti-shopping-cart text-muted mb-3 d-block display-4" aria-hidden="true"></i>
+          <h2 class="h3 font-weight-bold mb-2">Giỏ hàng demo đang trống</h2>
+          <p class="text-muted mb-4">Bạn chưa chọn món đồ nào cho Survival Kit của mình.</p>
+          <a href="{{ "build-your-own-kit/" | relLangURL }}" class="btn sk-btn sk-btn-primary sk-focusable">
+            <i class="ti-arrow-left mr-1" aria-hidden="true"></i> Quay lại tự tạo kit
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {{/* Active Cart View */}}
+    <div class="row js-cart-active-view" hidden>
+      <div class="col-lg-8 mb-4 mb-lg-0">
+        <div class="sk-card p-4">
+          <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3 flex-wrap">
+            <div>
+              <h2 class="h4 font-weight-bold mb-1">Chi Tiết Bộ Kit Của Bạn</h2>
+              <span class="text-muted small">Cấu hình tự chọn từ trang Build Your Own Kit</span>
+            </div>
+            <div class="mt-2 mt-sm-0">
+              <span class="sk-badge sk-panic js-cart-panic-badge mr-2">Panic Level 3</span>
+              <span class="sk-badge-accent js-cart-theme-badge">Chủ đề: Tự do</span>
+            </div>
+          </div>
+
+          {{/* Table of Selected Items */}}
+          <div class="table-responsive mb-4">
+            <table class="table table-borderless align-middle mb-0">
+              <thead>
+                <tr class="border-bottom text-muted small text-uppercase">
+                  <th scope="col">Món đồ</th>
+                  <th scope="col" class="text-center">Số lượng</th>
+                  <th scope="col" class="text-right">Đơn giá</th>
+                  <th scope="col" class="text-right">Thành tiền</th>
+                </tr>
+              </thead>
+              <tbody class="js-cart-items-tbody">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          {{/* Personalized Note Card */}}
+          <div class="sk-kit-preview-box">
+            <span class="font-weight-bold text-dark d-block mb-1">
+              <i class="ti-write text-primary mr-1" aria-hidden="true"></i> Lời nhắn cá nhân / Thiệp cứu viện:
+            </span>
+            <p class="sk-preview-note-text js-cart-message-text mb-0">
+              (Không có lời nhắn)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {{/* Order Summary Sidebar */}}
+      <div class="col-lg-4">
+        <div class="sk-sticky-summary">
+          <h3 class="sk-summary-title">Tóm Tắt Đơn Demo</h3>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Tổng số món:</span>
+            <strong class="text-dark js-cart-total-qty">0</strong>
+          </div>
+
+          <div class="d-flex justify-content-between mb-3">
+            <span class="text-muted">Phí đóng gói & giao:</span>
+            <span class="text-success font-weight-bold">Miễn phí (Demo)</span>
+          </div>
+
+          <div class="sk-summary-total-box">
+            <span class="sk-summary-total-label">Tổng thanh toán:</span>
+            <span class="sk-summary-total-amount js-cart-total-price">0 ₫</span>
+          </div>
+
+          <div class="mb-3">
+            <button type="button" class="btn sk-btn sk-btn-primary btn-block js-btn-demo-checkout sk-focusable">
+              Đặt hàng demo <i class="ti-check ml-1" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <a href="{{ "build-your-own-kit/" | relLangURL }}" class="btn btn-outline-secondary btn-sm sk-focusable">
+              <i class="ti-pencil mr-1" aria-hidden="true"></i> Chỉnh sửa kit
+            </a>
+            <button type="button" class="btn btn-outline-danger btn-sm js-btn-clear-cart sk-focusable">
+              <i class="ti-trash mr-1" aria-hidden="true"></i> Xóa giỏ
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{/* Cart Client-side Script */}}
+<script>
+(function () {
+  'use strict';
+  var CART_KEY = 'survivalKitCart';
+  var currencyFormatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
+
+  function formatVND(amt) {
+    try {
+      return currencyFormatter.format(amt);
+    } catch (e) {
+      return (amt || 0).toLocaleString('vi-VN') + ' ₫';
+    }
+  }
+
+  function getCartData() {
+    try {
+      var raw = sessionStorage.getItem(CART_KEY);
+      if (!raw) return null;
+      var parsed = JSON.parse(raw);
+      if (parsed && Array.isArray(parsed.items) && parsed.items.length > 0) {
+        return parsed;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function renderCart() {
+    var cart = getCartData();
+    var emptyView = document.querySelector('.js-cart-empty-view');
+    var activeView = document.querySelector('.js-cart-active-view');
+
+    if (!cart || !cart.items || cart.items.length === 0) {
+      if (emptyView) emptyView.removeAttribute('hidden');
+      if (activeView) activeView.setAttribute('hidden', 'hidden');
+      return;
+    }
+
+    if (emptyView) emptyView.setAttribute('hidden', 'hidden');
+    if (activeView) activeView.removeAttribute('hidden');
+
+    // Badges
+    var panicBadge = document.querySelector('.js-cart-panic-badge');
+    if (panicBadge) {
+      var lvl = cart.level || 3;
+      panicBadge.textContent = 'Panic Level ' + lvl;
+      panicBadge.setAttribute('data-level', lvl);
+    }
+
+    var themeBadge = document.querySelector('.js-cart-theme-badge');
+    if (themeBadge) {
+      var themeLabels = {
+        free: 'Tự do',
+        exam: 'Mùa thi cử (Exam)',
+        project: 'Chạy đồ án (Project)',
+        rush: 'Nước rút (Rush)'
+      };
+      themeBadge.textContent = 'Chủ đề: ' + (themeLabels[cart.theme] || cart.theme || 'Tự do');
+    }
+
+    // Items table
+    var tbody = document.querySelector('.js-cart-items-tbody');
+    if (tbody) {
+      tbody.innerHTML = '';
+      cart.items.forEach(function (it) {
+        var tr = document.createElement('tr');
+        tr.className = 'border-bottom';
+
+        var tdName = document.createElement('td');
+        var nameStrong = document.createElement('strong');
+        nameStrong.className = 'd-block text-dark';
+        nameStrong.textContent = it.name;
+        var catSpan = document.createElement('span');
+        catSpan.className = 'badge badge-light text-muted';
+        catSpan.textContent = it.category || 'Món đồ';
+        tdName.appendChild(nameStrong);
+        tdName.appendChild(catSpan);
+
+        var tdQty = document.createElement('td');
+        tdQty.className = 'text-center font-weight-bold';
+        tdQty.textContent = it.qty;
+
+        var tdPrice = document.createElement('td');
+        tdPrice.className = 'text-right text-muted';
+        tdPrice.textContent = formatVND(it.price);
+
+        var tdSubtotal = document.createElement('td');
+        tdSubtotal.className = 'text-right font-weight-bold text-primary';
+        tdSubtotal.textContent = formatVND(it.price * it.qty);
+
+        tr.appendChild(tdName);
+        tr.appendChild(tdQty);
+        tr.appendChild(tdPrice);
+        tr.appendChild(tdSubtotal);
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Message (Strictly textContent)
+    var msgText = document.querySelector('.js-cart-message-text');
+    if (msgText) {
+      msgText.textContent = cart.message ? '“' + cart.message + '”' : '(Không có lời nhắn cá nhân)';
+    }
+
+    // Totals
+    var totalQtyEl = document.querySelector('.js-cart-total-qty');
+    if (totalQtyEl) {
+      totalQtyEl.textContent = cart.totalItems || 0;
+    }
+
+    var totalPriceEl = document.querySelector('.js-cart-total-price');
+    if (totalPriceEl) {
+      totalPriceEl.textContent = formatVND(cart.total || 0);
+    }
+  }
+
+  function setupCartActions() {
+    // Demo checkout button
+    var checkoutBtn = document.querySelector('.js-btn-demo-checkout');
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener('click', function () {
+        window.alert('Đây là bản demo, không có đơn hàng hay thanh toán thật.');
+        try {
+          sessionStorage.removeItem(CART_KEY);
+        } catch (e) {}
+        renderCart();
+      });
+    }
+
+    // Clear cart button
+    var clearBtn = document.querySelector('.js-btn-clear-cart');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function () {
+        if (window.confirm('Bạn có chắc muốn xóa toàn bộ món đồ trong giỏ hàng demo?')) {
+          try {
+            sessionStorage.removeItem(CART_KEY);
+          } catch (e) {}
+          renderCart();
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      renderCart();
+      setupCartActions();
+    });
+  } else {
+    renderCart();
+    setupCartActions();
+  }
+})();
+</script>
+
+{{ end }}

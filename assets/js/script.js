@@ -225,6 +225,10 @@ $(window).on('load', function () {
       $('.js-panic-explore-btn').attr('href', url);
     }
 
+    if (window.PanicLevel && window.PanicLevel.get() !== Number(lvl)) {
+      window.PanicLevel.set(lvl);
+    }
+
     applyKitFilters();
   }
 
@@ -238,6 +242,16 @@ $(window).on('load', function () {
     if (lvl) {
       $('.js-panic-slider').val(lvl);
       updatePanicMeter(lvl);
+    }
+  });
+
+  document.addEventListener('paniclevelchange', function (e) {
+    if (e.detail && e.detail.level) {
+      var lvl = String(e.detail.level);
+      if ($('.js-panic-slider').length && $('.js-panic-slider').val() !== lvl) {
+        $('.js-panic-slider').val(lvl);
+        updatePanicMeter(lvl);
+      }
     }
   });
 
@@ -255,7 +269,8 @@ $(window).on('load', function () {
   $(document).on('change', '.js-kit-filter-type, .js-kit-filter-price', applyKitFilters);
 
   if ($('.js-panic-slider').length) {
-    updatePanicMeter($('.js-panic-slider').val() || '4');
+    var initialLevel = window.PanicLevel ? window.PanicLevel.get() : ($('.js-panic-slider').val() || '3');
+    updatePanicMeter(initialLevel);
   } else {
     applyKitFilters();
   }

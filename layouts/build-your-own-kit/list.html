@@ -1,0 +1,249 @@
+{{ define "main" }}
+
+{{/* Breadcrumb & Section Header */}}
+{{ partial "page-title.html" . }}
+
+<section class="section pt-4" data-cart-url="{{ "cart-demo/" | relLangURL }}">
+  <div class="container">
+    {{/* Demo Disclaimer Alert */}}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="sk-disclaimer-alert d-flex align-items-center" role="note">
+          <i class="ti-info-alt text-primary mr-3 h4 mb-0" aria-hidden="true"></i>
+          <div>
+            <strong>{{ or (i18n "sk_demo_notice") "Bản demo tương tác" }}:</strong>
+            <span>{{ or (i18n "sk_demo_disclaimer") "Giá, số lượng và đơn hàng chỉ mang tính minh họa. Không có thanh toán thật hay lưu dữ liệu lên máy chủ." }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{/* Shared Panic Level Picker */}}
+    <div class="row">
+      <div class="col-12">
+        {{ partial "panic-picker.html" . }}
+      </div>
+    </div>
+
+    {{/* Quick Kits (Level 7 SOS Presets) */}}
+    {{ with site.Data.survival_kit.presets }}
+    <div class="row js-presets-container" hidden>
+      <div class="col-12">
+        <div class="sk-presets-container">
+          <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap">
+            <div>
+              <span class="sk-badge sk-panic mb-1" data-level="7">SOS Urgent</span>
+              <h3 class="h4 font-weight-bold text-primary mb-1">Kit Cứu Nhanh Cho Level 7</h3>
+              <p class="text-muted small mb-0">Deadline sát nút! Chọn ngay bộ combo đã được phối sẵn để tiết kiệm thời gian.</p>
+            </div>
+          </div>
+          <div class="row">
+            {{ range . }}
+            <div class="col-md-4 mb-3">
+              <div class="sk-preset-card">
+                <div>
+                  <h4 class="h5 font-weight-bold mb-2">{{ .name }}</h4>
+                  <p class="small text-muted mb-3">{{ .description }}</p>
+                </div>
+                <div class="d-none js-preset-data" data-preset-id="{{ .id }}" aria-hidden="true">
+                  {{ .items | jsonify }}
+                </div>
+                <button type="button" class="btn btn-sm sk-btn sk-btn-primary btn-block js-apply-preset-btn sk-focusable" data-preset-id="{{ .id }}">
+                  Áp dụng kit này <i class="ti-check ml-1" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+
+    {{/* Theme Filter Buttons */}}
+    <div class="row">
+      <div class="col-12">
+        <div class="sk-theme-filters" role="group" aria-label="Lọc theo chủ đề kit">
+          <button type="button" class="sk-theme-btn js-theme-btn active sk-focusable" data-theme="free" aria-pressed="true">
+            Tất cả chủ đề
+          </button>
+          <button type="button" class="sk-theme-btn js-theme-btn sk-focusable" data-theme="exam" aria-pressed="false">
+            <i class="ti-book mr-1" aria-hidden="true"></i> Mùa thi cử (Exam)
+          </button>
+          <button type="button" class="sk-theme-btn js-theme-btn sk-focusable" data-theme="project" aria-pressed="false">
+            <i class="ti-layout-grid2 mr-1" aria-hidden="true"></i> Chạy đồ án (Project)
+          </button>
+          <button type="button" class="sk-theme-btn js-theme-btn sk-focusable" data-theme="rush" aria-pressed="false">
+            <i class="ti-bolt mr-1" aria-hidden="true"></i> Nước rút (Rush)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {{/* Main Content: Left = Products, Right = Sticky Summary */}}
+    <div class="row">
+      {{/* Left Column: Categorized Products List */}}
+      <div class="col-lg-8">
+        {{ $products := site.Data.survival_kit.products }}
+        {{ $categories := slice 
+            (dict "id" "drinks" "title" "1. Đồ uống tỉnh táo & Giải khát" "icon" "ti-cup")
+            (dict "id" "snacks" "title" "2. Năng lượng & Đồ ăn nhẹ" "icon" "ti-gift")
+            (dict "id" "study" "title" "3. Dụng cụ học tập & Ghi chú" "icon" "ti-pencil-alt")
+            (dict "id" "ergonomics" "title" "4. Chăm sóc cơ thể & Công thái học" "icon" "ti-heart")
+            (dict "id" "mood" "title" "5. Thư giãn & Động viên tinh thần" "icon" "ti-face-smile")
+            (dict "id" "packaging" "title" "6. Đóng gói & Thiệp nhắn gửi" "icon" "ti-package")
+        }}
+
+        {{ range $categories }}
+        {{ $catId := .id }}
+        {{ $catTitle := .title }}
+        {{ $catIcon := .icon }}
+        {{ $catItems := where $products "category" $catId }}
+
+        {{ if gt (len $catItems) 0 }}
+        <div class="sk-category-block" data-category-group="{{ $catId }}">
+          <h3 class="sk-category-title">
+            <i class="{{ $catIcon }} mr-2 text-primary" aria-hidden="true"></i>{{ $catTitle }}
+          </h3>
+          <div class="sk-byok-grid">
+            {{ range $catItems }}
+            {{ $themesStr := delimit .themes "," }}
+            {{ $levelsStr := delimit .suggestedLevels "," }}
+            <div class="sk-byok-card js-byok-card"
+                 data-id="{{ .id }}"
+                 data-name="{{ .name }}"
+                 data-price="{{ .price }}"
+                 data-category="{{ .category }}"
+                 data-themes="{{ $themesStr }}"
+                 data-suggested-levels="{{ $levelsStr }}">
+              
+              {{/* Suggestion Badge (dynamically shown when matching current Panic Level) */}}
+              <span class="sk-badge-suggested js-suggested-badge" hidden>
+                Gợi ý
+              </span>
+
+              {{/* Product Image */}}
+              <div class="sk-byok-img-wrap">
+                <img src="{{ .image | absURL }}" alt="{{ .name }}" class="sk-byok-img" loading="lazy" width="300" height="225">
+              </div>
+
+              {{/* Info */}}
+              <h4 class="sk-byok-name">{{ .name }}</h4>
+              <p class="sk-byok-desc">{{ .description }}</p>
+
+              {{/* Price & Quantity Controls */}}
+              <div>
+                <div class="sk-byok-price-row">
+                  <span class="sk-byok-price">{{ lang.FormatNumberCustom 0 .price "- . ," }} ₫</span>
+                  <span class="text-muted small">Tối đa 20</span>
+                </div>
+
+                <div class="sk-qty-control">
+                  <button type="button"
+                          class="sk-qty-btn js-qty-minus sk-focusable"
+                          aria-label="Giảm số lượng {{ .name }}"
+                          disabled>
+                    <i class="ti-minus" aria-hidden="true"></i>
+                  </button>
+                  <input type="number"
+                         class="sk-qty-input js-qty-input sk-focusable"
+                         value="0"
+                         min="0"
+                         max="20"
+                         aria-label="Số lượng {{ .name }}">
+                  <button type="button"
+                          class="sk-qty-btn js-qty-plus sk-focusable"
+                          aria-label="Tăng số lượng {{ .name }}">
+                    <i class="ti-plus" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+        {{ end }}
+      </div>
+
+      {{/* Right Column: Sticky Kit Summary & Message Preview */}}
+      <div class="col-lg-4">
+        <aside class="sk-sticky-summary" aria-label="Chi tiết bộ kit của bạn">
+          <h3 class="sk-summary-title">Bộ Kit Của Bạn</h3>
+
+          <div class="sk-summary-stats">
+            <span>Loại món: <strong class="text-dark js-summary-types-count">0</strong></span>
+            <span>Tổng số lượng: <strong class="text-dark js-summary-items-count">0</strong></span>
+          </div>
+
+          {{/* Empty state message */}}
+          <div class="sk-summary-items-list js-summary-empty text-center py-4 text-muted small">
+            <i class="ti-shopping-cart d-block mb-2 h3 text-muted" aria-hidden="true"></i>
+            Chưa có món nào trong kit. Hãy nhấn <strong>+</strong> để thêm món.
+          </div>
+
+          {{/* Selected items list */}}
+          <div class="sk-summary-items-list js-summary-items-list" hidden>
+            <!-- Injected by JavaScript -->
+          </div>
+
+          {{/* Total Price */}}
+          <div class="sk-summary-total-box">
+            <span class="sk-summary-total-label">Tổng cộng:</span>
+            <span class="sk-summary-total-amount js-summary-total-price">0 ₫</span>
+          </div>
+
+          {{/* Personalized Message */}}
+          <div class="sk-message-section">
+            <label for="kit-custom-message" class="font-weight-bold text-dark small mb-1 d-block">
+              Lời nhắn cá nhân / Thiệp gửi gắm:
+            </label>
+            <textarea id="kit-custom-message"
+                      class="form-control sk-input js-kit-message-input mb-1"
+                      rows="3"
+                      maxlength="120"
+                      placeholder="Nhập lời nhắn động viên bản thân hoặc bạn bè (tối đa 120 ký tự)..."></textarea>
+            <span class="sk-message-counter js-message-char-count">0/120 ký tự</span>
+          </div>
+
+          {{/* Live Preview Box */}}
+          <div class="sk-kit-preview-box">
+            <span class="text-muted small d-block mb-1 font-weight-bold text-uppercase">Xem trước kit:</span>
+            <div class="small mb-1">
+              <strong>Món đồ:</strong> <span class="js-preview-items text-dark">Chưa chọn món đồ nào.</span>
+            </div>
+            <div class="small">
+              <strong>Lời nhắn:</strong> <span class="sk-preview-note-text js-preview-note">(Chưa có lời nhắn cá nhân)</span>
+            </div>
+          </div>
+
+          {{/* Add to Demo Cart Action */}}
+          <button type="button"
+                  class="btn sk-btn sk-btn-primary btn-block js-btn-add-to-cart sk-focusable"
+                  disabled>
+            Thêm kit vào giỏ hàng (demo) <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
+          </button>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{/* Mobile Sticky Bottom Bar (360px Friendly) */}}
+<div class="sk-mobile-sticky-bar" aria-label="Tổng kết di động">
+  <div>
+    <span class="text-muted small d-block"><span class="js-summary-items-count">0</span> món</span>
+    <span class="font-weight-bold text-primary h5 mb-0 js-summary-total-price">0 ₫</span>
+  </div>
+  <button type="button" class="btn sk-btn sk-btn-primary btn-sm js-btn-add-to-cart sk-focusable" disabled>
+    Vào giỏ (demo) <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
+  </button>
+</div>
+
+{{/* Load BYOK Script with defer */}}
+{{ with resources.Get "js/build-your-own-kit.js" }}
+{{ $byokScript := . | minify }}
+<script src="{{ $byokScript.Permalink }}" defer></script>
+{{ end }}
+
+{{ end }}
