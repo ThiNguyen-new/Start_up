@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Project Survival Kit</title><desc id="desc">Illustrated project kit with planning cards and notes.</desc>
+  <rect width="640" height="420" rx="28" fill="#FFF7ED"/><circle cx="118" cy="105" r="53" fill="#1D6A8A" opacity=".16"/>
+  <rect x="152" y="130" width="308" height="196" rx="24" fill="#1C2740"/><rect x="132" y="154" width="348" height="52" rx="15" fill="#F5A524"/>
+  <rect x="210" y="225" width="83" height="64" rx="7" fill="#FFF7ED"/><rect x="307" y="225" width="83" height="64" rx="7" fill="#E8F1F8"/><path d="M224 245h54m-54 16h42m-42 16h49M321 245h54m-54 16h42m-42 16h49" stroke="#1C2740" stroke-width="5" stroke-linecap="round"/>
+  <text x="320" y="380" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#1C2740">PROJECT SURVIVAL KIT</text>
+</svg>

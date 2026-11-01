@@ -1,36 +1,26 @@
 ---
-title: "Terms & Conditions"
-date: 2019-10-17T11:22:16+06:00
+title: "Terms and Service Information"
+date: 2026-10-31T00:00:00Z
 draft: false
-description : "this is a meta description"
+description: "Important information about Survival Kit sample products, order availability, scheduling requests, and contacting the team."
 ---
 
-### Terms and Condition
+## MVP service information
 
-Please read this terms and conditions stated below, which outline a lot of legal goodies, but the bottom line is it’s our aim to always take care of both of us, as a customer, or as a seller. We’ve included many of these terms to legally protect ourselves, but if you have an issue, always feel free to email us at contact@themefisher.com and we’ll do our best to resolve it in a fair and timely way .
+Survival Kit is a student-focused project from HCMUS. This site presents a proposed collection of student care kits and service ideas. Product descriptions and sample contents are for planning purposes and may change as the MVP is finalized.
 
-### Product Buy & delivery policy
+## Availability and delivery requests
 
-1)All payments are processed securely through PayPal or Stripe. Themefisher does not directly process payments through the website. So any kind of Problem if you face Themefisher will Not Take any responsibility.
+Product availability, prices, delivery areas, delivery dates, and any applicable fees must be confirmed by the Survival Kit team before an order is accepted. A requested date is not confirmed until the team has replied with availability. Please do not rely on an unconfirmed request for an urgent deadline.
 
-### Product Buy & delivery policy
+## Gifts and personal messages
 
-Please read this terms and conditions stated below, which outline a lot of legal goodies, but the bottom line is it’s our aim to always take care of both of us, as a customer, or as a seller. We’ve included many of these terms to legally protect ourselves, but if you have an issue, always feel free to email us at contact@themefisher.com and we’ll do our best to resolve it in a fair and timely way .
+If gift ordering is available, provide accurate recipient and delivery details and review any personal note before submitting it. Do not include sensitive personal information in a gift message.
 
-### Refund Policy
+## Changes or questions
 
-1) Since Themefisher is offering non-tangible and irrevocable digital products, we do NOT issue refunds after a purchase is made. If there is a problem with one of the digital download products or if you experience any difficulty with the download, we will fix the problem.
-2) You have 24 hours to inspect your purchase and to determine if it does not meet with the expectations laid forth by The Themefisher. In the event that you wish to receive a refund, Themefisher will issue you a refund and ask you to specify how the product failed to live up to expectations.
-3) When you make a qualifying return, We’ll credit the full amount, less the handling charges. Refunds are generally processed within 3–5 business days after we receive your claim and find it eligible for a return. Refunds are applied to the original payment option.
+Contact [contact@survivalkit.vn](mailto:contact@survivalkit.vn) with questions or to clarify an order request. Do not send payment card details by email. Any final purchase, cancellation, replacement, or refund terms will be shown and confirmed before checkout is enabled.
 
-### Support Policy
-1) Since Themefisher is offering non-tangible and irrevocable digital products, we do NOT issue refunds after a purchase is made. If there is a problem with one of the digital download products or if you experience any difficulty with the download, we will fix the problem.
-2) You have 24 hours to inspect your purchase and to determine if it does not meet with the expectations laid forth by The Themefisher. In the event that you wish to receive a refund, Themefisher will issue you a refund and ask you to specify how the product failed to live up to expectations.
-3) When you make a qualifying return, We’ll credit the full amount, less the handling charges. Refunds are generally processed within 3–5 business days after we receive your claim and find it eligible for a return. Refunds are applied to the original payment option.
+## Updates
 
-### Why We Support:
-
-1. Support covers getting up and help in theme setup
-2. Help using features and theme options
-3. Bug fixes – if you discovered a bug in the theme/Template we will fix it
-4. Functionality which does not work as advertised
+This page may be updated as the MVP service is finalized. Please review the information shown at the time you place a request.

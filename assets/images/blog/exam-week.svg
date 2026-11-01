@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Plan a calmer exam week</title><desc id="desc">Study planner, pencil, and mug on a desk.</desc>
+  <rect width="1200" height="630" fill="#FFF7ED"/><circle cx="990" cy="130" r="210" fill="#F5A524" opacity=".22"/><rect x="690" y="150" width="330" height="350" rx="22" fill="#FFFFFF" stroke="#E8D9C8" stroke-width="8"/><path d="M760 235h190m-190 68h190m-190 68h150m-150 68h172" stroke="#C2412B" stroke-width="13" stroke-linecap="round"/>
+  <rect x="190" y="208" width="110" height="300" rx="22" transform="rotate(-18 190 208)" fill="#1C2740"/><path d="m116 492 43 82 35-93" fill="#F5A524"/>
+  <text x="110" y="145" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#1C2740">A CALMER</text><text x="110" y="202" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#C2412B">EXAM WEEK</text>
+</svg>

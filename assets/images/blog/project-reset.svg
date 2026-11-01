@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Reset a project plan</title><desc id="desc">Three project task cards arranged on a planning board.</desc>
+  <rect width="1200" height="630" fill="#FFF7ED"/><circle cx="1000" cy="110" r="205" fill="#1D6A8A" opacity=".13"/><rect x="600" y="150" width="170" height="270" rx="18" fill="#FFFFFF" stroke="#E8D9C8" stroke-width="7"/><rect x="805" y="190" width="170" height="270" rx="18" fill="#F3E7D8"/><rect x="1010" y="130" width="132" height="310" rx="18" fill="#FFFFFF" stroke="#E8D9C8" stroke-width="7"/>
+  <path d="M630 210h108m-108 48h80m-80 48h100M835 250h108m-108 48h80m-80 48h100M1035 190h80m-80 48h62m-62 48h80" stroke="#C2412B" stroke-width="11" stroke-linecap="round"/>
+  <text x="100" y="255" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#1C2740">RESET THE</text><text x="100" y="315" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#C2412B">PROJECT PLAN</text>
+</svg>

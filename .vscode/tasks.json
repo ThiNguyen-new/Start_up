@@ -18,19 +18,19 @@
       "type": "shell",
       "command": "mise exec -- pnpm dev",
       "isBackground": true,
-      "problemMatcher": {
-        "owner": "hugo",
-        "pattern": [
-          {
+      "problemMatcher": [
+        {
+          "owner": "hugo",
+          "pattern": {
             "regexp": "^$"
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "(Watching for changes|Environment:)",
+            "endsPattern": "(Web Server is available at|Press Ctrl\\+C to stop)"
           }
-        ],
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": "(Watching for changes|Environment:)",
-          "endsPattern": "(Web Server is available at|Press Ctrl\\+C to stop)"
         }
-      }
+      ]
     },
     {
       "label": "Hugo: Build production site",
@@ -44,19 +44,19 @@
       "type": "shell",
       "command": "mise exec -- pnpm preview",
       "isBackground": true,
-      "problemMatcher": {
-        "owner": "hugo",
-        "pattern": [
-          {
+      "problemMatcher": [
+        {
+          "owner": "hugo",
+          "pattern": {
             "regexp": "^$"
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "(Watching for changes|Environment:)",
+            "endsPattern": "(Web Server is available at|Press Ctrl\\+C to stop)"
           }
-        ],
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": "(Watching for changes|Environment:)",
-          "endsPattern": "(Web Server is available at|Press Ctrl\\+C to stop)"
         }
-      }
+      ]
     }
   ]
 }

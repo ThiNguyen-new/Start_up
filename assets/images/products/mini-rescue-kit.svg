@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Mini Rescue Kit</title><desc id="desc">Illustrated compact gift kit with a small note and snack.</desc>
+  <rect width="640" height="420" rx="28" fill="#FFF7ED"/><circle cx="488" cy="106" r="54" fill="#C2412B" opacity=".14"/>
+  <rect x="194" y="142" width="252" height="184" rx="24" fill="#C2412B"/><rect x="174" y="166" width="292" height="50" rx="15" fill="#F5A524"/>
+  <path d="M320 210v116M196 270h248" stroke="#FFF7ED" stroke-width="11"/><path d="m320 209-31-21c-22-17-48 9-24 31l55 44 55-44c24-22-2-48-24-31z" fill="#FFF7ED"/>
+  <text x="320" y="380" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#1C2740">MINI RESCUE KIT</text>
+</svg>
