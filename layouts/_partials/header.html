@@ -1,0 +1,57 @@
+{{ "<!-- navigation -->" | safeHTML }}
+<header class="sticky-top navigation">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light" aria-label="{{ or (i18n "main_nav") "Main" }}">
+      <a class="navbar-brand sk-logo" href="{{ site.Home.RelPermalink }}">
+        {{ with site.Params.logo }}
+        {{ partial "image.html" (dict "Src" . "Alt" site.Title "Class" "img-fluid") }}
+        {{ else }}
+        <span class="sk-display">{{ site.Title }}</span>
+        {{ end }}
+      </a>
+      <button class="navbar-toggler border-0 sk-focusable" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="{{ or (i18n "toggle_menu") "Menu" }}">
+        <i class="ti-menu"></i>
+      </button>
+
+      <div class="collapse navbar-collapse text-center" id="navigation">
+        <ul class="navbar-nav mx-auto">
+          {{ range site.Menus.main }}
+          {{ $show := true }}
+          {{ if and (eq .Name "Schedule Rescue") (not site.Params.features.enable_schedule_rescue) }}
+            {{ $show = false }}
+          {{ end }}
+          {{ if and (eq .Name "Send a Rescue") (not site.Params.features.enable_send_rescue) }}
+            {{ $show = false }}
+          {{ end }}
+          {{ if $show }}
+          {{ if .HasChildren }}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle sk-focusable" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ .Name }}
+            </a>
+            <div class="dropdown-menu">
+              {{ range .Children }}
+              <a class="dropdown-item sk-focusable" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+              {{ end }}
+            </div>
+          </li>
+          {{ else }}
+          {{ $isCurrent := or (eq $.RelPermalink (.URL | relLangURL)) (eq $.Section .Identifier) }}
+          <li class="nav-item{{ if $isCurrent }} active{{ end }}">
+            <a class="nav-link sk-focusable" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+          </li>
+          {{ end }}
+          {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+      {{ with site.Params.snipcartApiKey }}
+      <button type="button" class="cart snipcart-summary snipcart-checkout sk-btn sk-btn-ghost sk-focusable" aria-label="{{ or (i18n "cart") "Cart" }}">
+        <i class="ti-shopping-cart" aria-hidden="true"></i>
+        <span class="badge badge-primary snipcart-items-count"></span>
+      </button>
+      {{ end }}
+    </nav>
+  </div>
+</header>
+{{ "<!-- /navigation -->" | safeHTML }}

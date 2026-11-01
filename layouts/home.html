@@ -1,0 +1,100 @@
+{{ define "main" }}
+
+{{ $brand := site.Data.theme.brand }}
+{{ $kitsURL := partial "menu-url.html" (dict "name" "Survival Kits" "fallback" "products/") }}
+
+<section class="sk-hero sk-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        {{ with $brand.name }}
+        <p class="sk-badge mb-3">{{ . }}</p>
+        {{ end }}
+        <h1 class="sk-display">{{ with $brand.slogan }}{{ . }}{{ else }}{{ or (i18n "sk_slogan") "Deadline is coming. We're coming too." }}{{ end }}</h1>
+        <p class="lead">{{ or (i18n "sk_hero_lede") "Deadline rescue station for students — kits, scheduled delivery, and a note for someone in the trenches." }}</p>
+        <a class="sk-btn sk-btn-primary sk-focusable" href="{{ $kitsURL }}">{{ or (i18n "sk_shop_kits") "Browse Survival Kits" }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ if site.Params.features.enable_panic_level }}
+{{ partial "panic-selector.html" . }}
+{{ end }}
+
+<section class="sk-section pt-0" id="featured-kits">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h2>{{ or (i18n "sk_featured_kits") "Featured Survival Kits" }}</h2>
+      </div>
+    </div>
+    <div class="row">
+      {{ $kits := first 6 (where site.RegularPages "Type" "products") }}
+      {{ if $kits }}
+      {{ range $kits }}
+      <div class="col-lg-4 col-sm-6 mb-4 js-kit-card" {{ partial "kit-card-attrs.html" . | safeHTMLAttr }}>
+        {{ partial "product-card.html" . }}
+      </div>
+      {{ end }}
+      {{ else }}
+      <div class="col-12">
+        <p>{{ or (i18n "sk_no_kits") "Kits will show here once content is published." }}</p>
+      </div>
+      {{ end }}
+      <div class="col-12">
+        <p class="js-kit-empty text-center mt-2" hidden>{{ or (i18n "sk_filter_empty") "No kits match this Panic Level yet." }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ if site.Params.features.enable_schedule_rescue }}
+{{ partial "usp-schedule.html" . }}
+{{ end }}
+
+{{ if site.Params.features.enable_send_rescue }}
+{{ partial "usp-gifting.html" . }}
+{{ end }}
+
+{{ if hugo.Data.homepage.testimonial.enable }}
+{{ with hugo.Data.homepage.testimonial }}
+<section class="sk-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h2>{{ or (i18n "sk_social_proof") "What students say" }}</h2>
+      </div>
+    </div>
+    <div class="row testimonial-slider">
+      {{ range .testimonialItem }}
+      <div class="col-4">
+        <div class="sk-card text-center">
+          {{ $itemName := .name }}
+          {{ with .image }}
+          {{ partial "image.html" (dict "Src" . "Alt" ($itemName | default "client") "Class" "client-img") }}
+          {{ end }}
+          <p class="quoted">{{ .content | markdownify }}</p>
+          <h6 class="font-weight-medium">{{ .name | markdownify }}</h6>
+          <small>{{ .designation | markdownify }}</small>
+          {{ with .rating }}
+          <ul class="list-inline rating {{ . | lower }} mt-3" aria-hidden="true">
+            <li class="list-inline-item mx-0"><i class="ti-star"></i></li>
+            <li class="list-inline-item mx-0"><i class="ti-star"></i></li>
+            <li class="list-inline-item mx-0"><i class="ti-star"></i></li>
+            <li class="list-inline-item mx-0"><i class="ti-star"></i></li>
+            <li class="list-inline-item mx-0"><i class="ti-star"></i></li>
+          </ul>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+{{ partial "cta.html" . }}
+
+{{ end }}

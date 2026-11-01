@@ -1,0 +1,28 @@
+<div class="sk-form mb-4">
+  <form class="row" onsubmit="return false;">
+    {{ if site.Params.features.enable_panic_level }}
+    <div class="col-md-12 mb-3">
+      {{ partial "panic-selector.html" . }}
+    </div>
+    {{ end }}
+    <div class="col-md-6 sk-field mb-0">
+      <label class="sk-label" for="kit-type-filter">{{ or (i18n "sk_filter_type") "Kit type" }}</label>
+      <select class="sk-input js-kit-filter-type" id="kit-type-filter">
+        <option value="">{{ or (i18n "sk_filter_all") "All types" }}</option>
+        <option value="exam">exam</option>
+        <option value="project">project</option>
+        <option value="club">club</option>
+        <option value="care">care</option>
+      </select>
+    </div>
+    <div class="col-md-6 sk-field mb-0">
+      <label class="sk-label" for="kit-price-filter">{{ or (i18n "sk_filter_price") "Price band" }}</label>
+      <select class="sk-input js-kit-filter-price" id="kit-price-filter">
+        <option value="">{{ or (i18n "sk_filter_any_price") "All prices" }}</option>
+        <option value="mini">Mini Rescue</option>
+        <option value="standard">Standard Rescue</option>
+        <option value="premium">Premium Rescue</option>
+      </select>
+    </div>
+  </form>
+</div>

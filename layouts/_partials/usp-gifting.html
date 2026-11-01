@@ -1,0 +1,33 @@
+<section class="sk-section" id="gifting" aria-labelledby="gifting-heading">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-5 mb-4 mb-lg-0">
+        <h2 id="gifting-heading">{{ or (i18n "sk_gifting_title") "Send a Rescue" }}</h2>
+        <p>{{ or (i18n "sk_gifting_help") "A kit plus a note for a bestie, crush, or the project group. Demo only — nothing is sent." }}</p>
+      </div>
+      <div class="col-lg-6 offset-lg-1">
+        <form class="sk-form js-gifting-form" action="{{ site.Params.contact.formAction }}" method="post" novalidate>
+          <div class="sk-field">
+            <label class="sk-label" for="recipient">{{ or (i18n "sk_recipient") "Recipient" }}</label>
+            <input class="sk-input js-gift-recipient" id="recipient" name="recipient" type="text" required autocomplete="name">
+          </div>
+          <div class="sk-field">
+            <label class="sk-label" for="gift-type">{{ or (i18n "sk_gift_type") "Rescue type" }}</label>
+            <select class="sk-input js-gift-type" id="gift-type" name="gift_type" required>
+              <option value="bestie">{{ or (i18n "sk_gift_bestie") "Bestie Rescue" }}</option>
+              <option value="love">{{ or (i18n "sk_gift_love") "Love Rescue" }}</option>
+              <option value="crush">{{ or (i18n "sk_gift_crush") "Secret Crush Rescue" }}</option>
+              <option value="team">{{ or (i18n "sk_gift_team") "Team Rescue" }}</option>
+            </select>
+          </div>
+          <div class="sk-field">
+            <label class="sk-label" for="gift-message">{{ or (i18n "sk_gift_note") "Note on the card" }}</label>
+            <textarea class="sk-input js-gift-message" id="gift-message" name="message" rows="3"></textarea>
+          </div>
+          <button type="submit" class="sk-btn sk-btn-secondary sk-focusable">{{ or (i18n "sk_gifting_submit") "Preview rescue" }}</button>
+          <p class="js-gift-preview mt-3 mb-0" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
