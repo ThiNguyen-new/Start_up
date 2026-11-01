@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+  <title id="title">Club Survival Kit</title><desc id="desc">Minh họa bộ kit tổ chức câu lạc bộ với checklist sự kiện, giấy note và bình nước.</desc>
+  <rect width="960" height="640" rx="32" fill="#fff2e4"/><circle cx="777" cy="116" r="81" fill="#f4d073"/><circle cx="172" cy="483" r="78" fill="#e0eee4"/><ellipse cx="481" cy="520" rx="300" ry="34" fill="#e7d7c5"/>
+  <rect x="218" y="277" width="525" height="221" rx="24" fill="#d87954"/><path d="M218 318h525v27H218z" fill="#c46748"/><rect x="255" y="365" width="451" height="133" rx="14" fill="#f4ca8d"/>
+  <rect x="276" y="135" width="183" height="223" rx="14" fill="#fffdf7" stroke="#58776d" stroke-width="9" transform="rotate(-6 276 135)"/><path d="M309 203l92-9m-89 42l95-8m-91 42l75-7" fill="none" stroke="#91aa9b" stroke-width="9" stroke-linecap="round"/>
+  <rect x="555" y="164" width="103" height="188" rx="28" fill="#6e9182"/><rect x="578" y="136" width="57" height="39" rx="10" fill="#45665b"/><path d="M573 226h67" stroke="#fff5df" stroke-width="10" stroke-linecap="round"/>
+  <rect x="666" y="186" width="68" height="150" rx="18" fill="#f4cd52" transform="rotate(10 666 186)"/><path d="M462 423l20 20 38-49" fill="none" stroke="#fffdf7" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="570" y="464" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#fffdf7">TEAM PLAN, ONE STEP</text>
+</svg>

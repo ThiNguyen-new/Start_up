@@ -11,7 +11,17 @@ Survival Kit là concept cửa hàng bộ tiếp sức cho sinh viên trong mùa
 
 ### Panic Level từ 1 đến 7 có nghĩa là gì?
 
-Đây là cách chọn kit theo cảm nhận về mức độ gấp của deadline: Level 1–2 thiên về thư giãn và chăm sóc, Level 3–5 dành cho giai đoạn chuẩn bị, Level 6–7 hướng đến những ngày nước rút. Đây chỉ là nhãn gợi ý, không phải đánh giá sức khỏe.
+Đây là thang gợi ý để chọn kit theo tình huống deadline, không phải đánh giá sức khỏe. Mỗi mức hiện có một bộ kit minh họa:
+
+1. **Chill Mode:** lên kế hoạch sớm — Chill Mode Starter Kit.
+2. **Mild Mode:** chăm sóc nhẹ nhàng giữa tuần bận — Burnout Care Kit.
+3. **Nervous Mode:** chuẩn bị cho các bài kiểm tra — Mini Rescue Kit.
+4. **Panic Mode:** nhiều đầu việc nhóm và sự kiện — Club Survival Kit.
+5. **Panic Mode:** tập trung ôn thi — Exam Survival Kit.
+6. **Final Boss:** phối hợp đồ án và chốt các phần việc — Project Survival Kit.
+7. **SOS:** ngày nước rút — Final Boss SOS Kit.
+
+Tên mức và nội dung kit là cách diễn giải concept cho đồ án; hãy chọn theo nhu cầu thực tế của bạn.
 
 ### Có thể đặt lịch giao trước deadline không?
 
