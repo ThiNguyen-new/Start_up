@@ -89,7 +89,7 @@ $(window).on('load', function () {
   });
 
 
-  // Survival Kit — Panic Level, product filters, schedule & gifting (MVP, no backend)
+  // Survival Kit — Panic Level Meter, product filters, schedule & gifting (MVP, no backend)
 
   var PRICE_BANDS = {
     mini: { min: 39000, max: 59000 },
@@ -139,11 +139,15 @@ $(window).on('load', function () {
   }
 
   function selectedPanicLevel() {
-    var $pressed = $('.js-panic-level[aria-pressed="true"]');
-    if (!$pressed.length) {
-      return '';
+    var $slider = $('.js-panic-slider');
+    if ($slider.length) {
+      return String($slider.val() || '');
     }
-    return attrOrData($pressed.first(), 'data-panic-level') || attrOrData($pressed.first(), 'data-level');
+    var $pressed = $('.js-panic-level[aria-pressed="true"]');
+    if ($pressed.length) {
+      return attrOrData($pressed.first(), 'data-panic-level') || attrOrData($pressed.first(), 'data-level');
+    }
+    return '';
   }
 
   function applyKitFilters() {
@@ -164,7 +168,7 @@ $(window).on('load', function () {
       var cardType = attrOrData($card, 'data-kit-type').toLowerCase();
       var cardBand = priceBandOf($card);
 
-      if (level && cardLevel !== level) {
+      if (level && cardLevel && cardLevel !== level) {
         match = false;
       }
       if (kitType && cardType !== kitType) {
@@ -180,8 +184,62 @@ $(window).on('load', function () {
       }
     });
 
-    if (visible === 0) { $('.js-kit-empty').removeAttr('hidden').show(); } else { $('.js-kit-empty').attr('hidden', 'hidden').hide(); }
+    if (visible === 0) {
+      $('.js-kit-empty').removeAttr('hidden').show();
+    } else {
+      $('.js-kit-empty').attr('hidden', 'hidden').hide();
+    }
   }
+
+  function updatePanicMeter(level) {
+    var lvl = String(level || $('.js-panic-slider').val() || '4');
+    var $data = $('.js-panic-data-item[data-level="' + lvl + '"]');
+    if ($data.length) {
+      var name = $data.attr('data-name') || '';
+      var title = $data.attr('data-title') || '';
+      var kitType = $data.attr('data-kit-type') || '';
+      var price = $data.attr('data-price') || '';
+      var desc = $data.attr('data-desc') || '';
+      var url = $data.attr('data-url') || '#';
+      var img = $data.attr('data-img') || '';
+
+      $('.js-panic-meter-num').text(lvl);
+      $('.js-panic-meter-status').text(name);
+      $('.js-panic-meter-badge')
+        .attr('data-level', lvl);
+      $('.js-panic-meter-badge-num').text(lvl);
+      $('.js-panic-slider').val(lvl).attr('aria-valuenow', lvl);
+
+      $('.js-panic-step').removeClass('text-primary font-weight-bold').addClass('text-muted');
+      $('.js-panic-step[data-level="' + lvl + '"]')
+        .removeClass('text-muted')
+        .addClass('text-primary font-weight-bold');
+
+      $('.js-panic-kit-title').text(title);
+      $('.js-panic-kit-type').text(kitType);
+      $('.js-panic-kit-desc').text(desc);
+      $('.js-panic-kit-price').text(price);
+      if (img) {
+        $('.js-panic-kit-img').attr('src', img).attr('alt', title);
+      }
+      $('.js-panic-explore-btn').attr('href', url);
+    }
+
+    applyKitFilters();
+  }
+
+  $(document).on('input change', '.js-panic-slider', function () {
+    updatePanicMeter($(this).val());
+  });
+
+  $(document).on('click', '.js-panic-step', function (event) {
+    event.preventDefault();
+    var lvl = $(this).attr('data-level') || $(this).data('level');
+    if (lvl) {
+      $('.js-panic-slider').val(lvl);
+      updatePanicMeter(lvl);
+    }
+  });
 
   $(document).on('click', '.js-panic-level', function (event) {
     event.preventDefault();
@@ -196,7 +254,11 @@ $(window).on('load', function () {
 
   $(document).on('change', '.js-kit-filter-type, .js-kit-filter-price', applyKitFilters);
 
-  applyKitFilters();
+  if ($('.js-panic-slider').length) {
+    updatePanicMeter($('.js-panic-slider').val() || '4');
+  } else {
+    applyKitFilters();
+  }
 
   function dayDiff(deadlineStr, receiveStr) {
     var deadline = new Date(deadlineStr);
