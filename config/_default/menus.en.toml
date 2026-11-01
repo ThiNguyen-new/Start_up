@@ -5,34 +5,39 @@ url = "products/"
 weight = 1
 
 [[main]]
+name = "Build Your Own Kit"
+url = "build-your-own-kit/"
+weight = 2
+
+[[main]]
 name = "Schedule Rescue"
 url = "products/"
-weight = 2
+weight = 3
 
 [[main]]
 name = "Send a Rescue"
 url = "contact/"
-weight = 3
+weight = 4
 
 [[main]]
 name = "Blog"
 url = "blog/"
-weight = 4
+weight = 5
 
 [[main]]
 name = "FAQ"
 url = "faq/"
-weight = 5
+weight = 6
 
 [[main]]
 name = "Contact"
 url = "contact/"
-weight = 6
+weight = 7
 
 [[main]]
 name = "📦 Tải Setup (.zip)"
 url = "survival-kit-m0-m1-setup.zip"
-weight = 7
+weight = 8
 
 ############################## Footer Menu ##############################
 [[footer]]
@@ -41,36 +46,41 @@ url = "products/"
 weight = 1
 
 [[footer]]
+name = "Build Your Own Kit"
+url = "build-your-own-kit/"
+weight = 2
+
+[[footer]]
 name = "Schedule Rescue"
 url = "products/"
-weight = 2
+weight = 3
 
 [[footer]]
 name = "Send a Rescue"
 url = "contact/"
-weight = 3
+weight = 4
 
 [[footer]]
 name = "Blog"
 url = "blog/"
-weight = 4
+weight = 5
 
 [[footer]]
 name = "FAQ"
 url = "faq/"
-weight = 5
+weight = 6
 
 [[footer]]
 name = "Terms & Conditions"
 url = "terms-conditions/"
-weight = 6
+weight = 7
 
 [[footer]]
 name = "Contact"
 url = "contact/"
-weight = 7
+weight = 8
 
 [[footer]]
 name = "📦 Tải Setup (.zip)"
 url = "survival-kit-m0-m1-setup.zip"
-weight = 8
+weight = 9

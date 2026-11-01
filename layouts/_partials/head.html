@@ -34,6 +34,12 @@
   <link rel="stylesheet" href="{{ $custom.Permalink }}" media="screen">
   {{ end }}
 
+  {{ "<!-- Build Your Own Kit CSS -->" | safeHTML }}
+  {{ with resources.Get "css/build-your-own-kit.css" }}
+  {{ $byok := . | minify }}
+  <link rel="stylesheet" href="{{ $byok.Permalink }}" media="screen">
+  {{ end }}
+
   {{ "<!-- Favicon -->" | safeHTML }}
   <link rel="shortcut icon" href="{{ `images/favicon.png` | absURL }} " type="image/x-icon">
   <link rel="icon" href="{{ `images/favicon.png` | absURL }} " type="image/x-icon">

@@ -1,0 +1,39 @@
+[
+  {
+    "id": "sos-rush",
+    "name": "Combo SOS Cứu Nguy Cấp Tốc",
+    "description": "Tiếp sức tức thì cho đêm trước giờ nộp bài: cà phê tỉnh táo, năng lượng sạch và mặt nạ mắt.",
+    "items": {
+      "cafe-phin": 2,
+      "energy-bar": 2,
+      "mat-na-mat": 1,
+      "hop-kraft": 1
+    }
+  },
+  {
+    "id": "all-nighter",
+    "name": "Combo Thức Khuya Bất Tử",
+    "description": "Tập trung cao độ cho ca trực xuyên màn đêm: cà phê, socola đen, dầu lăn thảo mộc.",
+    "items": {
+      "cafe-phin": 2,
+      "chocolate-den": 2,
+      "tinh-dau-lan": 1,
+      "thiep-dong-vien": 1,
+      "hop-kraft": 1
+    }
+  },
+  {
+    "id": "final-boss",
+    "name": "Combo Đánh Bại Final Boss",
+    "description": "Bộ trang bị tối thượng để vượt qua deadline đồ án lớn nhất học kỳ cùng đồng đội.",
+    "items": {
+      "cafe-phin": 2,
+      "energy-bar": 2,
+      "dem-tay-chuot": 1,
+      "giay-note": 1,
+      "mat-na-mat": 1,
+      "thiep-dong-vien": 1,
+      "hop-kraft": 1
+    }
+  }
+]
