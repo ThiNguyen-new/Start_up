@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Club Survival Kit</title><desc id="desc">Illustrated event checklist, marker, and drink for a student club workday.</desc>
+  <rect width="640" height="420" rx="28" fill="#FFF7ED"/><circle cx="494" cy="102" r="58" fill="#1D6A8A" opacity=".16"/>
+  <rect x="166" y="126" width="236" height="206" rx="20" fill="#FFFFFF" stroke="#1C2740" stroke-width="9"/><path d="m205 184 12 12 23-28m-35 69 12 12 23-28m-35 68 12 12 23-28" fill="none" stroke="#1F7A5C" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M260 184h104m-104 53h104m-104 53h104" stroke="#C2412B" stroke-width="8" stroke-linecap="round"/>
+  <rect x="438" y="177" width="40" height="142" rx="12" fill="#F5A524"/><path d="M438 194h40m-20-17v-25" stroke="#1C2740" stroke-width="8" stroke-linecap="round"/>
+  <text x="320" y="380" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#1C2740">CLUB SURVIVAL KIT</text>
+</svg>

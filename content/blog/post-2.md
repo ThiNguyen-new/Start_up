@@ -1,31 +1,35 @@
 ---
-title: "A simple reset when a project deadline feels close"
-meta_title: "How to Reset a Project Plan Before a Deadline | Survival Kit"
-description: "A practical team check-in for sorting project tasks, naming blockers, and agreeing on the next useful step."
-date: 2026-10-31T00:00:00Z
+title: "5 bước làm mới kế hoạch khi deadline đồ án đến gần"
+meta_title: "Cách quản lý deadline đồ án nhóm | Survival Kit"
+description: "Cách để nhóm sinh viên chia nhỏ đồ án, chốt người phụ trách, nhận diện vướng mắc và dành thời gian rà soát trước hạn nộp."
+date: 2026-11-01T00:00:00+07:00
 draft: false
 image: "/images/blog/project-reset.svg"
-author: "Survival Kit Team"
-categories: ["Project Planning"]
-tags: ["group project", "deadline", "teamwork"]
+author: "Ban Cứu Hộ Survival Kit"
+categories: ["Kỹ năng sinh viên"]
+tags: ["deadline", "đồ án", "làm việc nhóm"]
 ---
 
-When a group project feels stuck, adding more messages to the chat rarely makes the work clearer. A brief reset can help the team agree on what matters next.
+Khi đồ án nhóm bắt đầu rối, gửi thêm nhiều tin nhắn chưa chắc giúp mọi người rõ việc hơn. Một lần rà soát ngắn có thể giúp nhóm thống nhất điều cần làm tiếp theo.
 
-## Make one shared task list
+## 1. Tạo một danh sách việc chung
 
-Put every unfinished deliverable in one place. Describe each item as an action and give it a clear owner. “Finish presentation” is vague; “add sources to slides 4–6” is easier to assign and review.
+Gom các phần còn thiếu vào một nơi. Viết từng việc thành hành động cụ thể và ghi người phụ trách. “Hoàn thành bài thuyết trình” còn rộng; “bổ sung nguồn cho slide 4–6” dễ giao và kiểm tra hơn.
 
-## Separate must-haves from nice-to-haves
+## 2. Đối chiếu yêu cầu của đề bài
 
-Check the assignment brief or rubric together. Identify what is required for submission, what would improve the result, and what can be dropped if time runs short. Keep the original requirements visible while you make trade-offs.
+Mở rubric hoặc đề bài để phân biệt phần bắt buộc, phần giúp bài tốt hơn và phần có thể lược bớt nếu thiếu thời gian. Đừng để cả nhóm dành nhiều công sức cho chi tiết phụ trong khi yêu cầu chính chưa xong.
 
-## Name blockers early
+## 3. Chốt mốc nhỏ và người nhận bàn giao
 
-Ask each person what they need before they can move forward. A missing decision, source, or file is easier to solve when the team spots it early. Agree on a time for the next check-in and what should be ready by then.
+Thống nhất khi nào cần bản nháp, ai ghép các phần và thời điểm mọi người rà lại. Dành một khoảng đệm trước hạn nộp để xử lý việc phát sinh hoặc lỗi định dạng.
 
-## Protect the final review
+## 4. Nói rõ vướng mắc sớm
 
-Leave time to combine everyone’s work, check citations and formatting, and confirm the submission instructions. Avoid planning to finish at the exact deadline; a small buffer gives the team room to catch a missing file or last-minute change.
+Hỏi từng thành viên điều gì đang cản bước tiếp theo: thiếu quyết định, tài liệu hay phản hồi? Nêu vấn đề sớm giúp nhóm điều chỉnh phân công trước khi một phần bị dồn sát hạn.
 
-A deadline reset is not a promise to work all night. It is a way to make the next shared step clear—and to notice when the team needs help.
+## 5. Giữ thời gian kiểm tra cuối
+
+Kiểm tra tên file, trích dẫn, định dạng và hướng dẫn nộp bài. Sau khi gửi, nhóm có thể nhìn lại cách phối hợp để lần sau ước lượng thời gian sát thực tế hơn.
+
+Lập lại kế hoạch không có nghĩa là phải thức trắng đêm. Mục tiêu là giúp mỗi người thấy việc kế tiếp và biết khi nào cần nhờ hỗ trợ.

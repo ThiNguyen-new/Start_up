@@ -1,26 +1,26 @@
 ---
-title: "Terms and Service Information"
-date: 2026-10-31T00:00:00Z
+title: "Thông tin dịch vụ và điều khoản"
+date: 2026-11-01T00:00:00+07:00
 draft: false
-description: "Important information about Survival Kit sample products, order availability, scheduling requests, and contacting the team."
+description: "Thông tin quan trọng về concept sản phẩm, giá tham khảo, lịch giao dự kiến và tình trạng tính năng Survival Kit."
 ---
 
-## MVP service information
+## Tình trạng concept
 
-Survival Kit is a student-focused project from HCMUS. This site presents a proposed collection of student care kits and service ideas. Product descriptions and sample contents are for planning purposes and may change as the MVP is finalized.
+Survival Kit là concept dự án hướng đến sinh viên. Các bộ kit, mức giá, hình ảnh và nội dung trên trang dùng để minh họa ý tưởng MVP; hiện website chưa mở bán sản phẩm, nhận thanh toán hoặc xác nhận đơn.
 
-## Availability and delivery requests
+## Lịch giao và đặt trước
 
-Product availability, prices, delivery areas, delivery dates, and any applicable fees must be confirmed by the Survival Kit team before an order is accepted. A requested date is not confirmed until the team has replied with availability. Please do not rely on an unconfirmed request for an urgent deadline.
+Schedule Your Rescue là đề xuất tính năng cho phép chọn ngày deadline và ngày giao dự kiến, thường trước deadline 1–2 ngày. Tính năng chưa hoạt động, vì vậy mọi ngày giao trong nội dung concept không phải xác nhận dịch vụ.
 
-## Gifts and personal messages
+## Gửi kit làm quà
 
-If gift ordering is available, provide accurate recipient and delivery details and review any personal note before submitting it. Do not include sensitive personal information in a gift message.
+Send a Rescue và thiệp cá nhân hóa là ý tưởng sản phẩm. Website chưa thu thập thông tin người nhận, gửi thiệp hay nhận đơn quà tặng.
 
-## Changes or questions
+## Giá, thành phần và an toàn sản phẩm
 
-Contact [contact@survivalkit.vn](mailto:contact@survivalkit.vn) with questions or to clarify an order request. Do not send payment card details by email. Any final purchase, cancellation, replacement, or refund terms will be shown and confirmed before checkout is enabled.
+Khung giá hiện là giả định cần kiểm chứng với sinh viên. Thành phần, nhà cung cấp, thông tin dị ứng, phí giao hàng, chính sách hủy/đổi và hoàn tiền cần được công bố, xác nhận trước khi có giao dịch thực tế.
 
-## Updates
+## Liên hệ và cập nhật
 
-This page may be updated as the MVP service is finalized. Please review the information shown at the time you place a request.
+Gửi câu hỏi về concept đến [contact@survivalkit.vn](mailto:contact@survivalkit.vn). Không gửi thông tin thẻ thanh toán qua email. Trang này sẽ được cập nhật nếu dự án chuyển sang giai đoạn nhận đơn.

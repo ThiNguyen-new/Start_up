@@ -1,31 +1,35 @@
 ---
-title: "A calmer plan for exam week"
-meta_title: "How to Plan a Calmer Exam Week | Survival Kit"
-description: "Turn a crowded exam schedule into a short, realistic study plan with focused blocks, breaks, and a nightly reset."
-date: 2026-10-31T00:00:00Z
+title: "5 cách chuẩn bị cho mùa thi bớt rối"
+meta_title: "5 cách chuẩn bị mùa thi cho sinh viên | Survival Kit"
+description: "Năm gợi ý giúp sinh viên gom lịch thi, chia nhỏ phần ôn tập và dành thời gian nghỉ giữa các phiên học."
+date: 2026-11-01T00:00:00+07:00
 draft: false
 image: "/images/blog/exam-week.svg"
-author: "Survival Kit Team"
-categories: ["Study Skills"]
-tags: ["exam week", "study planning", "student wellbeing"]
+author: "Ban Cứu Hộ Survival Kit"
+categories: ["Kỹ năng sinh viên"]
+tags: ["mùa thi", "lập kế hoạch học tập", "sinh viên"]
 ---
 
-When several exams land in the same week, “study everything” is not a useful plan. A short list of next actions is easier to start and easier to adjust.
+Khi nhiều môn thi gần nhau, danh sách “học hết mọi thứ” thường khiến bạn khó bắt đầu. Hãy thử biến lịch thi thành một vài bước nhỏ, cụ thể và có thể điều chỉnh.
 
-## Start with the real calendar
+## 1. Gom lịch vào một nơi
 
-Write down each exam date, class, shift, commute, and existing commitment. Then mark the time you can actually use. Leave a little open space: plans that assume every hour will go perfectly are hard to recover when something changes.
+Ghi ngày thi, thời hạn nộp bài và những việc cố định trong tuần vào một lịch hoặc trang giấy. Nhìn được toàn cảnh giúp bạn chọn khoảng thời gian có thể học thật, thay vì xếp kín mọi buổi.
 
-## Break each subject into small tasks
+## 2. Chia nội dung thành việc nhỏ
 
-Replace a task like “revise biology” with actions you can finish and check off: review one lecture, answer ten practice questions, or explain one concept from memory. Put the most urgent or uncertain topics first.
+Đổi “ôn môn X” thành các việc có điểm kết thúc: đọc lại một chương, làm một nhóm câu hỏi hoặc tự giải thích một khái niệm. Việc càng rõ, bạn càng dễ bắt đầu và biết mình đã tiến tới đâu.
 
-## Work in focused blocks
+## 3. Chọn thứ tự theo hạn và độ khó
 
-Choose a manageable study block, put away unrelated tabs, and decide what “done” means before you begin. Take a short break between blocks. Stand up, get water, or look away from your screen before starting the next task.
+Đánh dấu phần cần chuẩn bị sớm hoặc còn chưa hiểu. Chọn một việc quan trọng làm trước, nhưng đừng cố học tất cả một lúc. Nếu kế hoạch đổi, hãy sắp lại bước kế tiếp thay vì tự trách vì lịch ban đầu không hoàn hảo.
 
-## End with a reset
+## 4. Thử phiên tập trung vừa sức
 
-At the end of the day, note what you completed and choose the first task for tomorrow. If the plan slipped, adjust the next step instead of trying to repay every missed hour at once. Sleep, food, and asking for help are part of preparing too.
+Đặt một khoảng tập trung phù hợp với mình, tắt thông báo không cần thiết và để sẵn tài liệu của việc đang làm. Sau đó đứng dậy, uống nước hoặc nhìn xa màn hình trước khi học tiếp.
 
-You do not need a perfect timetable. You need a next step you can begin.
+## 5. Kết thúc ngày bằng một lần rà soát
+
+Ghi điều đã xong và chọn việc đầu tiên cho ngày mai. Chừa khoảng đệm cho việc phát sinh; ngủ, ăn uống và xin trợ giúp khi cần cũng là một phần của việc chuẩn bị.
+
+Bạn không cần một thời khóa biểu hoàn hảo — chỉ cần bước tiếp theo đủ rõ để bắt đầu.

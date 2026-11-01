@@ -1,10 +1,10 @@
 ---
-title: "Survival Kits for Study, Projects, and Busy Weeks"
-date: 2026-10-31T00:00:00Z
+title: "Chọn Survival Kit theo nhu cầu"
+date: 2026-11-01T00:00:00+07:00
 draft: false
-description: "Explore practical student care kits for exam season, project work, quick deadline rescues, and a thoughtful study break."
+description: "Khám phá các bộ kit gợi ý cho mùa thi, đồ án, hoạt động câu lạc bộ và những khoảng nghỉ sau deadline."
 ---
 
-Deadlines come in different shapes. Choose a kit that fits the week you are facing, from a lighter study reset to a last-minute boost. Kit contents shown here are MVP examples and may be adjusted as the collection is finalized.
+Mỗi tuần bận rộn theo một cách khác nhau. Survival Kit là concept những bộ đồ dùng nhỏ gọn giúp bạn chuẩn bị cho mùa thi, đồ án, hoạt động câu lạc bộ hoặc gửi lời động viên đến một người bạn.
 
-Every kit is organized around a **Panic Level** from 1 to 7. Pick the level that feels right for you, or send a kit with a personal note to someone who could use a little backup.
+Panic Level từ 1 đến 7 là cách vui để chọn kit theo cảm giác về deadline — không phải đánh giá sức khỏe. Các kit và giá trên trang là đề xuất MVP để kiểm chứng nhu cầu, chưa phải sản phẩm đang mở bán.

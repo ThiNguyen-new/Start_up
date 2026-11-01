@@ -1,25 +1,32 @@
 ---
-title: "Exam Survival Kit"
-date: 2026-10-31T00:00:00Z
+title: "Exam Survival Kit — Bộ kit ôn thi"
+meta_title: "Bộ kit ôn thi cho sinh viên | Exam Survival Kit"
+date: 2026-11-01T00:00:00+07:00
 draft: false
-description: "A focused study companion with planning essentials, a light snack, and a small reminder to take breaks during exam season."
-meta_title: "Exam Survival Kit | Survival Kit"
-shortDescription: "A practical bundle for revision sessions, study planning, and well-timed breaks."
-price: "99000"
+description: "Gợi ý bộ kit ôn thi cho sinh viên với đồ uống, snack, giấy ghi chú, bút highlight và thiệp động viên. Đây là concept MVP, chưa mở bán."
+shortDescription: "Đồ dùng gọn nhẹ giúp bạn sắp xếp buổi ôn thi và nhớ nghỉ giữa giờ."
+price: "89000"
 priceBefore: ""
 productID: "SK-EXAM-01"
 type: "products"
+category: "Exam"
+tagline: "Một bước nhỏ cho buổi ôn thi bớt rối."
 panic_level: 3
 images:
   - image: "/images/products/exam-survival-kit.svg"
+items:
+  - "Đồ uống đóng chai hoặc trà túi lọc (gợi ý)"
+  - "Snack nhẹ; thành phần và dị ứng cần kiểm tra theo sản phẩm thực tế"
+  - "Sticky notes, checklist ôn tập và bút highlight"
+  - "Thiệp động viên mùa thi"
 ---
 
-Exam week can make even a simple to-do list feel enormous. The Exam Survival Kit brings a few useful study-day basics together so you can get organized, settle in, and remember to pause.
+## Dành cho lúc nào?
 
-### In this sample kit
+Exam Survival Kit dành cho giai đoạn ôn thi giữa kỳ, cuối kỳ hoặc chuẩn bị kiểm tra. Bộ kit gợi ý một vài món tiện dụng để bạn chia nhỏ phần cần học, ghi lại câu hỏi và chuẩn bị chỗ ngồi trước khi bắt đầu.
 
-- A compact planning pad and sticky notes for breaking revision into smaller tasks
-- A writing tool and a light snack for a study session
-- A short encouragement card
+**Panic Level 3 — Nervous Mode.** Mức 2–3 trong concept dành cho lúc lịch thi bắt đầu dày lên. Đây là sản phẩm minh họa; mức giá 89.000₫ và thành phần chỉ là giả định để kiểm chứng, chưa phải giá bán.
 
-**Panic Level 3 — Nervous Mode.** A steady companion when exams are getting close. Contents are an MVP proposal and may change before launch.
+## Gợi ý sử dụng
+
+Ghi từng chương hoặc chủ đề lên checklist, chọn một việc có thể hoàn thành trong buổi này, rồi dành thời gian nghỉ ngắn giữa các phiên học. Bộ kit không thay thế bữa ăn, giấc ngủ hay sự hỗ trợ khi bạn cần.

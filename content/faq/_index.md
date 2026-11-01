@@ -1,30 +1,30 @@
 ---
-title: "Frequently Asked Questions"
-date: 2026-10-31T00:00:00Z
+title: "Câu hỏi thường gặp"
+date: 2026-11-01T00:00:00+07:00
 draft: false
-description: "Answers about Survival Kit sample bundles, Panic Levels, scheduled delivery, and sending a kit as a gift."
+description: "Thông tin về concept Survival Kit, Panic Level, lịch giao theo deadline và ý tưởng gửi kit làm quà."
 ---
 
-### What is a Survival Kit?
+### Survival Kit là gì?
 
-Survival Kit is a student-focused collection of practical bundles for exam weeks, projects, busy periods, and thoughtful study breaks. Each bundle is organized around a Panic Level to help you choose the kind of support that fits the moment.
+Survival Kit là concept các bộ đồ dùng gợi ý cho sinh viên trong mùa thi, làm đồ án, hoạt động câu lạc bộ và những khoảng nghỉ sau deadline.
 
-### What do the Panic Levels mean?
+### Panic Level 1–7 có ý nghĩa gì?
 
-Panic Levels run from 1 to 7, from **Chill Mode** to **SOS**. They are a playful way to browse by the kind of week you are having, not a health assessment or a promise about what a kit can solve.
+Đây là cách vui để phân nhóm theo mức độ bận rộn: từ **Chill Mode** (1), **Mild / Nervous Mode** (2–3), **Panic Mode** (4–5) đến **Final Boss / SOS** (6–7). Panic Level không phải đánh giá sức khỏe và kit không thể giải quyết mọi áp lực.
 
-### Can I schedule a kit around an exam or submission date?
+### Tôi có thể đặt lịch giao kit trước ngày thi hoặc hạn nộp không?
 
-The Schedule Your Rescue idea is to request delivery ahead of a deadline. Available dates, delivery areas, and lead times must be confirmed when ordering; please do not rely on an unconfirmed date for an urgent need.
+Schedule Your Rescue là tính năng được đề xuất: chọn deadline rồi chọn ngày giao phù hợp, dự kiến trước đó 1–2 ngày. Tính năng hiện chưa hoạt động; website chưa nhận lịch đặt hoặc xác nhận giao hàng.
 
-### Can I send a kit to someone else?
+### Tôi có thể gửi kit kèm lời nhắn cho người khác không?
 
-Yes. Send a Rescue is designed for gifting, with space for a personal note. Check recipient details carefully and confirm gift options and delivery availability before completing an order.
+Send a Rescue là ý tưởng tặng kit cho bạn bè, người thân hoặc thành viên câu lạc bộ kèm lời nhắn cá nhân. Website chưa nhận đơn quà tặng hay thông tin người nhận.
 
-### Are the sample kit contents final?
+### Giá và thành phần bộ kit đã chốt chưa?
 
-No. The kits on this MVP site describe proposed bundles. Final item availability and substitutions should be confirmed before purchase.
+Chưa. Giá và thành phần hiện là giả định concept để nhóm kiểm chứng nhu cầu. Thành phần thực tế, thương hiệu, thông tin dị ứng, giá và phí giao hàng cần được xác nhận trước khi có thể mở bán.
 
-### How do I ask about an order or a product?
+### Tôi có thể hỏi thêm ở đâu?
 
-Email [contact@survivalkit.vn](mailto:contact@survivalkit.vn) with your question. For a scheduled or gift order, include the order reference and the date you have in mind; do not include payment card details.
+Gửi câu hỏi đến [contact@survivalkit.vn](mailto:contact@survivalkit.vn). Không gửi thông tin thẻ thanh toán qua email.

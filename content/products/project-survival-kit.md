@@ -1,25 +1,32 @@
 ---
-title: "Project Survival Kit"
-date: 2026-10-31T00:00:00Z
+title: "Project Survival Kit — Bộ kit làm đồ án"
+meta_title: "Bộ kit làm đồ án nhóm | Project Survival Kit"
+date: 2026-11-01T00:00:00+07:00
 draft: false
-description: "A team-friendly project kit for planning tasks, capturing ideas, and keeping a long work session a little more comfortable."
-meta_title: "Project Survival Kit | Survival Kit"
-shortDescription: "Planning and brainstorming essentials for group assignments and presentation prep."
-price: "129000"
+description: "Gợi ý bộ kit cho đồ án và bài tập nhóm, gồm vật dụng ghi chú, checklist phân công và snack nhẹ. Nội dung là concept MVP, chưa mở bán."
+shortDescription: "Checklist và vật dụng ghi chú giúp nhóm thống nhất việc tiếp theo."
+price: "119000"
 priceBefore: ""
 productID: "SK-PROJECT-01"
 type: "products"
+category: "Project"
+tagline: "Biến danh sách việc dài thành bước tiếp theo rõ ràng."
 panic_level: 4
 images:
   - image: "/images/products/project-survival-kit.svg"
+items:
+  - "Sticky notes hoặc thẻ ghi chú để gom ý tưởng"
+  - "Checklist phân công và mốc rà soát"
+  - "Bút highlight hoặc bút viết (gợi ý)"
+  - "Snack dùng chung; thành phần và dị ứng cần kiểm tra theo sản phẩm thực tế"
 ---
 
-From the first brainstorm to the final slide, project work has a way of collecting loose ideas and competing deadlines. This kit is designed to help a team capture next steps and keep its shared work session moving.
+## Dành cho lúc nào?
 
-### In this sample kit
+Project Survival Kit hướng đến đồ án, buổi brainstorming, làm việc nhóm và chuẩn bị thuyết trình. Checklist gợi ý nhóm ghi rõ đầu việc, người phụ trách và thời điểm cần ghép các phần lại với nhau.
 
-- Sticky notes and a planning checklist for assigning next steps
-- A highlighter and note cards for sorting ideas
-- A shareable snack and a team encouragement card
+**Panic Level 4 — Panic Mode.** Mức 4–5 trong concept dành cho khi áp lực tăng và nhóm cần chia nhỏ khối lượng công việc. Mức giá 119.000₫ và danh sách món là giả định MVP để kiểm chứng, chưa phải giá bán.
 
-**Panic Level 4 — Panic Mode.** For a project that is underway and needs a clearer plan. Contents are an MVP proposal and may change before launch.
+## Gợi ý sử dụng
+
+Trước buổi làm chung, thống nhất yêu cầu bài tập và tạo một danh sách việc chung. Cuối buổi, ghi lại phần đã xong, điều còn vướng và thời điểm kiểm tra tiếp theo. Nghỉ giải lao và trao đổi sớm khi kế hoạch bị trễ.
