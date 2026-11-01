@@ -18,3 +18,5 @@
   translation: Panic
 - id: sk_filter_empty
   translation: No kits match this Panic Level yet.
+- id: sk_social_proof
+  translation: Sample student comments about Survival Kit

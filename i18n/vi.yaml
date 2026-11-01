@@ -18,3 +18,5 @@
   translation: Panic
 - id: sk_filter_empty
   translation: Chưa có kit phù hợp với Panic Level này.
+- id: sk_social_proof
+  translation: Bình luận minh họa về Survival Kit
