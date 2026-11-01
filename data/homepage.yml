@@ -124,7 +124,7 @@ testimonial:
       
     # testimonial item loop
     - name : "Bạn cùng lớp"
-      image : "images/clients/client-2.jpg" # size 100px*100px
+      image : "images/clients/client-4.jpg" # size 100px*100px
       designation : "Nhận xét minh họa · Burnout Care Kit"
       content : "Mình sẽ chọn hộp này làm quà sau kỳ thi. Tấm thiệp và lời nhắn khiến món quà giống một lời hỏi thăm, không phải lời nhắc phải cố thêm."
       rating : "four" # rating star, one to five
