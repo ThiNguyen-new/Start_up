@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Làm việc nhóm theo deadline</title><desc id="desc">Ba sinh viên cùng sắp xếp công việc trên bảng dự án.</desc>
+  <rect width="960" height="600" rx="32" fill="#eef4ed"/><circle cx="785" cy="100" r="74" fill="#f4d38b"/><rect x="219" y="81" width="521" height="346" rx="24" fill="#fffdf7"/><rect x="219" y="81" width="521" height="63" rx="24" fill="#58796e"/><text x="480" y="123" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#fff">TEAM BOARD</text>
+  <rect x="260" y="177" width="130" height="132" rx="13" fill="#f5d373" transform="rotate(-3 260 177)"/><path d="M279 215h90m-88 25h74m-70 25h81" stroke="#fff8e8" stroke-width="8" stroke-linecap="round"/>
+  <rect x="417" y="176" width="130" height="132" rx="13" fill="#edaa87" transform="rotate(2 417 176)"/><path d="M440 214h84m-81 25h75m-74 25h62" stroke="#fff7e9" stroke-width="8" stroke-linecap="round"/>
+  <rect x="575" y="179" width="123" height="129" rx="13" fill="#dbe9df" transform="rotate(-2 575 179)"/><path d="M597 216h77m-77 26h83m-81 25h65" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  <path d="M480 427v53" stroke="#58796e" stroke-width="9" stroke-linecap="round"/><path d="M349 528c0-67 42-102 91-102s87 35 87 102" fill="#e99072"/><circle cx="441" cy="395" r="42" fill="#e9b88f"/><path d="M523 528c1-52 32-81 70-81s69 29 70 81" fill="#f0c84e"/><circle cx="592" cy="421" r="34" fill="#d79b76"/><path d="M215 528c3-47 32-72 69-72s65 25 68 72" fill="#8da99a"/><circle cx="284" cy="432" r="33" fill="#edc19a"/>
+</svg>

@@ -2,3 +2,19 @@
   translation: Important Links
 - id: connect_us
   translation: Connect With Us
+- id: sk_demo_notice
+  translation: Student project demo — product details and prices are illustrative.
+- id: sk_demo_disclaimer
+  translation: This website is a concept prototype and does not accept real orders.
+- id: sk_cart_disclaimer
+  translation: Checkout is a demonstration only; no payment will be collected.
+- id: sk_deadline_status
+  translation: Choose a kit for your next deadline.
+- id: sk_panic_mode
+  translation: Panic level
+- id: sk_select_panic_level
+  translation: Select your deadline stress level from 1 to 7.
+- id: sk_panic_badge
+  translation: Panic
+- id: sk_filter_empty
+  translation: No kits match this Panic Level yet.

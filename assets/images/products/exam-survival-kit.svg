@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+  <title id="title">Exam Survival Kit</title><desc id="desc">Minh họa hộp tiếp sức mùa thi với sổ tay, trà, snack và bút highlight.</desc>
+  <rect width="960" height="640" rx="32" fill="#fff6e8"/><circle cx="770" cy="118" r="86" fill="#ffe0c8"/><circle cx="161" cy="531" r="94" fill="#e3f0e7"/>
+  <ellipse cx="480" cy="526" rx="300" ry="38" fill="#ead9c4"/>
+  <rect x="229" y="215" width="502" height="284" rx="26" fill="#d87954"/><path d="M229 271h502v31H229z" fill="#c66443"/><rect x="266" y="331" width="428" height="168" rx="16" fill="#f4c78e"/>
+  <rect x="302" y="151" width="173" height="233" rx="14" fill="#fffdf7" stroke="#486b63" stroke-width="10" transform="rotate(-8 302 151)"/><path d="M330 215l82-11m-77 47l82-11m-77 47l52-7" fill="none" stroke="#8da89a" stroke-width="9" stroke-linecap="round"/>
+  <rect x="526" y="158" width="46" height="225" rx="18" fill="#f7c949" transform="rotate(9 526 158)"/><path d="M543 361l18 26 16-20" fill="#45665d"/>
+  <rect x="595" y="171" width="117" height="91" rx="20" fill="#f2ab69"/><path d="M613 216c12-32 25-32 38 0s27 32 42 0" fill="none" stroke="#fff5dc" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="437" cy="413" r="24" fill="#fff5dc"/><path d="M429 414c7-14 15-14 21 0" fill="none" stroke="#d87954" stroke-width="6" stroke-linecap="round"/>
+  <text x="480" y="465" text-anchor="middle" font-family="Arial,sans-serif" font-size="31" font-weight="700" fill="#fffdf7">EXAM RESCUE</text>
+  <path d="M766 265c30-31 75-25 84 12 9 38-27 64-71 95-44-31-80-57-71-95 9-37 54-43 84-12z" fill="#ed8b72"/>
+</svg>

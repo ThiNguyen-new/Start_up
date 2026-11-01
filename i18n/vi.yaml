@@ -1,0 +1,20 @@
+- id: important_link
+  translation: Liên kết hữu ích
+- id: connect_us
+  translation: Kết nối với chúng tôi
+- id: sk_demo_notice
+  translation: Bản demo đồ án sinh viên — thông tin sản phẩm và giá chỉ mang tính minh họa.
+- id: sk_demo_disclaimer
+  translation: Đây là website concept, chưa nhận đơn hàng thật.
+- id: sk_cart_disclaimer
+  translation: Thanh toán chỉ là mô phỏng; không thu tiền.
+- id: sk_deadline_status
+  translation: Chọn bộ kit cho deadline sắp tới của bạn.
+- id: sk_panic_mode
+  translation: Mức độ áp lực
+- id: sk_select_panic_level
+  translation: Chọn mức độ gấp của deadline từ 1 đến 7.
+- id: sk_panic_badge
+  translation: Panic
+- id: sk_filter_empty
+  translation: Chưa có kit phù hợp với Panic Level này.

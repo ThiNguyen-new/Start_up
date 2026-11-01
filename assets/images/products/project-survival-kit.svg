@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+  <title id="title">Project Survival Kit</title><desc id="desc">Minh họa bộ đồ án sinh viên với giấy note, checklist, bút, nước uống và snack.</desc>
+  <rect width="960" height="640" rx="32" fill="#eef5ef"/><circle cx="785" cy="122" r="91" fill="#f8d7ad"/><circle cx="145" cy="151" r="61" fill="#d9e9dd"/>
+  <ellipse cx="483" cy="525" rx="309" ry="37" fill="#cbdacf"/><rect x="216" y="252" width="528" height="250" rx="28" fill="#57776d"/><path d="M216 310h528v30H216z" fill="#45655b"/><rect x="254" y="369" width="452" height="133" rx="16" fill="#f6d39a"/>
+  <rect x="279" y="161" width="146" height="155" rx="13" fill="#fffdf7" transform="rotate(-7 279 161)"/><rect x="293" y="179" width="118" height="30" rx="4" fill="#e78163" transform="rotate(-7 293 179)"/><path d="M299 232l76-9m-72 34l70-9" stroke="#789286" stroke-width="7" stroke-linecap="round"/>
+  <rect x="434" y="131" width="145" height="156" rx="14" fill="#f7cd55" transform="rotate(5 434 131)"/><path d="M464 187l82 8m-81 20l73 7" stroke="#fff7e6" stroke-width="8" stroke-linecap="round" transform="rotate(5 434 131)"/>
+  <rect x="602" y="176" width="99" height="135" rx="24" fill="#f0a879"/><rect x="631" y="151" width="43" height="34" rx="9" fill="#d87954"/><path d="M621 231h61" stroke="#fff3dd" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="364" cy="416" r="28" fill="#fff3dc"/><path d="M350 419c11-15 21-15 31 0" stroke="#d87954" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <text x="517" y="464" text-anchor="middle" font-family="Arial,sans-serif" font-size="29" font-weight="700" fill="#fffdf7">PROJECT RESCUE</text>
+  <path d="M799 278l25 25 52-59" fill="none" stroke="#57776d" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

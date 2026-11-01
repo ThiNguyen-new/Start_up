@@ -1,36 +1,22 @@
 ---
-title: "Terms & Conditions"
-date: 2019-10-17T11:22:16+06:00
+title: "Thông tin sử dụng bản demo"
+meta_title: "Thông tin sử dụng | Survival Kit"
+date: 2026-11-01T00:00:00+07:00
 draft: false
-description : "this is a meta description"
+description: "Phạm vi và giới hạn của website concept Survival Kit trong khuôn khổ đồ án sinh viên."
 ---
+## Phạm vi website
 
-### Terms and Condition
+Survival Kit trong phiên bản này là concept và bản demo phục vụ đồ án sinh viên. Nội dung sản phẩm, giá, nút mua, lịch giao và luồng gửi quà được trình bày để minh họa trải nghiệm; website chưa xác nhận đơn hàng, thu tiền hoặc cam kết giao sản phẩm.
 
-Please read this terms and conditions stated below, which outline a lot of legal goodies, but the bottom line is it’s our aim to always take care of both of us, as a customer, or as a seller. We’ve included many of these terms to legally protect ourselves, but if you have an issue, always feel free to email us at contact@themefisher.com and we’ll do our best to resolve it in a fair and timely way .
+## Hình ảnh và thành phần sản phẩm
 
-### Product Buy & delivery policy
+Hình minh họa và danh sách món mô tả ý tưởng bộ kit, không đại diện cho sản phẩm đang được bán. Nếu mua sản phẩm tương tự từ nhà cung cấp khác, hãy xem thông tin thành phần, cảnh báo dị ứng và hạn sử dụng trên bao bì.
 
-1)All payments are processed securely through PayPal or Stripe. Themefisher does not directly process payments through the website. So any kind of Problem if you face Themefisher will Not Take any responsibility.
+## Thông tin gửi qua biểu mẫu
 
-### Product Buy & delivery policy
+Chỉ gửi góp ý cần thiết cho đồ án. Không nhập mật khẩu, thông tin thanh toán, giấy tờ định danh hoặc dữ liệu nhạy cảm. Biểu mẫu trong bản demo không phải kênh hỗ trợ đơn hàng.
 
-Please read this terms and conditions stated below, which outline a lot of legal goodies, but the bottom line is it’s our aim to always take care of both of us, as a customer, or as a seller. We’ve included many of these terms to legally protect ourselves, but if you have an issue, always feel free to email us at contact@themefisher.com and we’ll do our best to resolve it in a fair and timely way .
+## Cập nhật
 
-### Refund Policy
-
-1) Since Themefisher is offering non-tangible and irrevocable digital products, we do NOT issue refunds after a purchase is made. If there is a problem with one of the digital download products or if you experience any difficulty with the download, we will fix the problem.
-2) You have 24 hours to inspect your purchase and to determine if it does not meet with the expectations laid forth by The Themefisher. In the event that you wish to receive a refund, Themefisher will issue you a refund and ask you to specify how the product failed to live up to expectations.
-3) When you make a qualifying return, We’ll credit the full amount, less the handling charges. Refunds are generally processed within 3–5 business days after we receive your claim and find it eligible for a return. Refunds are applied to the original payment option.
-
-### Support Policy
-1) Since Themefisher is offering non-tangible and irrevocable digital products, we do NOT issue refunds after a purchase is made. If there is a problem with one of the digital download products or if you experience any difficulty with the download, we will fix the problem.
-2) You have 24 hours to inspect your purchase and to determine if it does not meet with the expectations laid forth by The Themefisher. In the event that you wish to receive a refund, Themefisher will issue you a refund and ask you to specify how the product failed to live up to expectations.
-3) When you make a qualifying return, We’ll credit the full amount, less the handling charges. Refunds are generally processed within 3–5 business days after we receive your claim and find it eligible for a return. Refunds are applied to the original payment option.
-
-### Why We Support:
-
-1. Support covers getting up and help in theme setup
-2. Help using features and theme options
-3. Bug fixes – if you discovered a bug in the theme/Template we will fix it
-4. Functionality which does not work as advertised
+Khi phạm vi demo hoặc nội dung concept thay đổi, nhóm có thể cập nhật trang này để phản ánh phiên bản website hiện tại.
