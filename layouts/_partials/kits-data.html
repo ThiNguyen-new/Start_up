@@ -1,0 +1,23 @@
+{{/* Nhúng dữ liệu kit cho JS và kiểm tra dữ liệu lúc build. */}}
+{{ $products := dict }}
+{{ range site.Data.survival_kit.products }}
+  {{ $item := dict "id" .id "name" .name "price" .price "category" .category "image" (.image | absURL) }}
+  {{ $products = merge $products (dict .id $item) }}
+{{ end }}
+{{ range $cat := site.Data.survival_kit.kits }}
+  {{ range $lvl := seq 1 7 }}
+    {{ $kit := index $cat.levels (string $lvl) }}
+    {{ if not $kit }}
+      {{ errorf "kits.json: %s thiếu level %d" $cat.id $lvl }}
+    {{ else }}
+      {{ range $pid, $qty := $kit.items }}
+        {{ if not (index $products $pid) }}
+          {{ errorf "kits.json: %s level %d có id lạ: %s" $cat.id $lvl $pid }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+<script type="application/json" id="sk-kit-data">
+{{ dict "products" $products "categories" site.Data.survival_kit.kits | jsonify | safeJS }}
+</script>

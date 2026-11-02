@@ -94,7 +94,13 @@
 {{ "<!-- Panic Level Shared Script -->" | safeHTML }}
 {{ with resources.Get "js/panic-level.js" }}
 {{ $panicScript := . | minify }}
-<script src="{{ $panicScript.Permalink }}" defer></script>
+<script src="{{ $panicScript.Permalink }}"></script>
+{{ end }}
+
+{{ "<!-- Kit Recommend Shared Script -->" | safeHTML }}
+{{ with resources.Get "js/kit-recommend.js" }}
+{{ $recoScript := . | minify }}
+<script src="{{ $recoScript.Permalink }}"></script>
 {{ end }}
 
 {{ "<!-- Main Script -->" | safeHTML }}

@@ -1,6 +1,7 @@
 /**
  * Build Your Own Survival Kit - Client-side Interactive Builder
- * Handles item selection, quantities, theme filtering, panic level suggestions,
+ * Integrated with Panic Level and Category Recommendation Engine.
+ * Handles item selection, quantities, category recommendation,
  * custom message preview, and demo cart persistence via sessionStorage.
  */
 (function () {
@@ -13,9 +14,10 @@
 
   var state = {
     items: {},       // { [productId]: qty }
-    message: '',
-    theme: 'free'
+    message: ''
   };
+
+  var currentReco = null;
 
   // Product catalog cache from DOM
   var productsCatalog = {};
@@ -33,6 +35,10 @@
     }
   }
 
+  function currentLevel() {
+    return window.PanicLevel ? window.PanicLevel.get() : 3;
+  }
+
   // Collect products metadata from DOM data attributes
   function initCatalog() {
     var cards = document.querySelectorAll('.js-byok-card');
@@ -42,16 +48,12 @@
       var price = parseInt(card.getAttribute('data-price'), 10) || 0;
       var name = card.getAttribute('data-name') || '';
       var category = card.getAttribute('data-category') || '';
-      var themes = (card.getAttribute('data-themes') || '').split(',').map(function (t) { return t.trim(); });
-      var suggested = (card.getAttribute('data-suggested-levels') || '').split(',').map(function (l) { return parseInt(l.trim(), 10); });
 
       productsCatalog[id] = {
         id: id,
         name: name,
         price: price,
-        category: category,
-        themes: themes,
-        suggestedLevels: suggested
+        category: category
       };
     });
   }
@@ -71,9 +73,6 @@
       }
       if (typeof parsed.message === 'string') {
         state.message = parsed.message.slice(0, MAX_MESSAGE_LEN);
-      }
-      if (typeof parsed.theme === 'string') {
-        state.theme = parsed.theme;
       }
     } catch (e) {
       // Ignore parse errors on demo storage
@@ -100,6 +99,18 @@
       totalItems: totalItems,
       totalPrice: totalPrice
     };
+  }
+
+  function clearQuantities() {
+    state.items = {};
+    document.querySelectorAll('.js-byok-card').forEach(function (card) {
+      var input = card.querySelector('.js-qty-input');
+      var minusBtn = card.querySelector('.js-qty-minus');
+      var plusBtn = card.querySelector('.js-qty-plus');
+      if (input) { input.value = 0; }
+      if (minusBtn) { minusBtn.disabled = true; }
+      if (plusBtn) { plusBtn.disabled = false; }
+    });
   }
 
   // Update item quantity safely
@@ -131,6 +142,100 @@
 
     renderSummary();
     renderPreview();
+  }
+
+  // Render recommendation card for current level and category
+  function renderReco() {
+    var card = document.querySelector('.js-reco-card');
+    if (!card || !window.KitRecommend) { return; }
+    var rec = window.KitRecommend.recommend(window.KitRecommend.getCategory(), currentLevel());
+    currentReco = rec;
+    if (!rec) { card.setAttribute('hidden', 'hidden'); return; }
+    card.removeAttribute('hidden');
+
+    var headingEl = card.querySelector('.js-reco-heading');
+    if (headingEl) {
+      headingEl.textContent = 'Kit gợi ý cho Level ' + rec.level + ' · ' + rec.category.name;
+    }
+    var nameEl = card.querySelector('.js-reco-name');
+    if (nameEl) {
+      nameEl.textContent = rec.kit.name;
+    }
+    var tagEl = card.querySelector('.js-reco-tagline');
+    if (tagEl) {
+      tagEl.textContent = rec.kit.tagline;
+    }
+    var totalEl = card.querySelector('.js-reco-total');
+    if (totalEl) {
+      totalEl.textContent = window.KitRecommend.formatVND(rec.total) + ' · ' + rec.count + ' món';
+    }
+
+    var list = card.querySelector('.js-reco-items');
+    if (list) {
+      list.textContent = '';
+      rec.items.forEach(function (it) {
+        var li = document.createElement('li');
+        li.className = 'sk-kit-chip';
+        var img = document.createElement('img');
+        img.src = it.image;
+        img.alt = '';
+        img.width = 32;
+        img.height = 32;
+        img.loading = 'lazy';
+        var label = document.createElement('span');
+        label.textContent = it.name + ' × ' + it.qty;
+        li.appendChild(img);
+        li.appendChild(label);
+        list.appendChild(li);
+      });
+    }
+  }
+
+  // Nhãn "Gợi ý" = món nằm trong kit gợi ý hiện tại.
+  function updateSuggestedBadges() {
+    var ids = {};
+    if (currentReco && Array.isArray(currentReco.items)) {
+      currentReco.items.forEach(function (it) { ids[it.id] = true; });
+    }
+    document.querySelectorAll('.js-byok-card').forEach(function (card) {
+      var on = !!ids[card.getAttribute('data-id')];
+      var badge = card.querySelector('.js-suggested-badge');
+      card.classList.toggle('is-suggested', on);
+      if (badge) {
+        if (on) {
+          badge.removeAttribute('hidden');
+        } else {
+          badge.setAttribute('hidden', 'hidden');
+        }
+      }
+    });
+  }
+
+  function refreshReco() {
+    renderReco();
+    updateSuggestedBadges();
+  }
+
+  function applyReco() {
+    if (!currentReco) { return; }
+    if (getTotals().totalItems > 0 &&
+        !window.confirm('Thay các món đang chọn bằng kit gợi ý?')) { return; }
+    clearQuantities();
+    currentReco.items.forEach(function (it) { updateItemQty(it.id, it.qty); });
+    renderSummary();
+    renderPreview();
+  }
+
+  // ?apply=1 (từ nút "Xây kit này" ở trang chủ): chỉ tự áp dụng khi giỏ trống.
+  function handleApplyParam() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('apply') !== '1') { return; }
+      if (getTotals().totalItems === 0) { applyReco(); }
+      params.delete('apply');
+      var qs = params.toString();
+      history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''));
+    } catch (e) { /* bỏ qua */ }
   }
 
   // Render kit summary box & mobile sticky bar
@@ -226,95 +331,6 @@
     }
   }
 
-  // Theme filter handler
-  function applyTheme(themeKey) {
-    state.theme = themeKey || 'free';
-
-    // Update active button state
-    document.querySelectorAll('.js-theme-btn').forEach(function (btn) {
-      var t = btn.getAttribute('data-theme');
-      if (t === state.theme) {
-        btn.classList.add('active');
-        btn.setAttribute('aria-pressed', 'true');
-      } else {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-pressed', 'false');
-      }
-    });
-
-    // Filter/highlight product cards
-    document.querySelectorAll('.js-byok-card').forEach(function (card) {
-      var id = card.getAttribute('data-id');
-      if (!productsCatalog[id]) return;
-      var cardThemes = productsCatalog[id].themes;
-
-      if (state.theme === 'free' || cardThemes.indexOf(state.theme) !== -1) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
-
-  // Update suggested badges based on current Panic Level
-  function updateSuggestedBadges(level) {
-    var currentLvl = Number(level || (window.PanicLevel ? window.PanicLevel.get() : 3));
-
-    document.querySelectorAll('.js-byok-card').forEach(function (card) {
-      var id = card.getAttribute('data-id');
-      if (!productsCatalog[id]) return;
-      var suggested = productsCatalog[id].suggestedLevels;
-      var badge = card.querySelector('.js-suggested-badge');
-
-      if (suggested && suggested.indexOf(currentLvl) !== -1) {
-        card.classList.add('is-suggested');
-        if (badge) badge.removeAttribute('hidden');
-      } else {
-        card.classList.remove('is-suggested');
-        if (badge) badge.setAttribute('hidden', 'hidden');
-      }
-    });
-
-    // Level 7 Quick Kits container toggle
-    var presetsContainer = document.querySelector('.js-presets-container');
-    if (presetsContainer) {
-      if (currentLvl === 7) {
-        presetsContainer.removeAttribute('hidden');
-      } else {
-        presetsContainer.setAttribute('hidden', 'hidden');
-      }
-    }
-  }
-
-  // Apply Quick Kit Preset for Level 7
-  function applyPreset(presetId) {
-    var presetEl = document.querySelector('.js-preset-data[data-preset-id="' + presetId + '"]');
-    if (!presetEl) return;
-
-    try {
-      var itemsMap = JSON.parse(presetEl.textContent || '{}');
-      // Reset current state items
-      state.items = {};
-
-      // Reset all card inputs to 0
-      document.querySelectorAll('.js-byok-card').forEach(function (card) {
-        var input = card.querySelector('.js-qty-input');
-        var minusBtn = card.querySelector('.js-qty-minus');
-        var plusBtn = card.querySelector('.js-qty-plus');
-        if (input) input.value = 0;
-        if (minusBtn) minusBtn.disabled = true;
-        if (plusBtn) plusBtn.disabled = false;
-      });
-
-      // Apply preset items
-      Object.keys(itemsMap).forEach(function (id) {
-        updateItemQty(id, itemsMap[id]);
-      });
-    } catch (e) {
-      // Ignore preset parse error
-    }
-  }
-
   // Add to Demo Cart & navigate to /cart-demo/
   function addToCartAndProceed() {
     var totals = getTotals();
@@ -337,8 +353,9 @@
     });
 
     var cartPayload = {
-      level: window.PanicLevel ? window.PanicLevel.get() : 3,
-      theme: state.theme,
+      level: currentLevel(),
+      category: window.KitRecommend ? window.KitRecommend.getCategory() : 'exam',
+      categoryName: currentReco && currentReco.category ? currentReco.category.name : '',
       message: state.message,
       items: itemsList,
       total: totals.totalPrice,
@@ -351,7 +368,8 @@
       // Storage quota or disabled
     }
 
-    var cartUrl = document.body.getAttribute('data-cart-url') || '/cart-demo/';
+    var cartEl = document.querySelector('[data-cart-url]');
+    var cartUrl = (cartEl && cartEl.getAttribute('data-cart-url')) || '/cart-demo/';
     window.location.href = cartUrl;
   }
 
@@ -380,19 +398,10 @@
         return;
       }
 
-      // Theme filter button
-      var themeBtn = e.target.closest('.js-theme-btn');
-      if (themeBtn) {
-        var theme = themeBtn.getAttribute('data-theme');
-        applyTheme(theme);
-        return;
-      }
-
-      // Apply preset button
-      var presetBtn = e.target.closest('.js-apply-preset-btn');
-      if (presetBtn) {
-        var pId = presetBtn.getAttribute('data-preset-id');
-        applyPreset(pId);
+      // Apply recommendation button
+      var applyBtn = e.target.closest('.js-apply-reco');
+      if (applyBtn) {
+        applyReco();
         return;
       }
 
@@ -423,12 +432,9 @@
       });
     }
 
-    // Listen to Panic Level change
-    document.addEventListener('paniclevelchange', function (e) {
-      if (e.detail && e.detail.level) {
-        updateSuggestedBadges(e.detail.level);
-      }
-    });
+    // Listen to Panic Level & Category changes
+    document.addEventListener('paniclevelchange', refreshReco);
+    document.addEventListener('kitcategorychange', refreshReco);
   }
 
   // Initialization
@@ -456,10 +462,10 @@
       msgInput.value = state.message;
     }
 
-    applyTheme(state.theme);
-    updateSuggestedBadges(window.PanicLevel ? window.PanicLevel.get() : 3);
+    refreshReco();
     renderSummary();
     renderPreview();
+    handleApplyParam();
   }
 
   if (document.readyState === 'loading') {

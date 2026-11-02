@@ -191,49 +191,99 @@ $(window).on('load', function () {
     }
   }
 
+  var lastPanicLevel = null;
+  var showcaseFrame = null;
+
+  function currentLevelValue() {
+    if (window.PanicLevel) { return window.PanicLevel.get(); }
+    return Number($('.js-panic-slider').val() || 3);
+  }
+
+  function renderKitShowcase(level) {
+    var box = document.querySelector('.js-panic-kit-showcase');
+    if (!box || !window.KitRecommend) { return; }
+    var rec = window.KitRecommend.recommend(window.KitRecommend.getCategory(), level);
+    if (!rec) { return; }
+    var pick = function (sel) { return box.querySelector(sel); };
+    pick('.js-panic-kit-title').textContent = rec.kit.name;
+    pick('.js-panic-kit-type').textContent = rec.category.name;
+    pick('.js-panic-kit-desc').textContent = rec.kit.tagline;
+    pick('.js-panic-kit-price').textContent = window.KitRecommend.formatVND(rec.total);
+    var list = pick('.js-panic-kit-items');
+    if (list) {
+      list.textContent = '';
+      rec.items.forEach(function (it) {
+        var li = document.createElement('li');
+        li.className = 'sk-kit-chip';
+        var img = document.createElement('img');
+        img.src = it.image;
+        img.alt = '';
+        img.width = 32;
+        img.height = 32;
+        img.loading = 'lazy';
+        var label = document.createElement('span');
+        label.textContent = it.name + ' × ' + it.qty;
+        li.appendChild(img);
+        li.appendChild(label);
+        list.appendChild(li);
+      });
+    }
+    var btn = pick('.js-panic-explore-btn');
+    if (btn) {
+      var base = box.getAttribute('data-build-url') || '/build-your-own-kit/';
+      btn.setAttribute('href', base + '?category=' + encodeURIComponent(rec.category.id) +
+        '&level=' + rec.level + '&apply=1');
+    }
+    var live = pick('.js-panic-kit-live');
+    if (live) { live.textContent = 'Kit gợi ý: ' + rec.kit.name; }
+  }
+
+  // Gom nhiều lần đổi level trong cùng một khung hình thành một lần dựng DOM.
+  function scheduleShowcase(level) {
+    if (showcaseFrame) { cancelAnimationFrame(showcaseFrame); }
+    showcaseFrame = requestAnimationFrame(function () {
+      showcaseFrame = null;
+      renderKitShowcase(level);
+    });
+  }
+
   function updatePanicMeter(level) {
     var lvl = String(level || $('.js-panic-slider').val() || '4');
+    lastPanicLevel = lvl;
     var $data = $('.js-panic-data-item[data-level="' + lvl + '"]');
-    if ($data.length) {
-      var name = $data.attr('data-name') || '';
-      var title = $data.attr('data-title') || '';
-      var kitType = $data.attr('data-kit-type') || '';
-      var price = $data.attr('data-price') || '';
-      var desc = $data.attr('data-desc') || '';
-      var url = $data.attr('data-url') || '#';
-      var img = $data.attr('data-img') || '';
-
-      $('.js-panic-meter-num').text(lvl);
-      $('.js-panic-meter-status').text(name);
-      $('.js-panic-meter-badge')
-        .attr('data-level', lvl);
-      $('.js-panic-meter-badge-num').text(lvl);
-      $('.js-panic-slider').val(lvl).attr('aria-valuenow', lvl);
-
-      $('.js-panic-step').removeClass('text-primary font-weight-bold').addClass('text-muted');
-      $('.js-panic-step[data-level="' + lvl + '"]')
-        .removeClass('text-muted')
-        .addClass('text-primary font-weight-bold');
-
-      $('.js-panic-kit-title').text(title);
-      $('.js-panic-kit-type').text(kitType);
-      $('.js-panic-kit-desc').text(desc);
-      $('.js-panic-kit-price').text(price);
-      if (img) {
-        $('.js-panic-kit-img').attr('src', img).attr('alt', title);
-      }
-      $('.js-panic-explore-btn').attr('href', url);
+    var name = $data.length ? ($data.attr('data-name') || '') : '';
+    $('.js-panic-meter-status').text(name);
+    $('.js-panic-meter-badge').attr('data-level', lvl);
+    $('.js-panic-meter-badge-num').text(lvl);
+    var sliderEl = $('.js-panic-slider')[0];
+    if (sliderEl) {
+      sliderEl.value = lvl;
+      sliderEl.setAttribute('aria-valuenow', lvl);
+      sliderEl.setAttribute('aria-valuetext', 'Level ' + lvl + (name ? ': ' + name : ''));
+      sliderEl.style.setProperty('--f', ((Number(lvl) - 1) / 6).toFixed(4));
     }
-
+    $('.js-panic-step').removeClass('text-primary font-weight-bold').addClass('text-muted');
+    $('.js-panic-step[data-level="' + lvl + '"]')
+      .removeClass('text-muted')
+      .addClass('text-primary font-weight-bold');
+    var $show = $('.js-panic-kit-showcase').addClass('is-swapping');
+    setTimeout(function () { $show.removeClass('is-swapping'); }, 140);
     if (window.PanicLevel && window.PanicLevel.get() !== Number(lvl)) {
       window.PanicLevel.set(lvl);
     }
-
+    scheduleShowcase(lvl);
     applyKitFilters();
   }
 
+  // Đổi category ở trang chủ thì dựng lại kit của level hiện tại.
+  document.addEventListener('kitcategorychange', function () {
+    scheduleShowcase(currentLevelValue());
+  });
+
   $(document).on('input change', '.js-panic-slider', function () {
-    updatePanicMeter($(this).val());
+    var lvl = String($(this).val());
+    if (lvl === lastPanicLevel) { return; } // bỏ qua lần gọi thứ hai (input rồi change)
+    updatePanicMeter(lvl);
   });
 
   $(document).on('click', '.js-panic-step', function (event) {
