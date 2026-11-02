@@ -4,32 +4,29 @@ Người 3 phụ trách front-end Hugo (template, partial, styling component và
 
 ## 1. Người 1 — Menu & Route
 - Đã thêm mục menu `Build Your Own Kit` trỏ `build-your-own-kit/` trong `config/_default/menus.en.toml`.
-- Đề xuất menu hash (nếu Người 1 muốn trỏ thẳng section trang chủ):
-  - `Schedule Rescue` → `/#schedule`
-  - `Send a Rescue` → `/#gifting` (hoặc `contact/#gifting`)
+- Hỗ trợ tham số URL chia sẻ trạng thái: `/build-your-own-kit/?category=<exam|project|club|care>&level=<1-7>&apply=1`.
 
-## 2. Tính năng "Build Your Own Kit" & "Cart Demo" (Mới)
-- **Trang chính:**
-  - `content/build-your-own-kit/_index.md` → template `layouts/build-your-own-kit/list.html`
-  - `content/cart-demo/_index.md` → template `layouts/cart-demo/list.html`
-- **Dữ liệu mẫu:**
-  - `data/survival_kit/products.json` (12 sản phẩm mẫu chia đều 6 nhóm: `drinks`, `snacks`, `study`, `ergonomics`, `mood`, `packaging`)
-  - `data/survival_kit/presets.json` (3 bộ kit nhanh cho Level 7 SOS: `sos-rush`, `all-nighter`, `final-boss`)
-  - `static/images/survival-kit/*.svg` (ảnh minh họa SVG cho 12 sản phẩm)
-- **Shared Panic Level:**
-  - `layouts/_partials/panic-picker.html` (7 nút radio phân đoạn 1–7)
-  - `assets/js/panic-level.js` (đồng bộ `sessionStorage` key `survivalKitPanicLevel`, phát event `paniclevelchange`, API `window.PanicLevel`)
-- **Bộ tương tác Builder & Demo Cart:**
-  - `assets/js/build-your-own-kit.js` (quản lý số lượng 0–20, tính tổng tiền, lọc theo chủ đề `exam`/`project`/`rush`/`free`, gợi ý theo Panic Level, xem trước lời nhắn an toàn với `textContent`, lưu vào `sessionStorage` key `survivalKitCart`)
-  - `assets/css/build-your-own-kit.css` (lưới card, responsive 360px, thanh sticky tóm tắt và nút bấm tối thiểu 44px)
+## 2. Hệ thống Recommendation Engine & Panic Slider (Mới)
+- **28 Kit gợi ý theo ma trận Category × Panic Level:**
+  - `data/survival_kit/kits.json`: 4 category (`exam`, `project`, `club`, `care`) × 7 level = 28 kit gợi ý hoàn chỉnh với mô tả và số lượng món.
+  - `data/survival_kit/products.json`: 15 sản phẩm mẫu (bổ sung 3 sản phẩm cho nhóm club: `snack-chia-se`, `tra-tui-loc-nhom`, `bo-but-nhom`).
+  - `static/images/survival-kit/*.svg`: 15 ảnh vector SVG đồng bộ phong cách.
+- **Partials dữ liệu & Bộ chọn:**
+  - `layouts/_partials/kits-data.html`: nhúng dữ liệu vào `<script id="sk-kit-data">`, tự động kiểm tra tính hợp lệ của kit lúc build (báo lỗi nếu thiếu level hoặc có ID lạ).
+  - `layouts/_partials/kit-category-picker.html`: 4 nút category dùng chung trang chủ và trang Build.
+  - `layouts/_partials/panic-selector.html`: tích hợp showcase gợi ý động theo level và category, hiệu ứng chuyển màu mượt mà.
+- **Client Scripts & State:**
+  - `assets/js/kit-recommend.js`: module gợi ý kit dùng chung (`window.KitRecommend`), đồng bộ `sessionStorage` key `survivalKitCategory`, phát event `kitcategorychange`.
+  - `assets/js/panic-level.js`: đồng bộ `sessionStorage` key `survivalKitPanicLevel`, phát event `paniclevelchange`.
+  - `assets/js/script.js`: tối ưu slider không giật (CSS `@property`, dải màu theo vị trí núm `--f`, touch-action, chống chạy lặp).
+  - `assets/js/build-your-own-kit.js`: card gợi ý theo level & category, nút "Áp dụng kit này", tự động nhận `?apply=1`.
 
-## 3. Người 4 — Frontmatter sản phẩm chính (`content/products/*.md`)
+## 3. Người 4 — Frontmatter sản phẩm chính (`content/products/*.md`) & i18n
 Ngoài field theme (`price`, `priceBefore`, `productID`, `shortDescription`, `images[].image`, `description`, `type: products`):
 - `panic_level`: số 1–7
 - `kit_type`: `exam` | `project` | `club` | `care`
+- i18n: các tên category (`Mùa thi`, `Đồ án`, `CLB & nhóm`, `Chăm sóc & tặng bạn`) hiện nằm trực tiếp trong `kits.json`. Nếu cần chuyển sang `i18n/*.yaml`, Người 4 có thể bổ sung key tương ứng.
 
-Template ẩn badge/filter data nếu thiếu field. Giá Mini/Standard/Premium: 39–59k / 79–129k / 149k+ ₫.
-
-## 4. Người 4 — i18n keys (`i18n/en.yaml` & `i18n/vi.yaml`)
-- `sk_demo_notice`, `sk_demo_disclaimer`, `sk_cart_disclaimer`, `sk_deadline_status`, `sk_panic_mode`, `sk_select_panic_level`
-- Đầy đủ fallback tiếng Việt / tiếng Anh mặc định trong template nếu chưa có key i18n.
+## 4. Người 2 — Design Tokens
+- Đã cấu hình `--panic-accent` tự động ánh xạ sang `--panic-1-text` đến `--panic-7-fill` theo thuộc tính `html[data-panic="N"]`.
+- Núm slider và nút chọn category active tự động đổi màu theo Panic Level với độ tương phản text $\ge 4.5:1$.

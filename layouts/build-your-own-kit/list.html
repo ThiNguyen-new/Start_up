@@ -25,58 +25,28 @@
       </div>
     </div>
 
-    {{/* Quick Kits (Level 7 SOS Presets) */}}
-    {{ with site.Data.survival_kit.presets }}
-    <div class="row js-presets-container" hidden>
-      <div class="col-12">
-        <div class="sk-presets-container">
-          <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap">
-            <div>
-              <span class="sk-badge sk-panic mb-1" data-level="7">SOS Urgent</span>
-              <h3 class="h4 font-weight-bold text-primary mb-1">Kit Cứu Nhanh Cho Level 7</h3>
-              <p class="text-muted small mb-0">Deadline sát nút! Chọn ngay bộ combo đã được phối sẵn để tiết kiệm thời gian.</p>
-            </div>
-          </div>
-          <div class="row">
-            {{ range . }}
-            <div class="col-md-4 mb-3">
-              <div class="sk-preset-card">
-                <div>
-                  <h4 class="h5 font-weight-bold mb-2">{{ .name }}</h4>
-                  <p class="small text-muted mb-3">{{ .description }}</p>
-                </div>
-                <div class="d-none js-preset-data" data-preset-id="{{ .id }}" aria-hidden="true">
-                  {{ .items | jsonify }}
-                </div>
-                <button type="button" class="btn btn-sm sk-btn sk-btn-primary btn-block js-apply-preset-btn sk-focusable" data-preset-id="{{ .id }}">
-                  Áp dụng kit này <i class="ti-check ml-1" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-            {{ end }}
-          </div>
-        </div>
-      </div>
-    </div>
-    {{ end }}
-
-    {{/* Theme Filter Buttons */}}
+    {{/* Chọn loại kit (dùng chung với trang chủ) */}}
     <div class="row">
       <div class="col-12">
-        <div class="sk-theme-filters" role="group" aria-label="Lọc theo chủ đề kit">
-          <button type="button" class="sk-theme-btn js-theme-btn active sk-focusable" data-theme="free" aria-pressed="true">
-            Tất cả chủ đề
-          </button>
-          <button type="button" class="sk-theme-btn js-theme-btn sk-focusable" data-theme="exam" aria-pressed="false">
-            <i class="ti-book mr-1" aria-hidden="true"></i> Mùa thi cử (Exam)
-          </button>
-          <button type="button" class="sk-theme-btn js-theme-btn sk-focusable" data-theme="project" aria-pressed="false">
-            <i class="ti-layout-grid2 mr-1" aria-hidden="true"></i> Chạy đồ án (Project)
-          </button>
-          <button type="button" class="sk-theme-btn js-theme-btn sk-focusable" data-theme="rush" aria-pressed="false">
-            <i class="ti-bolt mr-1" aria-hidden="true"></i> Nước rút (Rush)
-          </button>
-        </div>
+        {{ partial "kit-category-picker.html" . }}
+      </div>
+    </div>
+
+    {{/* Card kit gợi ý theo level và category (JS điền nội dung) */}}
+    <div class="row">
+      <div class="col-12">
+        <section class="sk-reco-card js-reco-card" aria-labelledby="reco-heading" hidden>
+          <span id="reco-heading" class="text-muted small text-uppercase d-block js-reco-heading"></span>
+          <h3 class="h4 font-weight-bold mb-1 js-reco-name"></h3>
+          <p class="text-muted mb-3 js-reco-tagline"></p>
+          <ul class="sk-kit-chips js-reco-items"></ul>
+          <div class="d-flex align-items-center justify-content-between flex-wrap">
+            <strong class="text-primary js-reco-total"></strong>
+            <button type="button" class="btn sk-btn sk-btn-primary sk-focusable js-apply-reco">
+              Áp dụng kit này <i class="ti-check ml-1" aria-hidden="true"></i>
+            </button>
+          </div>
+        </section>
       </div>
     </div>
 
@@ -107,17 +77,13 @@
           </h3>
           <div class="sk-byok-grid">
             {{ range $catItems }}
-            {{ $themesStr := delimit .themes "," }}
-            {{ $levelsStr := delimit .suggestedLevels "," }}
             <div class="sk-byok-card js-byok-card"
                  data-id="{{ .id }}"
                  data-name="{{ .name }}"
                  data-price="{{ .price }}"
-                 data-category="{{ .category }}"
-                 data-themes="{{ $themesStr }}"
-                 data-suggested-levels="{{ $levelsStr }}">
+                 data-category="{{ .category }}">
               
-              {{/* Suggestion Badge (dynamically shown when matching current Panic Level) */}}
+              {{/* Suggestion Badge (dynamically shown when matching current Panic Level recommendation) */}}
               <span class="sk-badge-suggested js-suggested-badge" hidden>
                 Gợi ý
               </span>
@@ -239,6 +205,8 @@
     Vào giỏ (demo) <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
   </button>
 </div>
+
+{{ partial "kits-data.html" . }}
 
 {{/* Load BYOK Script with defer */}}
 {{ with resources.Get "js/build-your-own-kit.js" }}

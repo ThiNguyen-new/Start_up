@@ -419,3 +419,167 @@
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
+
+/* ==========================================================================
+   Phụ lục A: CSS cho Panic Slider, Hệ màu và Kit Recommendation
+   ========================================================================== */
+
+/* Phần 1: hệ màu theo level (Giai đoạn 2) */
+/* === Panic color system (tokens từ custom.css) === */
+:root {
+  --panic-accent: var(--panic-3-text);
+  --panic-track: linear-gradient(to right,
+    var(--panic-1-text), var(--panic-2-text), var(--panic-3-text),
+    var(--panic-4-text), var(--panic-5-text), var(--panic-6-text),
+    var(--panic-7-fill));
+}
+html[data-panic="1"] { --panic-accent: var(--panic-1-text); }
+html[data-panic="2"] { --panic-accent: var(--panic-2-text); }
+html[data-panic="3"] { --panic-accent: var(--panic-3-text); }
+html[data-panic="4"] { --panic-accent: var(--panic-4-text); }
+html[data-panic="5"] { --panic-accent: var(--panic-5-text); }
+html[data-panic="6"] { --panic-accent: var(--panic-6-text); }
+html[data-panic="7"] { --panic-accent: var(--panic-7-fill); }
+
+/* Slider trang chủ: thanh gradient, núm theo màu level. */
+/* Mỗi pseudo-element vendor là một rule riêng (gộp chung sẽ bị trình duyệt bỏ). */
+.js-panic-slider.sk-input {
+  border: 0; background: transparent; padding: 0; min-height: 2.5rem;
+}
+
+/* Phần 2: slider mượt (Giai đoạn 3) */
+/* Đăng ký biến màu để trình duyệt nội suy (chuyển mượt). Ngoại lệ hex duy nhất:
+  initial-value của @property bắt buộc là giá trị cụ thể (= --panic-3-text). */
+@property --panic-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #8a6d1d;
+}
+html { transition: --panic-accent 0.35s ease; }
+
+.js-panic-slider {
+  --f: 0.5; /* vị trí núm 0..1, do script.js cập nhật */
+  touch-action: pan-y; /* kéo ngang không cuộn trang trên điện thoại */
+  -webkit-tap-highlight-color: transparent;
+  cursor: grab;
+}
+.js-panic-slider:active { cursor: grabbing; }
+
+/* Thanh: phần đã đi qua hiện dải màu, phần chưa tới xám nhạt */
+.js-panic-slider::-webkit-slider-runnable-track {
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background:
+    linear-gradient(to right, transparent calc(0.875rem + (100% - 1.75rem) * var(--f)),
+    var(--color-light) 0),
+    var(--panic-track);
+}
+.js-panic-slider::-moz-range-track {
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background:
+    linear-gradient(to right, transparent calc(0.875rem + (100% - 1.75rem) * var(--f)),
+    var(--color-light) 0),
+    var(--panic-track);
+}
+
+/* Núm: phản hồi khi chạm, vòng focus cùng màu level */
+.js-panic-slider::-webkit-slider-thumb {
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-top: -0.625rem;
+  background-color: var(--panic-accent);
+  border: 3px solid var(--color-surface);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.js-panic-slider::-moz-range-thumb {
+  width: 1.75rem;
+  height: 1.75rem;
+  background-color: var(--panic-accent);
+  border: 3px solid var(--color-surface);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.js-panic-slider:active::-webkit-slider-thumb { transform: scale(1.12); }
+.js-panic-slider:active::-moz-range-thumb { transform: scale(1.12); }
+.js-panic-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--panic-accent) 30%, transparent);
+}
+.js-panic-slider:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--panic-accent) 30%, transparent);
+}
+
+/* Showcase kit: mờ nhẹ khi đổi nội dung, giữ chiều cao để layout không giật */
+.js-panic-kit-showcase { transition: opacity 0.18s ease; }
+.js-panic-kit-showcase.is-swapping { opacity: 0.55; }
+.js-panic-kit-desc { min-height: 3em; }
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  .js-panic-kit-showcase { transition: none; }
+  .js-panic-slider::-webkit-slider-thumb { transition: none; }
+  .js-panic-slider::-moz-range-thumb { transition: none; }
+}
+
+/* Phần 3: nút category, chip món, card gợi ý (Giai đoạn 6 và 7) */
+/* Nút chọn category (dùng chung trang chủ và trang Build) */
+.sk-kit-cats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.sk-kit-cat-btn {
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-dark);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.sk-kit-cat-btn:hover { background-color: var(--color-light); color: var(--color-primary); }
+.sk-kit-cat-btn[aria-pressed="true"] {
+  background-color: var(--panic-accent);
+  border-color: var(--panic-accent);
+  color: var(--color-text-inverted);
+}
+.sk-kit-cat-btn:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+
+/* Danh sách món của kit */
+.sk-kit-chips {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.sk-kit-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface);
+  color: var(--color-text-dark);
+  font-size: 0.8125rem;
+}
+.sk-kit-chip img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--color-body);
+}
+
+/* Card "Kit gợi ý cho Level N" ở trang Build */
+.sk-reco-card {
+  background-color: var(--color-surface);
+  border: 2px solid var(--panic-accent);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.35s ease;
+}
+

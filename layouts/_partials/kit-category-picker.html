@@ -1,0 +1,7 @@
+{{/* 4 nút category, dùng chung trang chủ và trang Build. */}}
+<div class="sk-kit-cats" role="group" aria-label="Chọn loại kit">
+  {{ range site.Data.survival_kit.kits }}
+  <button type="button" class="sk-kit-cat-btn js-kit-cat-btn sk-focusable"
+          data-category="{{ .id }}" aria-pressed="false">{{ .name }}</button>
+  {{ end }}
+</div>
