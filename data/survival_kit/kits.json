@@ -1,0 +1,310 @@
+[
+  {
+    "id": "exam",
+    "name": "Mùa thi",
+    "tagline": "Ôn thi và tuần thi cử.",
+    "levels": {
+      "1": {
+        "name": "Ôn nhẹ, đầu mát",
+        "tagline": "Deadline còn xa. Giữ nhịp ôn bài thong thả, không vội.",
+        "items": {
+          "tra-hoa-cuc": 1,
+          "but-highlight": 1,
+          "sticker-meme": 1
+        }
+      },
+      "2": {
+        "name": "Giữ nhịp ôn bài",
+        "tagline": "Bắt đầu có lịch thi. Ghi chú rõ ràng và một ly trà dịu.",
+        "items": {
+          "tra-hoa-cuc": 1,
+          "but-highlight": 1,
+          "giay-note": 1,
+          "thiep-dong-vien": 1
+        }
+      },
+      "3": {
+        "name": "Tuần thi bắt đầu",
+        "tagline": "Thi cử đã gần. Tỉnh táo vừa đủ và highlight đúng trọng tâm.",
+        "items": {
+          "cafe-phin": 1,
+          "but-highlight": 1,
+          "giay-note": 1,
+          "energy-bar": 1
+        }
+      },
+      "4": {
+        "name": "Ôn dồn có chiến thuật",
+        "tagline": "Khối lượng tăng. Chia nhỏ đề cương và nạp năng lượng đều.",
+        "items": {
+          "cafe-phin": 1,
+          "but-highlight": 1,
+          "giay-note": 2,
+          "energy-bar": 1
+        }
+      },
+      "5": {
+        "name": "Tuần thi cao điểm",
+        "tagline": "Thi dồn dập. Tập trung cao độ, giữ đầu óc thông thoáng.",
+        "items": {
+          "cafe-phin": 1,
+          "but-highlight": 1,
+          "energy-bar": 2,
+          "tinh-dau-lan": 1
+        }
+      },
+      "6": {
+        "name": "Đêm cuối trước thi",
+        "tagline": "Chỉ còn một đêm. Cà phê, năng lượng và nghỉ mắt đúng lúc.",
+        "items": {
+          "cafe-phin": 2,
+          "energy-bar": 1,
+          "tinh-dau-lan": 1,
+          "mat-na-mat": 1
+        }
+      },
+      "7": {
+        "name": "Cứu thi khẩn cấp",
+        "tagline": "Sát giờ thi. Gói tiếp sức gọn nhẹ kèm lời nhắn giữ bình tĩnh.",
+        "items": {
+          "cafe-phin": 1,
+          "energy-bar": 2,
+          "tinh-dau-lan": 1,
+          "mat-na-mat": 1,
+          "thiep-dong-vien": 1
+        }
+      }
+    }
+  },
+  {
+    "id": "project",
+    "name": "Đồ án",
+    "tagline": "Làm đồ án, báo cáo, demo.",
+    "levels": {
+      "1": {
+        "name": "Đồ án thong thả",
+        "tagline": "Còn nhiều thời gian. Trà, giấy note và nhãn dán để giữ hứng.",
+        "items": {
+          "tra-hoa-cuc": 1,
+          "giay-note": 1,
+          "sticker-meme": 1
+        }
+      },
+      "2": {
+        "name": "Chia task rõ ràng",
+        "tagline": "Bắt đầu chia việc. Giấy note để kéo task, trà để giữ bình tĩnh.",
+        "items": {
+          "tra-hoa-cuc": 1,
+          "giay-note": 2,
+          "sticker-meme": 1
+        }
+      },
+      "3": {
+        "name": "Đồ án vào guồng",
+        "tagline": "Code và báo cáo chạy đều. Cà phê, ghi chú và đệm cổ tay.",
+        "items": {
+          "cafe-phin": 1,
+          "giay-note": 1,
+          "dem-tay-chuot": 1
+        }
+      },
+      "4": {
+        "name": "Sprint giữa kỳ",
+        "tagline": "Nhịp độ tăng. Thêm năng lượng để không đuối giữa chặng.",
+        "items": {
+          "cafe-phin": 1,
+          "giay-note": 1,
+          "dem-tay-chuot": 1,
+          "energy-bar": 1
+        }
+      },
+      "5": {
+        "name": "Deadline đồ án sát",
+        "tagline": "Còn vài ngày. Giữ cổ tay, giữ mắt, giữ năng lượng.",
+        "items": {
+          "cafe-phin": 2,
+          "dem-tay-chuot": 1,
+          "energy-bar": 1,
+          "mat-na-mat": 1
+        }
+      },
+      "6": {
+        "name": "Đêm trước demo",
+        "tagline": "Chạy thử và sửa lỗi xuyên đêm. Socola và cà phê đôi.",
+        "items": {
+          "cafe-phin": 2,
+          "chocolate-den": 1,
+          "dem-tay-chuot": 1,
+          "mat-na-mat": 1
+        }
+      },
+      "7": {
+        "name": "Cứu đồ án giờ chót",
+        "tagline": "Nộp bài trong giờ tới. Tiếp sức nhanh và lời nhắn từ đồng đội.",
+        "items": {
+          "cafe-phin": 2,
+          "chocolate-den": 1,
+          "energy-bar": 1,
+          "mat-na-mat": 1,
+          "thiep-dong-vien": 1
+        }
+      }
+    }
+  },
+  {
+    "id": "club",
+    "name": "CLB & nhóm",
+    "tagline": "Làm việc cùng nhóm (kit mặc định cho 4 người).",
+    "levels": {
+      "1": {
+        "name": "Họp CLB thong thả",
+        "tagline": "Họp nhẹ nhàng. Trà chia cả nhóm và sticker cho vui.",
+        "items": {
+          "tra-tui-loc-nhom": 1,
+          "sticker-meme": 2
+        }
+      },
+      "2": {
+        "name": "Chia việc cả nhóm",
+        "tagline": "Phân công đầu việc. Giấy note cho từng người.",
+        "items": {
+          "tra-tui-loc-nhom": 1,
+          "giay-note": 1,
+          "sticker-meme": 2
+        }
+      },
+      "3": {
+        "name": "Chốt phần việc",
+        "tagline": "Cần chốt tiến độ. Snack chia sẻ và giấy note để họp nhanh.",
+        "items": {
+          "tra-tui-loc-nhom": 1,
+          "snack-chia-se": 1,
+          "giay-note": 1
+        }
+      },
+      "4": {
+        "name": "Họp nhóm dài",
+        "tagline": "Buổi họp kéo dài. Trà, snack và bộ bút cho cả nhóm.",
+        "items": {
+          "tra-tui-loc-nhom": 1,
+          "snack-chia-se": 1,
+          "bo-but-nhom": 1
+        }
+      },
+      "5": {
+        "name": "Chạy nước rút cùng nhau",
+        "tagline": "Cả nhóm dồn sức. Cà phê, snack và thiệp động viên nhau.",
+        "items": {
+          "cafe-phin": 2,
+          "snack-chia-se": 1,
+          "bo-but-nhom": 1,
+          "thiep-dong-vien": 1
+        }
+      },
+      "6": {
+        "name": "Đêm làm nhóm",
+        "tagline": "Thức khuya cùng đồng đội. Đồ uống, socola và nghỉ mắt.",
+        "items": {
+          "cafe-phin": 2,
+          "snack-chia-se": 1,
+          "chocolate-den": 1,
+          "mat-na-mat": 2
+        }
+      },
+      "7": {
+        "name": "Cả nhóm cùng cứu",
+        "tagline": "Giờ chót của cả nhóm. Đủ đồ cho đêm dài, kèm thiệp cho từng người.",
+        "items": {
+          "cafe-phin": 2,
+          "snack-chia-se": 1,
+          "energy-bar": 1,
+          "mat-na-mat": 2,
+          "thiep-dong-vien": 2
+        }
+      }
+    }
+  },
+  {
+    "id": "care",
+    "name": "Chăm sóc & tặng bạn",
+    "tagline": "Gửi cho người khác hoặc tự chăm sóc.",
+    "levels": {
+      "1": {
+        "name": "Một cái ôm nhẹ",
+        "tagline": "Gửi bạn lời nhắn nhỏ và ly trà dịu lòng.",
+        "items": {
+          "tra-hoa-cuc": 1,
+          "thiep-dong-vien": 1,
+          "hop-kraft": 1
+        }
+      },
+      "2": {
+        "name": "Quà nhỏ cho bạn",
+        "tagline": "Món quà nhẹ nhàng nhắc bạn đã làm tốt lắm.",
+        "items": {
+          "tra-hoa-cuc": 1,
+          "sticker-meme": 1,
+          "thiep-dong-vien": 1,
+          "hop-kraft": 1
+        }
+      },
+      "3": {
+        "name": "Nhắc bạn nghỉ ngơi",
+        "tagline": "Bạn đang căng. Dầu lăn thư giãn và lời nhắn dịu dàng.",
+        "items": {
+          "tra-hoa-cuc": 1,
+          "tinh-dau-lan": 1,
+          "thiep-dong-vien": 1,
+          "hop-kraft": 1
+        }
+      },
+      "4": {
+        "name": "Tiếp sức dịu dàng",
+        "tagline": "Thêm chút năng lượng và chườm mắt giúp bạn đỡ mệt.",
+        "items": {
+          "tra-hoa-cuc": 1,
+          "energy-bar": 1,
+          "mat-na-mat": 1,
+          "thiep-dong-vien": 1,
+          "hop-kraft": 1
+        }
+      },
+      "5": {
+        "name": "Qua tuần căng cùng bạn",
+        "tagline": "Cà phê, socola và lời nhắn để bạn vượt tuần căng thẳng.",
+        "items": {
+          "cafe-phin": 1,
+          "chocolate-den": 1,
+          "mat-na-mat": 1,
+          "thiep-dong-vien": 1,
+          "hop-kraft": 1
+        }
+      },
+      "6": {
+        "name": "Gói chăm sóc khẩn",
+        "tagline": "Bạn sắp quá tải. Đủ đồ tiếp sức và thư giãn trong một hộp.",
+        "items": {
+          "cafe-phin": 1,
+          "chocolate-den": 1,
+          "tinh-dau-lan": 1,
+          "mat-na-mat": 1,
+          "thiep-dong-vien": 1,
+          "hop-kraft": 1
+        }
+      },
+      "7": {
+        "name": "Gói SOS tặng bạn",
+        "tagline": "Cứu bạn ngay lúc cần. Tiếp sức, thư giãn và lời nhắn giữ bình tĩnh.",
+        "items": {
+          "cafe-phin": 1,
+          "energy-bar": 1,
+          "chocolate-den": 1,
+          "tinh-dau-lan": 1,
+          "mat-na-mat": 1,
+          "thiep-dong-vien": 1,
+          "hop-kraft": 1
+        }
+      }
+    }
+  }
+]

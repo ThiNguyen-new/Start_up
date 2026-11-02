@@ -1,6 +1,4 @@
 {{/* Panic Level Meter 1–7. Hidden when site.Params.features.enable_panic_level is false (caller). */}}
-{{ $products := where site.RegularPages "Type" "products" }}
-{{ $currency := site.Params.currencySymbol | default "₫" }}
 
 <section class="sk-section pt-0" id="panic" aria-labelledby="panic-heading">
   <div class="container">
@@ -20,7 +18,8 @@
             <div>
               <span class="text-muted small text-uppercase font-weight-bold d-block">Current Deadline Status</span>
               <span class="h3 mb-0 sk-display js-panic-meter-title">
-                <span data-panic-level-text>Level <span class="js-panic-meter-num">4</span></span>: <span class="js-panic-meter-status">Panic Mode</span>
+                <span data-panic-level-text>Level 4</span>:
+                <span class="js-panic-meter-status">Panic Mode</span>
               </span>
               <p class="text-muted small mb-0 font-italic mt-1" data-panic-level-message></p>
             </div>
@@ -49,133 +48,32 @@
         </div>
 
         <!-- Matching Kit Display (Showcase Card) -->
-        <div class="sk-card sk-card--rescue p-4 js-panic-kit-showcase">
-          <div class="row align-items-center">
-            <div class="col-md-4 mb-3 mb-md-0 text-center">
-              <div class="js-panic-kit-image-wrapper">
-                <img src="" alt="Survival Kit" class="img-fluid rounded mx-auto d-block js-panic-kit-img" width="360" height="300">
-              </div>
-            </div>
-            <div class="col-md-8">
-              <div class="mb-2">
-                <span class="sk-badge js-panic-kit-badge mb-1">Recommended Kit</span>
-                <span class="sk-badge-accent js-panic-kit-type mb-1">Project</span>
-              </div>
-              <h3 class="h3 js-panic-kit-title mb-2">Project Survival Kit</h3>
-              <p class="text-muted js-panic-kit-desc mb-3">
-                Loading matching kit...
-              </p>
-              <div class="d-flex align-items-center justify-content-between flex-wrap">
-                <div class="mb-2 mb-sm-0">
-                  <span class="h4 font-weight-bold text-primary js-panic-kit-price mb-0">₫119.000</span>
-                </div>
-                <div>
-                  <a href="#" class="sk-btn sk-btn-primary sk-focusable js-panic-explore-btn">
-                    Explore This Kit <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
+        <div class="sk-card sk-card--rescue p-4 js-panic-kit-showcase"
+             data-build-url="{{ "build-your-own-kit/" | relLangURL }}">
+          {{ partial "kit-category-picker.html" . }}
+          <div class="mb-2">
+            <span class="sk-badge js-panic-kit-badge mb-1">Kit gợi ý cho level này</span>
+            <span class="sk-badge-accent js-panic-kit-type mb-1"></span>
           </div>
+          <h3 class="h3 js-panic-kit-title mb-2"></h3>
+          <p class="text-muted js-panic-kit-desc mb-3"></p>
+          <ul class="sk-kit-chips js-panic-kit-items"></ul>
+          <div class="d-flex align-items-center justify-content-between flex-wrap">
+            <span class="h4 font-weight-bold text-primary js-panic-kit-price mb-2 mb-sm-0">0 ₫</span>
+            <a href="#" class="sk-btn sk-btn-primary sk-focusable js-panic-explore-btn">
+              Xây kit này <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
+            </a>
+          </div>
+          <p class="sr-only js-panic-kit-live" aria-live="polite"></p>
         </div>
 
         <!-- Hidden data repository for levels 1 to 7 -->
         <div class="d-none js-panic-data-container" aria-hidden="true">
-          {{ range $idx, $lvl := site.Data.theme.panic_levels }}
-            {{ $levelNum := int .level }}
-            {{ $levelName := .name }}
-
-            {{/* Check if any product has matching panic_level */}}
-            {{ $matchedPage := false }}
-            {{ range $products }}
-              {{ if eq (string .Params.panic_level) (string $levelNum) }}
-                {{ $matchedPage = . }}
-              {{ end }}
-            {{ end }}
-
-            {{/* Fallback to product from products list by index if available */}}
-            {{ $fallbackProduct := false }}
-            {{ if gt (len $products) 0 }}
-              {{ $productIdx := mod $idx (len $products) }}
-              {{ $fallbackProduct = index $products $productIdx }}
-            {{ end }}
-
-            {{/* Preset info according to docs/survival-kit-idea.md */}}
-            {{ $title := "Survival Kit" }}
-            {{ $kitType := "general" }}
-            {{ $price := "99.000" }}
-            {{ $desc := "Bộ kit tiếp sức deadline phù hợp với mức độ hoảng loạn của bạn." }}
-
-            {{ if eq $levelNum 1 }}
-              {{ $title = "Chill Care Kit" }}
-              {{ $kitType = "care" }}
-              {{ $price = "49.000" }}
-              {{ $desc = "Deadline còn xa, học hành thong thả. Trà thảo mộc thanh nhiệt, snack nhẹ và checklist kế hoạch học tập giúp giữ nhịp độ bền bỉ." }}
-            {{ else if eq $levelNum 2 }}
-              {{ $title = "Mini Rescue Kit" }}
-              {{ $kitType = "exam" }}
-              {{ $price = "59.000" }}
-              {{ $desc = "Deadline bắt đầu xuất hiện trong tuần. Cà phê túi lọc, snack hạt dinh dưỡng, note dán và sticker động viên nhẹ nhàng." }}
-            {{ else if eq $levelNum 3 }}
-              {{ $title = "Exam Prep Kit" }}
-              {{ $kitType = "exam" }}
-              {{ $price = "89.000" }}
-              {{ $desc = "Hơi căng thẳng trước tuần thi cử. Trà hoa cúc thư giãn, bookmark nhắc lịch thi, bút dạ quang highlight kiến thức trọng tâm." }}
-            {{ else if eq $levelNum 4 }}
-              {{ $title = "Project Survival Kit" }}
-              {{ $kitType = "project" }}
-              {{ $price = "119.000" }}
-              {{ $desc = "Áp lực tăng cao, đồ án sát nút. Nước tăng lực, snack nạp năng lượng nhanh, giấy note brainstorming và checklist chia nhỏ task nhóm." }}
-            {{ else if eq $levelNum 5 }}
-              {{ $title = "Exam Crunch Kit" }}
-              {{ $kitType = "exam" }}
-              {{ $price = "129.000" }}
-              {{ $desc = "Vào tuần thi cử dồn dập. Cà phê đậm đặc, kẹo ngậm tỉnh táo, sổ tay ôn tập cấp tốc giúp tập trung cao độ vượt qua thử thách." }}
-            {{ else if eq $levelNum 6 }}
-              {{ $title = "Final Boss Rescue Kit" }}
-              {{ $kitType = "club" }}
-              {{ $price = "159.000" }}
-              {{ $desc = "Đối mặt deadline lớn nhất học kỳ. Hộp cứu trợ khẩn cấp, thức uống nạp điện giải, đồ ăn nhanh tiện dụng và lời nhắn động viên từ đồng đội." }}
-            {{ else if eq $levelNum 7 }}
-              {{ $title = "SOS Emergency Rescue Kit" }}
-              {{ $kitType = "care" }}
-              {{ $price = "189.000" }}
-              {{ $desc = "Nước rút sát giờ nộp bài! Gói cứu sinh tối thượng: tiếp sức tức thì, thẻ thông điệp giữ bình tĩnh, hướng dẫn hít thở sâu và nhắc nhở nghỉ ngơi." }}
-            {{ end }}
-
-            {{/* Final field overrides if a real product is matched */}}
-            {{ $targetURL := "" }}
-            {{ $targetImg := "" }}
-            {{ if $matchedPage }}
-              {{ $title = $matchedPage.Title }}
-              {{ $targetURL = $matchedPage.RelPermalink }}
-              {{ with $matchedPage.Params.kit_type }}{{ $kitType = . }}{{ end }}
-              {{ with $matchedPage.Params.price }}{{ $price = (string .) }}{{ end }}
-              {{ with or $matchedPage.Params.description $matchedPage.Params.shortDescription }}{{ $desc = . }}{{ end }}
-              {{ range first 1 $matchedPage.Params.images }}
-                {{ $targetImg = .image | absURL }}
-              {{ end }}
-            {{ else if $fallbackProduct }}
-              {{ $targetURL = $fallbackProduct.RelPermalink }}
-              {{ range first 1 $fallbackProduct.Params.images }}
-                {{ $targetImg = .image | absURL }}
-              {{ end }}
-            {{ else }}
-              {{ $targetURL = "products/" | relLangURL }}
-              {{ $targetImg = "images/products/product-1.png" | absURL }}
-            {{ end }}
-
-            <div class="js-panic-data-item"
-                 data-level="{{ $levelNum }}"
-                 data-name="{{ $levelName }}"
-                 data-title="{{ $title }}"
-                 data-kit-type="{{ $kitType }}"
-                 data-price="{{ $currency }}{{ $price }}"
-                 data-desc="{{ $desc }}"
-                 data-url="{{ $targetURL }}"
-                 data-img="{{ $targetImg }}"></div>
+          {{ range site.Data.theme.panic_levels }}
+          <div class="js-panic-data-item" data-level="{{ .level }}" data-name="{{ .name }}"></div>
           {{ end }}
         </div>
+        {{ partial "kits-data.html" . }}
       </div>
     </div>
   </div>

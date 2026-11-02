@@ -43,7 +43,7 @@
             </div>
             <div class="mt-2 mt-sm-0">
               <span class="sk-badge sk-panic js-cart-panic-badge mr-2">Panic Level 3</span>
-              <span class="sk-badge-accent js-cart-theme-badge">Chủ đề: Tự do</span>
+              <span class="sk-badge-accent js-cart-category-badge">Loại kit: Mùa thi</span>
             </div>
           </div>
 
@@ -167,15 +167,21 @@
       panicBadge.setAttribute('data-level', lvl);
     }
 
-    var themeBadge = document.querySelector('.js-cart-theme-badge');
-    if (themeBadge) {
-      var themeLabels = {
-        free: 'Tự do',
-        exam: 'Mùa thi cử (Exam)',
-        project: 'Chạy đồ án (Project)',
-        rush: 'Nước rút (Rush)'
-      };
-      themeBadge.textContent = 'Chủ đề: ' + (themeLabels[cart.theme] || cart.theme || 'Tự do');
+    var catBadge = document.querySelector('.js-cart-category-badge, .js-cart-theme-badge');
+    if (catBadge) {
+      var catName = cart.categoryName;
+      if (!catName) {
+        var categoryLabels = {
+          exam: 'Mùa thi',
+          project: 'Đồ án',
+          club: 'CLB & nhóm',
+          care: 'Chăm sóc & tặng bạn',
+          free: 'Tự do',
+          rush: 'Nước rút'
+        };
+        catName = categoryLabels[cart.category] || categoryLabels[cart.theme] || cart.category || cart.theme || 'Mùa thi';
+      }
+      catBadge.textContent = 'Loại kit: ' + catName;
     }
 
     // Items table

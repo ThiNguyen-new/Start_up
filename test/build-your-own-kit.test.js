@@ -5,12 +5,12 @@ const path = require('node:path');
 
 const VALID_CATEGORIES = ['drinks', 'snacks', 'study', 'ergonomics', 'mood', 'packaging'];
 
-test('Build Your Own Kit: products.json has 12 valid sample items across 6 categories', () => {
+test('Build Your Own Kit: products.json has at least 15 valid items across 6 categories', () => {
   const filePath = path.join(__dirname, '../data/survival_kit/products.json');
   assert.ok(fs.existsSync(filePath), 'products.json must exist in data/survival_kit/');
   
   const products = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  assert.equal(products.length, 12, 'Must have exactly 12 sample products');
+  assert.ok(products.length >= 15, 'Must have at least 15 products (12 initial + 3 club products)');
 
   const categoryCounts = {};
   VALID_CATEGORIES.forEach(c => categoryCounts[c] = 0);
@@ -23,11 +23,6 @@ test('Build Your Own Kit: products.json has 12 valid sample items across 6 categ
 
     assert.ok(Number.isInteger(p.price) && p.price > 0, `Price of ${p.id} must be an integer > 0`);
     assert.ok(p.image, `Product ${p.id} must have image`);
-    assert.ok(Array.isArray(p.themes) && p.themes.length > 0, `Product ${p.id} must have themes`);
-    assert.ok(Array.isArray(p.suggestedLevels) && p.suggestedLevels.length > 0, `Product ${p.id} must have suggestedLevels`);
-    p.suggestedLevels.forEach(lvl => {
-      assert.ok(Number.isInteger(lvl) && lvl >= 1 && lvl <= 7, `Level ${lvl} must be between 1 and 7`);
-    });
   });
 
   VALID_CATEGORIES.forEach(c => {
@@ -35,28 +30,50 @@ test('Build Your Own Kit: products.json has 12 valid sample items across 6 categ
   });
 });
 
-test('Build Your Own Kit: presets.json contains valid Level 7 quick kit presets', () => {
+test('Recommendation Engine: kits.json contains all 28 kits (4 categories x 7 levels) with valid products and pricing', () => {
   const productsPath = path.join(__dirname, '../data/survival_kit/products.json');
-  const presetsPath = path.join(__dirname, '../data/survival_kit/presets.json');
-  
-  assert.ok(fs.existsSync(presetsPath), 'presets.json must exist in data/survival_kit/');
+  const kitsPath = path.join(__dirname, '../data/survival_kit/kits.json');
+
+  assert.ok(fs.existsSync(kitsPath), 'kits.json must exist in data/survival_kit/');
   const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
-  const validIds = new Set(products.map(p => p.id));
+  const productMap = {};
+  products.forEach(p => productMap[p.id] = p);
 
-  const presets = JSON.parse(fs.readFileSync(presetsPath, 'utf8'));
-  assert.ok(presets.length >= 2, 'Must have at least 2 presets for Level 7');
+  const kits = JSON.parse(fs.readFileSync(kitsPath, 'utf8'));
+  assert.equal(kits.length, 4, 'Must have 4 categories: exam, project, club, care');
 
-  presets.forEach(preset => {
-    assert.ok(preset.id, 'Preset must have an id');
-    assert.ok(preset.name, 'Preset must have a name');
-    assert.ok(preset.items && typeof preset.items === 'object', 'Preset must have items map');
-    
-    const itemIds = Object.keys(preset.items);
-    assert.ok(itemIds.length > 0, 'Preset must include at least 1 item');
-    itemIds.forEach(id => {
-      assert.ok(validIds.has(id), `Preset item ${id} must exist in products.json`);
-      assert.ok(Number.isInteger(preset.items[id]) && preset.items[id] > 0, `Preset item quantity for ${id} must be > 0`);
-    });
+  const EXPECTED_TOTALS = {
+    exam: { '1': 60000, '2': 73000, '3': 90000, '4': 108000, '5': 129000, '6': 122000, '7': 129000 },
+    project: { '1': 53000, '2': 71000, '3': 88000, '4': 110000, '5': 132000, '6': 140000, '7': 127000 },
+    club: { '1': 75000, '2': 93000, '3': 123000, '4': 160000, '5': 175000, '6': 170000, '7': 182000 },
+    care: { '1': 55000, '2': 70000, '3': 90000, '4': 92000, '5': 105000, '6': 140000, '7': 162000 }
+  };
+
+  kits.forEach(cat => {
+    assert.ok(EXPECTED_TOTALS[cat.id], `Category ${cat.id} must be in expected list`);
+    for (let l = 1; l <= 7; l++) {
+      const lvlStr = String(l);
+      const k = cat.levels[lvlStr];
+      assert.ok(k, `Category ${cat.id} must have level ${l}`);
+      assert.ok(k.name, `Category ${cat.id} level ${l} must have name`);
+      assert.ok(k.tagline, `Category ${cat.id} level ${l} must have tagline`);
+
+      let total = 0;
+      let count = 0;
+      const itemIds = Object.keys(k.items);
+      assert.ok(itemIds.length > 0, `Category ${cat.id} level ${l} must have items`);
+
+      itemIds.forEach(pid => {
+        const prod = productMap[pid];
+        assert.ok(prod, `Product ${pid} in ${cat.id} level ${l} must exist in products.json`);
+        const qty = k.items[pid];
+        assert.ok(Number.isInteger(qty) && qty >= 1 && qty <= 20, `Qty for ${pid} must be integer 1-20`);
+        total += prod.price * qty;
+        count += qty;
+      });
+
+      assert.equal(total, EXPECTED_TOTALS[cat.id][lvlStr], `Total for ${cat.id} level ${l} must match specification table`);
+    }
   });
 });
 

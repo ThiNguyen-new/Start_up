@@ -6,8 +6,18 @@
     "price": 25000,
     "image": "images/survival-kit/cafe-phin.svg",
     "description": "Cà phê phin giấy Robusta đậm đà giúp tỉnh táo tức thì để tập trung giải quyết deadline.",
-    "themes": ["exam", "project", "rush"],
-    "suggestedLevels": [3, 4, 5, 6, 7]
+    "themes": [
+      "exam",
+      "project",
+      "rush"
+    ],
+    "suggestedLevels": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "tra-hoa-cuc",
@@ -16,8 +26,15 @@
     "price": 20000,
     "image": "images/survival-kit/tra-hoa-cuc.svg",
     "description": "Trà thảo mộc thanh mát giúp giải tỏa căng thẳng và duy trì nhịp độ làm việc nhẹ nhàng.",
-    "themes": ["exam", "project"],
-    "suggestedLevels": [1, 2, 3]
+    "themes": [
+      "exam",
+      "project"
+    ],
+    "suggestedLevels": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "energy-bar",
@@ -26,8 +43,18 @@
     "price": 22000,
     "image": "images/survival-kit/energy-bar.svg",
     "description": "Nạp calo sạch và chất béo tốt tức thì, không lo đầy bụng khi ngồi học lâu.",
-    "themes": ["exam", "project", "rush"],
-    "suggestedLevels": [3, 4, 5, 6, 7]
+    "themes": [
+      "exam",
+      "project",
+      "rush"
+    ],
+    "suggestedLevels": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "chocolate-den",
@@ -36,8 +63,16 @@
     "price": 30000,
     "image": "images/survival-kit/chocolate-den.svg",
     "description": "Kích thích dopamine và tăng tuần hoàn máu não, giải cứu cơn buồn ngủ ca đêm.",
-    "themes": ["project", "rush"],
-    "suggestedLevels": [4, 5, 6, 7]
+    "themes": [
+      "project",
+      "rush"
+    ],
+    "suggestedLevels": [
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "giay-note",
@@ -46,8 +81,16 @@
     "price": 18000,
     "image": "images/survival-kit/giay-note.svg",
     "description": "Giấy note màu sắc chia task khẩn cấp và checklist những việc cần nộp trước deadline.",
-    "themes": ["exam", "project"],
-    "suggestedLevels": [2, 3, 4, 5]
+    "themes": [
+      "exam",
+      "project"
+    ],
+    "suggestedLevels": [
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "but-highlight",
@@ -56,8 +99,14 @@
     "price": 25000,
     "image": "images/survival-kit/but-highlight.svg",
     "description": "Đánh dấu trọng tâm đề cương và công thức cần học cấp tốc trong tuần thi.",
-    "themes": ["exam"],
-    "suggestedLevels": [2, 3, 4]
+    "themes": [
+      "exam"
+    ],
+    "suggestedLevels": [
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "mat-na-mat",
@@ -66,8 +115,16 @@
     "price": 15000,
     "image": "images/survival-kit/mat-na-mat.svg",
     "description": "Thư giãn đôi mắt sau 8 tiếng dán chặt vào màn hình máy tính làm bài thuyết trình.",
-    "themes": ["project", "rush"],
-    "suggestedLevels": [4, 5, 6, 7]
+    "themes": [
+      "project",
+      "rush"
+    ],
+    "suggestedLevels": [
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "dem-tay-chuot",
@@ -76,8 +133,15 @@
     "price": 45000,
     "image": "images/survival-kit/dem-tay-chuot.svg",
     "description": "Chống mỏi cổ tay khi gõ phím và click chuột liên tục hoàn thành báo cáo đồ án.",
-    "themes": ["project"],
-    "suggestedLevels": [3, 4, 5, 6]
+    "themes": [
+      "project"
+    ],
+    "suggestedLevels": [
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "tinh-dau-lan",
@@ -86,8 +150,17 @@
     "price": 35000,
     "image": "images/survival-kit/tinh-dau-lan.svg",
     "description": "Hương bạc hà và khuynh diệp the mát, đánh thức giác quan khi đầu óc quá tải.",
-    "themes": ["exam", "rush"],
-    "suggestedLevels": [3, 4, 5, 6, 7]
+    "themes": [
+      "exam",
+      "rush"
+    ],
+    "suggestedLevels": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "sticker-meme",
@@ -96,8 +169,20 @@
     "price": 15000,
     "image": "images/survival-kit/sticker-meme.svg",
     "description": "Sticker hài hước dán laptop, nhắc nhở giữ bình tĩnh và tin vào bản thân.",
-    "themes": ["exam", "project", "rush"],
-    "suggestedLevels": [1, 2, 3, 4, 5, 6, 7]
+    "themes": [
+      "exam",
+      "project",
+      "rush"
+    ],
+    "suggestedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "hop-kraft",
@@ -106,8 +191,20 @@
     "price": 25000,
     "image": "images/survival-kit/hop-kraft.svg",
     "description": "Hộp carton cứng cáp đóng dấu trạm cứu hộ deadline, lót rơm bảo vệ toàn bộ món đồ.",
-    "themes": ["exam", "project", "rush"],
-    "suggestedLevels": [1, 2, 3, 4, 5, 6, 7]
+    "themes": [
+      "exam",
+      "project",
+      "rush"
+    ],
+    "suggestedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "thiep-dong-vien",
@@ -116,7 +213,71 @@
     "price": 10000,
     "image": "images/survival-kit/thiep-dong-vien.svg",
     "description": "Thiệp in lời nhắn khích lệ riêng gửi tặng đồng đội cùng vượt qua đêm nộp bài.",
-    "themes": ["exam", "project", "rush"],
-    "suggestedLevels": [1, 2, 3, 4, 5, 6, 7]
+    "themes": [
+      "exam",
+      "project",
+      "rush"
+    ],
+    "suggestedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  {
+    "id": "snack-chia-se",
+    "name": "Hộp snack chia sẻ cả nhóm",
+    "category": "snacks",
+    "price": 60000,
+    "image": "images/survival-kit/snack-chia-se.svg",
+    "description": "Combo các loại snack mặn ngọt đa dạng để cả nhóm cùng nạp năng lượng khi chạy đồ án.",
+    "themes": [
+      "project",
+      "rush"
+    ],
+    "suggestedLevels": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  {
+    "id": "tra-tui-loc-nhom",
+    "name": "Set trà túi lọc cho nhóm (10 túi)",
+    "category": "drinks",
+    "price": 45000,
+    "image": "images/survival-kit/tra-tui-loc-nhom.svg",
+    "description": "Set trà thảo mộc thanh mát 10 túi lọc tiện dụng cho buổi họp nhóm kéo dài.",
+    "themes": [
+      "exam",
+      "project"
+    ],
+    "suggestedLevels": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": "bo-but-nhom",
+    "name": "Bộ bút và note cho nhóm 4 người",
+    "category": "study",
+    "price": 55000,
+    "image": "images/survival-kit/bo-but-nhom.svg",
+    "description": "Bộ bút dạ quang và giấy note chia việc chuyên dụng cho nhóm 4 người phân công task.",
+    "themes": [
+      "project"
+    ],
+    "suggestedLevels": [
+      4,
+      5
+    ]
   }
 ]
