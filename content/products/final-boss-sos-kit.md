@@ -12,7 +12,8 @@ type: "products"
 panic_level: 7
 kit_type: "project"
 images:
-  - image: "images/products/final-boss-sos-kit.svg"
+  - image: "images/products/survival-kit-gifts/final-boss-sos-kit.jpg"
+image: "images/products/survival-kit-gifts/final-boss-sos-kit.jpg"
 ---
 
 ## Nước rút có thứ tự, vẫn nhớ chăm mình

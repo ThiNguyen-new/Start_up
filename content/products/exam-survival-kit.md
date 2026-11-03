@@ -12,7 +12,8 @@ type: "products"
 panic_level: 5
 kit_type: "exam"
 images:
-  - image: "images/products/exam-survival-kit.svg"
+  - image: "images/products/survival-kit-gifts/exam-survival-kit.jpg"
+image: "images/products/survival-kit-gifts/exam-survival-kit.jpg"
 ---
 
 ## Một góc học tập sẵn sàng cho mùa thi

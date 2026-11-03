@@ -1,6 +1,6 @@
 # Ảnh thực tế cho mặt hàng Survival Kit
 
-Thư mục này chứa ảnh nguồn đã được đặt tên theo mã mặt hàng trong `data/survival_kit/products.json`. Các mặt hàng thiệp và hộp có nhiều mẫu để người phụ trách giao diện có thể đưa vào bộ chọn ảnh.
+Thư mục này chứa ảnh nguồn đã được đặt tên theo mã mặt hàng trong `data/survival_kit/products.json`. Bộ tạo kit hiển thị nhiều mẫu để khách chọn cho hộp và thiệp.
 
 | Mặt hàng | Tệp ảnh |
 | --- | --- |

@@ -12,7 +12,8 @@ type: "products"
 panic_level: 6
 kit_type: "project"
 images:
-  - image: "images/products/project-survival-kit.svg"
+  - image: "images/products/survival-kit-gifts/project-survival-kit.jpg"
+image: "images/products/survival-kit-gifts/project-survival-kit.jpg"
 ---
 
 ## Từ một trang giấy trắng đến kế hoạch có thể bắt đầu

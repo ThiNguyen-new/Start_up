@@ -12,7 +12,8 @@ type: "products"
 panic_level: 3
 kit_type: "exam"
 images:
-  - image: "images/products/mini-rescue-kit.svg"
+  - image: "images/products/survival-kit-gifts/mini-rescue-kit.jpg"
+image: "images/products/survival-kit-gifts/mini-rescue-kit.jpg"
 ---
 
 ## Một lời nhắn nhỏ, một khởi đầu nhẹ nhàng

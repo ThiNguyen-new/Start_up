@@ -89,9 +89,29 @@
               </span>
 
               {{/* Product Image */}}
+              {{ $product := . }}
+              {{ $productImage := resources.Get .image }}
               <div class="sk-byok-img-wrap">
-                <img src="{{ .image | absURL }}" alt="{{ .name }}" class="sk-byok-img" loading="lazy" width="300" height="225">
+                {{ with $productImage }}
+                <img src="{{ .RelPermalink }}" alt="{{ $product.name }}" class="sk-byok-img js-product-image" loading="lazy" width="300" height="225">
+                {{ else }}
+                {{ errorf "products.json: không tìm thấy ảnh asset %s cho %s" .image .id }}
+                {{ end }}
               </div>
+              {{ with .imageOptions }}
+              <div class="sk-product-image-choices" role="group" aria-label="Chọn mẫu {{ $product.name }}">
+                {{ range $index, $imagePath := . }}
+                {{ $choiceImage := resources.Get $imagePath }}
+                {{ if not $choiceImage }}
+                  {{ errorf "products.json: không tìm thấy ảnh lựa chọn %s cho %s" $imagePath $product.id }}
+                {{ else }}
+                <button type="button" class="sk-product-image-choice js-product-image-choice" data-image-src="{{ $choiceImage.RelPermalink }}" data-image-alt="{{ $product.name }} – mẫu {{ add $index 1 }}" data-variant-label="Mẫu {{ add $index 1 }}" aria-label="Chọn mẫu {{ add $index 1 }} của {{ $product.name }}" aria-pressed="{{ if eq $index 0 }}true{{ else }}false{{ end }}">
+                  <img src="{{ $choiceImage.RelPermalink }}" alt="" loading="lazy" width="56" height="56">
+                </button>
+                {{ end }}
+                {{ end }}
+              </div>
+              {{ end }}
 
               {{/* Info */}}
               <h4 class="sk-byok-name">{{ .name }}</h4>

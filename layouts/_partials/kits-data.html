@@ -1,7 +1,11 @@
 {{/* Nhúng dữ liệu kit cho JS và kiểm tra dữ liệu lúc build. */}}
 {{ $products := dict }}
 {{ range site.Data.survival_kit.products }}
-  {{ $item := dict "id" .id "name" .name "price" .price "category" .category "image" (.image | absURL) }}
+  {{ $image := resources.Get .image }}
+  {{ if not $image }}
+    {{ errorf "products.json: không tìm thấy ảnh asset %s cho %s" .image .id }}
+  {{ end }}
+  {{ $item := dict "id" .id "name" .name "price" .price "category" .category "image" $image.RelPermalink }}
   {{ $products = merge $products (dict .id $item) }}
 {{ end }}
 {{ range $cat := site.Data.survival_kit.kits }}

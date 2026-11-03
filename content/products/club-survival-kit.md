@@ -12,7 +12,8 @@ type: "products"
 panic_level: 4
 kit_type: "club"
 images:
-  - image: "images/products/club-survival-kit.svg"
+  - image: "images/products/survival-kit-gifts/club-survival-kit.jpg"
+image: "images/products/survival-kit-gifts/club-survival-kit.jpg"
 ---
 
 ## Một nhóm, một bảng việc rõ ràng hơn

@@ -12,7 +12,8 @@ type: "products"
 panic_level: 1
 kit_type: "care"
 images:
-  - image: "images/products/chill-mode-kit.svg"
+  - image: "images/products/survival-kit-gifts/chill-mode-kit.jpg"
+image: "images/products/survival-kit-gifts/chill-mode-kit.jpg"
 ---
 
 ## Bắt đầu sớm, giữ nhịp học dễ chịu
