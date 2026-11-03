@@ -1,0 +1,47 @@
+{{ define "main" }}
+
+{{/* Breadcrumb & Section Header */}}
+{{ partial "page-title.html" . }}
+
+<section class="section pt-4" data-send-rescue>
+  <div class="container">
+    {{/* Demo Disclaimer Notice */}}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="sk-disclaimer-alert d-flex align-items-center" role="note">
+          <i class="ti-info-alt text-primary mr-3 h4 mb-0" aria-hidden="true"></i>
+          <div>
+            <strong>{{ or (i18n "sk_demo_notice") "Bản demo tương tác" }}:</strong>
+            <span>{{ or (i18n "sk_send_disclaimer") "Quà tặng và thông điệp chỉ mang tính minh họa. Website không lưu trữ dữ liệu cá nhân người nhận lên máy chủ." }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{ if site.Params.features.enable_send_rescue }}
+    {{/* Khối giữ chỗ cho form gửi quà cứu hộ (M1) */}}
+    <div class="row rescue-send-placeholder">
+      <div class="col-lg-8 mx-auto text-center py-5">
+        <div class="sk-card p-5">
+          {{ with (resources.Get "images/icons/send-rescue.svg") }}
+          <img src="{{ .RelPermalink }}" alt="Send a Rescue" class="mb-3" width="64" height="64">
+          {{ end }}
+          <h2 class="h3 font-weight-bold mb-2">Send a Rescue</h2>
+          <p class="text-muted mb-4">Gửi bộ kit tiếp sức cùng thiệp nhắn gửi cho bạn thân, người thương, crush hoặc cả nhóm dự án.</p>
+          <div class="alert alert-info d-inline-block text-left" role="status">
+            <i class="ti-heart mr-2" aria-hidden="true"></i><strong>4 kiểu Rescue:</strong> Bestie, Love, Secret Crush (hỗ trợ gửi ẩn danh), Team.
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ else }}
+    <div class="row text-center py-5">
+      <div class="col-12">
+        <p class="text-muted lead">Tính năng chưa mở</p>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

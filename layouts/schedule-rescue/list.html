@@ -1,0 +1,47 @@
+{{ define "main" }}
+
+{{/* Breadcrumb & Section Header */}}
+{{ partial "page-title.html" . }}
+
+<section class="section pt-4" data-schedule-rescue>
+  <div class="container">
+    {{/* Demo Disclaimer Notice */}}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="sk-disclaimer-alert d-flex align-items-center" role="note">
+          <i class="ti-info-alt text-primary mr-3 h4 mb-0" aria-hidden="true"></i>
+          <div>
+            <strong>{{ or (i18n "sk_demo_notice") "Bản demo tương tác" }}:</strong>
+            <span>{{ or (i18n "sk_schedule_disclaimer") "Lịch hẹn và thông tin giao hàng chỉ mang tính minh họa. Website không lưu trữ dữ liệu cá nhân lên máy chủ và không thu phí thật." }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{ if site.Params.features.enable_schedule_rescue }}
+    {{/* Khối giữ chỗ cho form đặt lịch cứu hộ (M1) */}}
+    <div class="row rescue-schedule-placeholder">
+      <div class="col-lg-8 mx-auto text-center py-5">
+        <div class="sk-card p-5">
+          {{ with (resources.Get "images/icons/schedule-rescue.svg") }}
+          <img src="{{ .RelPermalink }}" alt="Schedule a Rescue" class="mb-3" width="64" height="64">
+          {{ end }}
+          <h2 class="h3 font-weight-bold mb-2">Schedule a Rescue</h2>
+          <p class="text-muted mb-4">Lên lịch cứu deadline trước 1–2 ngày. Đảm bảo kit tiếp sức đến đúng lúc bạn cần nhất.</p>
+          <div class="alert alert-info d-inline-block text-left" role="status">
+            <i class="ti-timer mr-2" aria-hidden="true"></i><strong>Quy tắc nhận hàng:</strong> Nhận trước deadline 1–2 ngày, cách hôm nay tối thiểu 1 ngày chuẩn bị.
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ else }}
+    <div class="row text-center py-5">
+      <div class="col-12">
+        <p class="text-muted lead">Tính năng chưa mở</p>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

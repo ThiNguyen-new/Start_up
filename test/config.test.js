@@ -23,7 +23,9 @@ test('Menus configuration contains required navigation items', () => {
   const menusToml = fs.readFileSync(path.join(__dirname, '../config/_default/menus.en.toml'), 'utf8');
   assert.match(menusToml, /name\s*=\s*"Survival Kits"/);
   assert.match(menusToml, /name\s*=\s*"Schedule Rescue"/);
+  assert.match(menusToml, /url\s*=\s*"schedule-rescue\/"/);
   assert.match(menusToml, /name\s*=\s*"Send a Rescue"/);
+  assert.match(menusToml, /url\s*=\s*"send-rescue\/"/);
   assert.match(menusToml, /name\s*=\s*"Blog"/);
   assert.match(menusToml, /name\s*=\s*"FAQ"/);
 });
