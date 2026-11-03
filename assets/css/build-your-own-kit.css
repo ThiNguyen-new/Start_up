@@ -201,6 +201,41 @@
   object-fit: cover;
 }
 
+.sk-product-image-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: -0.25rem 0 0.75rem;
+}
+
+.sk-product-image-choice {
+  width: 52px;
+  height: 52px;
+  padding: 2px;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.sk-product-image-choice[aria-pressed="true"] {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.sk-product-image-choice img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.sk-product-image-choice:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
 .sk-byok-name {
   font-size: 1rem;
   font-weight: 700;

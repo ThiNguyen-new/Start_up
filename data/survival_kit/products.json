@@ -4,7 +4,7 @@
     "name": "Cà phê túi lọc năng lượng",
     "category": "drinks",
     "price": 25000,
-    "image": "images/survival-kit/cafe-phin.svg",
+    "image": "images/products/survival-kit-items/cafe-phin.jpg",
     "description": "Cà phê phin giấy Robusta đậm đà giúp tỉnh táo tức thì để tập trung giải quyết deadline.",
     "themes": [
       "exam",
@@ -24,7 +24,7 @@
     "name": "Trà hoa cúc dịu tâm",
     "category": "drinks",
     "price": 20000,
-    "image": "images/survival-kit/tra-hoa-cuc.svg",
+    "image": "images/products/survival-kit-items/tra-hoa-cuc.jpg",
     "description": "Trà thảo mộc thanh mát giúp giải tỏa căng thẳng và duy trì nhịp độ làm việc nhẹ nhàng.",
     "themes": [
       "exam",
@@ -41,7 +41,7 @@
     "name": "Thanh năng lượng ngũ cốc",
     "category": "snacks",
     "price": 22000,
-    "image": "images/survival-kit/energy-bar.svg",
+    "image": "images/products/survival-kit-items/energy-bar.webp",
     "description": "Nạp calo sạch và chất béo tốt tức thì, không lo đầy bụng khi ngồi học lâu.",
     "themes": [
       "exam",
@@ -61,7 +61,7 @@
     "name": "Socola đen 72% chống mệt mỏi",
     "category": "snacks",
     "price": 30000,
-    "image": "images/survival-kit/chocolate-den.svg",
+    "image": "images/products/survival-kit-items/chocolate-den.png",
     "description": "Kích thích dopamine và tăng tuần hoàn máu não, giải cứu cơn buồn ngủ ca đêm.",
     "themes": [
       "project",
@@ -79,7 +79,7 @@
     "name": "Tập giấy ghi chú phân loại",
     "category": "study",
     "price": 18000,
-    "image": "images/survival-kit/giay-note.svg",
+    "image": "images/products/survival-kit-items/giay-note.jpg",
     "description": "Giấy note màu sắc chia task khẩn cấp và checklist những việc cần nộp trước deadline.",
     "themes": [
       "exam",
@@ -97,7 +97,7 @@
     "name": "Bộ bút dạ quang 3 màu",
     "category": "study",
     "price": 25000,
-    "image": "images/survival-kit/but-highlight.svg",
+    "image": "images/products/survival-kit-items/but-highlight.jpg",
     "description": "Đánh dấu trọng tâm đề cương và công thức cần học cấp tốc trong tuần thi.",
     "themes": [
       "exam"
@@ -113,7 +113,7 @@
     "name": "Mặt nạ chườm mắt xông nóng",
     "category": "ergonomics",
     "price": 15000,
-    "image": "images/survival-kit/mat-na-mat.svg",
+    "image": "images/products/survival-kit-items/mat-na-mat.jpg",
     "description": "Thư giãn đôi mắt sau 8 tiếng dán chặt vào màn hình máy tính làm bài thuyết trình.",
     "themes": [
       "project",
@@ -131,7 +131,7 @@
     "name": "Đệm cổ tay công thái học",
     "category": "ergonomics",
     "price": 45000,
-    "image": "images/survival-kit/dem-tay-chuot.svg",
+    "image": "images/products/survival-kit-items/dem-tay-chuot.jpg",
     "description": "Chống mỏi cổ tay khi gõ phím và click chuột liên tục hoàn thành báo cáo đồ án.",
     "themes": [
       "project"
@@ -148,7 +148,7 @@
     "name": "Dầu lăn thảo mộc thư giãn",
     "category": "mood",
     "price": 35000,
-    "image": "images/survival-kit/tinh-dau-lan.svg",
+    "image": "images/products/survival-kit-items/tinh-dau-lan.webp",
     "description": "Hương bạc hà và khuynh diệp the mát, đánh thức giác quan khi đầu óc quá tải.",
     "themes": [
       "exam",
@@ -167,7 +167,7 @@
     "name": "Bộ sticker meme động viên",
     "category": "mood",
     "price": 15000,
-    "image": "images/survival-kit/sticker-meme.svg",
+    "image": "images/products/survival-kit-items/sticker-meme.jpg",
     "description": "Sticker hài hước dán laptop, nhắc nhở giữ bình tĩnh và tin vào bản thân.",
     "themes": [
       "exam",
@@ -189,7 +189,12 @@
     "name": "Hộp đóng gói Survival Kraft",
     "category": "packaging",
     "price": 25000,
-    "image": "images/survival-kit/hop-kraft.svg",
+    "image": "images/products/survival-kit-items/hop-kraft-1.jpg",
+    "imageOptions": [
+      "images/products/survival-kit-items/hop-kraft-1.jpg",
+      "images/products/survival-kit-items/hop-kraft-2.jpg",
+      "images/products/survival-kit-items/hop-kraft-3.jpg"
+    ],
     "description": "Hộp carton cứng cáp đóng dấu trạm cứu hộ deadline, lót rơm bảo vệ toàn bộ món đồ.",
     "themes": [
       "exam",
@@ -211,7 +216,13 @@
     "name": "Thiệp thông điệp cứu viện",
     "category": "packaging",
     "price": 10000,
-    "image": "images/survival-kit/thiep-dong-vien.svg",
+    "image": "images/products/survival-kit-items/thiep-dong-vien-1.jpg",
+    "imageOptions": [
+      "images/products/survival-kit-items/thiep-dong-vien-1.jpg",
+      "images/products/survival-kit-items/thiep-dong-vien-2.jpg",
+      "images/products/survival-kit-items/thiep-dong-vien-3.jpg",
+      "images/products/survival-kit-items/thiep-dong-vien-4.jpg"
+    ],
     "description": "Thiệp in lời nhắn khích lệ riêng gửi tặng đồng đội cùng vượt qua đêm nộp bài.",
     "themes": [
       "exam",
@@ -233,7 +244,7 @@
     "name": "Hộp snack chia sẻ cả nhóm",
     "category": "snacks",
     "price": 60000,
-    "image": "images/survival-kit/snack-chia-se.svg",
+    "image": "images/products/survival-kit-items/snack-chia-se.jpg",
     "description": "Combo các loại snack mặn ngọt đa dạng để cả nhóm cùng nạp năng lượng khi chạy đồ án.",
     "themes": [
       "project",
@@ -252,7 +263,7 @@
     "name": "Set trà túi lọc cho nhóm (10 túi)",
     "category": "drinks",
     "price": 45000,
-    "image": "images/survival-kit/tra-tui-loc-nhom.svg",
+    "image": "images/products/survival-kit-items/tra-tui-loc-nhom.webp",
     "description": "Set trà thảo mộc thanh mát 10 túi lọc tiện dụng cho buổi họp nhóm kéo dài.",
     "themes": [
       "exam",
@@ -270,7 +281,7 @@
     "name": "Bộ bút và note cho nhóm 4 người",
     "category": "study",
     "price": 55000,
-    "image": "images/survival-kit/bo-but-nhom.svg",
+    "image": "images/products/survival-kit-items/bo-but-nhom.jpg",
     "description": "Bộ bút dạ quang và giấy note chia việc chuyên dụng cho nhóm 4 người phân công task.",
     "themes": [
       "project"

@@ -12,7 +12,8 @@ type: "products"
 panic_level: 2
 kit_type: "care"
 images:
-  - image: "images/products/burnout-care-kit.svg"
+  - image: "images/products/survival-kit-gifts/burnout-care-kit.jpg"
+image: "images/products/survival-kit-gifts/burnout-care-kit.jpg"
 ---
 
 ## Một món quà không đòi hỏi ai phải cố thêm

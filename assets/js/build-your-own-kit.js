@@ -48,12 +48,15 @@
       var price = parseInt(card.getAttribute('data-price'), 10) || 0;
       var name = card.getAttribute('data-name') || '';
       var category = card.getAttribute('data-category') || '';
+      var selectedImage = card.querySelector('.js-product-image-choice[aria-pressed="true"]');
 
       productsCatalog[id] = {
         id: id,
         name: name,
         price: price,
-        category: category
+        category: category,
+        image: selectedImage ? selectedImage.getAttribute('data-image-src') : '',
+        variant: selectedImage ? selectedImage.getAttribute('data-variant-label') : ''
       };
     });
   }
@@ -346,6 +349,8 @@
           name: prod.name,
           category: prod.category,
           price: prod.price,
+          image: prod.image,
+          variant: prod.variant,
           qty: qty,
           subtotal: prod.price * qty
         });
@@ -377,6 +382,25 @@
   function setupListeners() {
     // Quantity minus button
     document.addEventListener('click', function (e) {
+      var imageChoice = e.target.closest('.js-product-image-choice');
+      if (imageChoice) {
+        var imageCard = imageChoice.closest('.js-byok-card');
+        var productImage = imageCard && imageCard.querySelector('.js-product-image');
+        if (productImage) {
+          productImage.src = imageChoice.getAttribute('data-image-src');
+          productImage.alt = imageChoice.getAttribute('data-image-alt') || '';
+          var productId = imageCard.getAttribute('data-id');
+          if (productsCatalog[productId]) {
+            productsCatalog[productId].image = imageChoice.getAttribute('data-image-src');
+            productsCatalog[productId].variant = imageChoice.getAttribute('data-variant-label') || '';
+          }
+          imageCard.querySelectorAll('.js-product-image-choice').forEach(function (choice) {
+            choice.setAttribute('aria-pressed', choice === imageChoice ? 'true' : 'false');
+          });
+        }
+        return;
+      }
+
       var minusBtn = e.target.closest('.js-qty-minus');
       if (minusBtn) {
         var card = minusBtn.closest('.js-byok-card');

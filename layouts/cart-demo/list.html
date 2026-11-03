@@ -201,6 +201,12 @@
         catSpan.textContent = it.category || 'Món đồ';
         tdName.appendChild(nameStrong);
         tdName.appendChild(catSpan);
+        if (it.variant) {
+          var variantSpan = document.createElement('span');
+          variantSpan.className = 'd-block text-muted small mt-1';
+          variantSpan.textContent = it.variant;
+          tdName.appendChild(variantSpan);
+        }
 
         var tdQty = document.createElement('td');
         tdQty.className = 'text-center font-weight-bold';
