@@ -176,3 +176,42 @@ test('M2: sanitizeQuery strips invalid categories and formats values', () => {
   assert.equal(bad.level, undefined);
   assert.equal(bad.type, undefined);
 });
+
+test('M5: Homepage USP forms configure GET method and correct target routes', () => {
+  const uspScheduleHtml = fs.readFileSync(path.join(__dirname, '../layouts/_partials/usp-schedule.html'), 'utf8');
+  assert.match(uspScheduleHtml, /action="\{\{\s*"schedule-rescue\/"\s*\|\s*relLangURL\s*\}\}"/);
+  assert.match(uspScheduleHtml, /method="get"/);
+  assert.match(uspScheduleHtml, /name="deadline"/);
+  assert.match(uspScheduleHtml, /name="receive"/);
+
+  const uspGiftingHtml = fs.readFileSync(path.join(__dirname, '../layouts/_partials/usp-gifting.html'), 'utf8');
+  assert.match(uspGiftingHtml, /action="\{\{\s*"send-rescue\/"\s*\|\s*relLangURL\s*\}\}"/);
+  assert.match(uspGiftingHtml, /method="get"/);
+  assert.match(uspGiftingHtml, /name="recipient"/);
+  assert.match(uspGiftingHtml, /name="type"/);
+  assert.match(uspGiftingHtml, /name="message"/);
+});
+
+test('M5: Cart demo includes schedule, gift, and CTA elements', () => {
+  const cartDemoHtml = fs.readFileSync(path.join(__dirname, '../layouts/cart-demo/list.html'), 'utf8');
+  assert.ok(cartDemoHtml.includes('js-cart-schedule-box'), 'Missing js-cart-schedule-box in cart-demo');
+  assert.ok(cartDemoHtml.includes('js-cart-gift-box'), 'Missing js-cart-gift-box in cart-demo');
+  assert.ok(cartDemoHtml.includes('js-cart-rescue-cta'), 'Missing js-cart-rescue-cta in cart-demo');
+  assert.ok(cartDemoHtml.includes('schedule-rescue/'), 'Missing schedule-rescue link in cart-demo');
+  assert.ok(cartDemoHtml.includes('send-rescue/'), 'Missing send-rescue link in cart-demo');
+});
+
+test('M6: Accessibility and wizard form structure in schedule and send rescue templates', () => {
+  const schedHtml = fs.readFileSync(path.join(__dirname, '../layouts/schedule-rescue/list.html'), 'utf8');
+  assert.ok(schedHtml.includes('aria-label='), 'Schedule page needs aria-label attributes');
+  assert.ok(schedHtml.includes('<fieldset'), 'Schedule page needs semantic fieldset elements');
+  assert.ok(schedHtml.includes('<legend'), 'Schedule page needs legend elements');
+  assert.ok(schedHtml.includes('aria-describedby'), 'Schedule page needs aria-describedby for fields');
+
+  const sendHtml = fs.readFileSync(path.join(__dirname, '../layouts/send-rescue/list.html'), 'utf8');
+  assert.ok(sendHtml.includes('aria-label='), 'Send page needs aria-label attributes');
+  assert.ok(sendHtml.includes('<fieldset'), 'Send page needs semantic fieldset elements');
+  assert.ok(sendHtml.includes('<legend'), 'Send page needs legend elements');
+  assert.ok(sendHtml.includes('aria-describedby'), 'Send page needs aria-describedby for fields');
+  assert.ok(sendHtml.includes('js-input-agree-harassment'), 'Send page needs anti-harassment checkbox');
+});
