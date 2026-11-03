@@ -3,7 +3,7 @@
 {{/* Breadcrumb & Section Header */}}
 {{ partial "page-title.html" . }}
 
-<section class="section pt-4" data-schedule-rescue>
+<section class="section pt-4" data-cart-url="{{ "cart-demo/" | relLangURL }}">
   <div class="container">
     {{/* Demo Disclaimer Notice */}}
     <div class="row mb-4">
@@ -19,19 +19,324 @@
     </div>
 
     {{ if site.Params.features.enable_schedule_rescue }}
-    {{/* Khối giữ chỗ cho form đặt lịch cứu hộ (M1) */}}
-    <div class="row rescue-schedule-placeholder">
-      <div class="col-lg-8 mx-auto text-center py-5">
-        <div class="sk-card p-5">
-          {{ with (resources.Get "images/icons/schedule-rescue.svg") }}
-          <img src="{{ .RelPermalink }}" alt="Schedule a Rescue" class="mb-3" width="64" height="64">
-          {{ end }}
-          <h2 class="h3 font-weight-bold mb-2">Schedule a Rescue</h2>
-          <p class="text-muted mb-4">Lên lịch cứu deadline trước 1–2 ngày. Đảm bảo kit tiếp sức đến đúng lúc bạn cần nhất.</p>
-          <div class="alert alert-info d-inline-block text-left" role="status">
-            <i class="ti-timer mr-2" aria-hidden="true"></i><strong>Quy tắc nhận hàng:</strong> Nhận trước deadline 1–2 ngày, cách hôm nay tối thiểu 1 ngày chuẩn bị.
-          </div>
-        </div>
+    {{/* Main Stepper Workflow */}}
+    <div class="row">
+      <div class="col-12">
+        {{/* 4-Step Progress Indicator */}}
+        <nav class="rescue-stepper" aria-label="Các bước đặt lịch cứu deadline">
+          <button type="button" class="rescue-stepper-item is-active js-stepper-tab" data-step="1" aria-current="step">
+            <span class="rescue-stepper-num">1</span>
+            <span class="rescue-stepper-label">01. Chọn kit</span>
+          </button>
+          <button type="button" class="rescue-stepper-item js-stepper-tab" data-step="2">
+            <span class="rescue-stepper-num">2</span>
+            <span class="rescue-stepper-label">02. Deadline & Ngày nhận</span>
+          </button>
+          <button type="button" class="rescue-stepper-item js-stepper-tab" data-step="3">
+            <span class="rescue-stepper-num">3</span>
+            <span class="rescue-stepper-label">03. Địa chỉ giao</span>
+          </button>
+          <button type="button" class="rescue-stepper-item js-stepper-tab" data-step="4">
+            <span class="rescue-stepper-num">4</span>
+            <span class="rescue-stepper-label">04. Xác nhận</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      {{/* Left Column: 4-Step Form Content */}}
+      <div class="col-lg-8">
+        <form id="rescue-schedule-form" class="js-rescue-schedule-form" novalidate>
+          
+          {{/* STEP 1: Chọn Kit */}}
+          <fieldset class="rescue-step js-rescue-step" data-step="1">
+            <legend class="rescue-step-legend">Bước 1: Chọn Bộ Kit Cứu Trợ</legend>
+            {{ partial "rescue-kit-step.html" . }}
+          </fieldset>
+
+          {{/* STEP 2: Deadline & Ngày nhận */}}
+          <fieldset class="rescue-step js-rescue-step" data-step="2" hidden>
+            <legend class="rescue-step-legend">Bước 2: Hạn Chót & Thời Gian Nhận Kit</legend>
+
+            <div class="rescue-field">
+              <label for="rescue-deadline-label" class="rescue-field-label">
+                Tên deadline hoặc kỳ thi <span class="text-muted font-weight-normal">(tuỳ chọn)</span>:
+              </label>
+              <input type="text"
+                     id="rescue-deadline-label"
+                     name="deadlineLabel"
+                     class="form-control sk-input js-input-deadline-label"
+                     placeholder="Ví dụ: Nộp đồ án CSDL, Thi cuối kỳ Giải tích..."
+                     maxlength="60">
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="rescue-field">
+                  <label for="rescue-deadline-date" class="rescue-field-label">
+                    Ngày hạn chót deadline <span class="text-danger">*</span>:
+                  </label>
+                  <input type="date"
+                         id="rescue-deadline-date"
+                         name="deadlineDate"
+                         class="form-control sk-input js-input-deadline-date"
+                         required
+                         aria-describedby="rescue-deadline-error">
+                  <span id="rescue-deadline-error" class="rescue-field-error js-error-deadline" hidden></span>
+                  <span class="rescue-field-help">Hạn cuối cùng bạn cần hoàn thành bài vở.</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="rescue-field">
+                  <label for="rescue-receive-date" class="rescue-field-label">
+                    Ngày bạn muốn nhận kit <span class="text-danger">*</span>:
+                  </label>
+                  <input type="date"
+                         id="rescue-receive-date"
+                         name="receiveDate"
+                         class="form-control sk-input js-input-receive-date"
+                         required
+                         aria-describedby="rescue-receive-error">
+                  <span id="rescue-receive-error" class="rescue-field-error js-error-receive" hidden></span>
+
+                  {{/* Fast selection buttons */}}
+                  <div class="rescue-quick-dates">
+                    <button type="button" class="rescue-quick-btn js-btn-quick-date" data-offset="1">
+                      <i class="ti-bolt mr-1" aria-hidden="true"></i> Nhận trước 1 ngày
+                    </button>
+                    <button type="button" class="rescue-quick-btn js-btn-quick-date" data-offset="2">
+                      <i class="ti-bolt mr-1" aria-hidden="true"></i> Nhận trước 2 ngày
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rescue-field">
+              <label for="rescue-receive-slot" class="rescue-field-label">
+                Khung giờ giao hàng mong muốn:
+              </label>
+              {{ $rules := index site.Data.survival_kit "schedule-rules" }}
+              <select id="rescue-receive-slot" name="slot" class="form-control sk-input js-input-slot">
+                {{ range $rules.slots }}
+                <option value="{{ .id }}">{{ .label }}</option>
+                {{ end }}
+              </select>
+            </div>
+
+            {{/* Visual Timeline Box */}}
+            <div class="rescue-timeline-box mt-3">
+              <span class="font-weight-bold text-dark small text-uppercase d-block mb-1">Dải thời gian tiếp sức:</span>
+              <div class="rescue-timeline">
+                <div class="rescue-timeline-node">
+                  <div class="rescue-timeline-dot">Nay</div>
+                  <div class="rescue-timeline-text js-timeline-today">Hôm nay</div>
+                </div>
+                <div class="rescue-timeline-node is-receive">
+                  <div class="rescue-timeline-dot"><i class="ti-package" aria-hidden="true"></i></div>
+                  <div class="rescue-timeline-text js-timeline-receive">Ngày nhận</div>
+                </div>
+                <div class="rescue-timeline-node is-deadline">
+                  <div class="rescue-timeline-dot"><i class="ti-flag-alt" aria-hidden="true"></i></div>
+                  <div class="rescue-timeline-text js-timeline-deadline">Hạn chót</div>
+                </div>
+              </div>
+              <p class="text-muted small text-center mb-0 mt-3 font-italic js-timeline-summary">
+                Nhận kit trước deadline 1–2 ngày giúp bạn có trọn vẹn năng lượng trước giờ G.
+              </p>
+            </div>
+          </fieldset>
+
+          {{/* STEP 3: Thông tin giao hàng */}}
+          <fieldset class="rescue-step js-rescue-step" data-step="3" hidden>
+            <legend class="rescue-step-legend">Bước 3: Địa Chỉ & Thông Tin Nhận Hàng</legend>
+
+            <div class="rescue-field">
+              <label for="rescue-contact-name" class="rescue-field-label">
+                Họ và tên người nhận <span class="text-danger">*</span>:
+              </label>
+              <input type="text"
+                     id="rescue-contact-name"
+                     name="name"
+                     class="form-control sk-input js-input-name"
+                     required
+                     maxlength="60"
+                     placeholder="Nguyễn Văn A"
+                     aria-describedby="rescue-name-error">
+              <span id="rescue-name-error" class="rescue-field-error js-error-name" hidden></span>
+            </div>
+
+            <div class="rescue-field">
+              <label for="rescue-contact-phone" class="rescue-field-label">
+                Số điện thoại liên hệ <span class="text-danger">*</span>:
+              </label>
+              <input type="tel"
+                     id="rescue-contact-phone"
+                     name="phone"
+                     class="form-control sk-input js-input-phone"
+                     required
+                     placeholder="0901 234 567"
+                     aria-describedby="rescue-phone-error">
+              <span id="rescue-phone-error" class="rescue-field-error js-error-phone" hidden></span>
+              <span class="rescue-field-help">Shipper sẽ gọi trước khi giao kit tới bạn.</span>
+            </div>
+
+            <div class="rescue-field">
+              <label for="rescue-contact-address" class="rescue-field-label">
+                Địa chỉ giao hàng (TP. Hồ Chí Minh) <span class="text-danger">*</span>:
+              </label>
+              <textarea id="rescue-contact-address"
+                        name="address"
+                        rows="2"
+                        class="form-control sk-input js-input-address"
+                        required
+                        maxlength="200"
+                        placeholder="Số nhà, tên đường, KTX, toà nhà, khoa/phòng..."
+                        aria-describedby="rescue-address-error"></textarea>
+              <span id="rescue-address-error" class="rescue-field-error js-error-address" hidden></span>
+              <span class="rescue-field-help">Hiện tại dịch vụ áp dụng trong khu vực TP. Hồ Chí Minh (ưu tiên các trường ĐH).</span>
+            </div>
+
+            <div class="rescue-field">
+              <label for="rescue-contact-note" class="rescue-field-label">
+                Ghi chú giao hàng <span class="text-muted font-weight-normal">(tuỳ chọn)</span>:
+              </label>
+              <input type="text"
+                     id="rescue-contact-note"
+                     name="note"
+                     class="form-control sk-input js-input-note"
+                     maxlength="120"
+                     placeholder="Gửi bảo vệ, gọi trước 15 phút...">
+            </div>
+
+            <div class="custom-control custom-checkbox mt-4 mb-2">
+              <input type="checkbox" class="custom-control-input js-input-agree" id="rescue-agree-terms" required>
+              <label class="custom-control-label small text-muted" for="rescue-agree-terms">
+                Tôi đồng ý với <a href="{{ "terms-conditions/" | relLangURL }}" target="_blank" class="text-primary font-weight-bold">Điều khoản & Chính sách</a> và hiểu rằng đây là bản mô phỏng demo chưa thu phí thật.
+              </label>
+              <span class="rescue-field-error js-error-agree" hidden>Bạn cần đồng ý với điều khoản trước khi tiếp tục.</span>
+            </div>
+          </fieldset>
+
+          {{/* STEP 4: Xác nhận & Đặt lịch */}}
+          <fieldset class="rescue-step js-rescue-step" data-step="4" hidden>
+            <legend class="rescue-step-legend">Bước 4: Xác Nhận & Đặt Lịch Tiếp Sức</legend>
+
+            {{/* Normal Review View */}}
+            <div class="rescue-normal-review js-rescue-review-view">
+              <div class="rescue-review-card">
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Bộ kit đã chọn:</span>
+                  <div class="text-right">
+                    <span class="rescue-review-value js-review-kit-name"></span>
+                    <button type="button" class="btn btn-link btn-sm p-0 d-block ml-auto text-primary js-btn-edit-step" data-target-step="1">Sửa kit</button>
+                  </div>
+                </div>
+
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Kỳ thi / Deadline:</span>
+                  <div class="text-right">
+                    <span class="rescue-review-value js-review-deadline"></span>
+                    <button type="button" class="btn btn-link btn-sm p-0 d-block ml-auto text-primary js-btn-edit-step" data-target-step="2">Đổi ngày</button>
+                  </div>
+                </div>
+
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Thời gian giao:</span>
+                  <div class="text-right">
+                    <span class="rescue-review-value js-review-receive"></span>
+                  </div>
+                </div>
+
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Người nhận & Địa chỉ:</span>
+                  <div class="text-right">
+                    <span class="rescue-review-value js-review-contact"></span>
+                    <button type="button" class="btn btn-link btn-sm p-0 d-block ml-auto text-primary js-btn-edit-step" data-target-step="3">Sửa thông tin</button>
+                  </div>
+                </div>
+
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Tổng thanh toán dự kiến:</span>
+                  <span class="rescue-review-value text-primary h5 mb-0 js-review-total">0 ₫</span>
+                </div>
+              </div>
+
+              {{/* Policy Brief */}}
+              <div class="alert alert-light border small text-muted mb-4" role="note">
+                <strong class="d-block text-dark mb-1"><i class="ti-info-alt mr-1"></i> Chính sách giao & đổi lịch:</strong>
+                <ul class="mb-0 pl-3">
+                  <li>Được đổi lịch miễn phí trước giờ nhận ít nhất 24 giờ.</li>
+                  <li>Nếu vắng mặt tại thời điểm giao, kit sẽ được gửi tại lễ tân/bảo vệ hoặc hỗ trợ giao lại ca kế tiếp.</li>
+                  <li>Bản demo mô phỏng trải nghiệm người dùng, không phát sinh giao dịch thẻ ngân hàng.</li>
+                </ul>
+              </div>
+
+              <button type="button" class="btn sk-btn sk-btn-primary btn-block btn-lg js-btn-confirm-schedule sk-focusable">
+                <i class="ti-check mr-2" aria-hidden="true"></i> Đặt lịch cứu hộ ngay (Demo)
+              </button>
+            </div>
+
+            {{/* Success View (Hiện sau khi bấm đặt lịch) */}}
+            <div class="rescue-success-card js-rescue-success-view" hidden>
+              <div class="mb-3">
+                <i class="ti-check-box text-success display-4" aria-hidden="true"></i>
+              </div>
+              <h3 class="h3 font-weight-bold text-dark mb-1">Đặt Lịch Tiếp Sức Thành Công!</h3>
+              <p class="text-muted mb-3">Lịch cứu hộ của bạn đã được ghi nhận vào hệ thống mô phỏng.</p>
+              
+              <div>
+                <span class="text-muted small text-uppercase font-weight-bold d-block">Mã đơn cứu hộ demo:</span>
+                <span class="rescue-order-code js-success-order-code">SK-20261103-XXXX</span>
+              </div>
+
+              {{/* Simulated 5-Step Order Status Tracker */}}
+              <div class="rescue-status-tracker mt-4 mb-4">
+                <div class="rescue-status-step is-done">
+                  <div class="rescue-status-dot"><i class="ti-check"></i></div>
+                  <div class="rescue-status-name">Đã đặt lịch</div>
+                </div>
+                <div class="rescue-status-step is-current">
+                  <div class="rescue-status-dot">2</div>
+                  <div class="rescue-status-name">Nhắc lịch</div>
+                </div>
+                <div class="rescue-status-step">
+                  <div class="rescue-status-dot">3</div>
+                  <div class="rescue-status-name">Chuẩn bị kit</div>
+                </div>
+                <div class="rescue-status-step">
+                  <div class="rescue-status-dot">4</div>
+                  <div class="rescue-status-name">Đang giao</div>
+                </div>
+                <div class="rescue-status-step">
+                  <div class="rescue-status-dot">5</div>
+                  <div class="rescue-status-name">Hoàn tất</div>
+                </div>
+              </div>
+
+              {{/* Action Buttons */}}
+              <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                <button type="button" class="btn btn-outline-primary sk-focusable m-1 js-btn-download-ics">
+                  <i class="ti-calendar mr-1" aria-hidden="true"></i> Thêm vào Google/Apple Calendar (.ics)
+                </button>
+                <a href="{{ "cart-demo/" | relLangURL }}" class="btn sk-btn sk-btn-primary sk-focusable m-1">
+                  <i class="ti-shopping-cart mr-1" aria-hidden="true"></i> Xem giỏ hàng demo
+                </a>
+                <button type="button" class="btn btn-light sk-focusable m-1 js-btn-edit-step" data-target-step="2">
+                  <i class="ti-reload mr-1" aria-hidden="true"></i> Đổi lại ngày giao
+                </button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+
+      {{/* Right Column: Sticky Summary Sidebar */}}
+      <div class="col-lg-4">
+        {{ partial "rescue-summary.html" . }}
       </div>
     </div>
     {{ else }}
@@ -43,5 +348,21 @@
     {{ end }}
   </div>
 </section>
+
+{{/* Embed schedule rules data */}}
+<script type="application/json" id="rescue-schedule-rules">
+{{ index site.Data.survival_kit "schedule-rules" | jsonify | safeJS }}
+</script>
+
+{{/* Scripts: rescue-common and schedule-rescue */}}
+{{ with resources.Get "js/rescue-common.js" }}
+{{ $rcScript := . | minify }}
+<script src="{{ $rcScript.Permalink }}" defer></script>
+{{ end }}
+
+{{ with resources.Get "js/schedule-rescue.js" }}
+{{ $srScript := . | minify }}
+<script src="{{ $srScript.Permalink }}" defer></script>
+{{ end }}
 
 {{ end }}

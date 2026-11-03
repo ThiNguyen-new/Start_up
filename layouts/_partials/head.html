@@ -40,6 +40,12 @@
   <link rel="stylesheet" href="{{ $byok.Permalink }}" media="screen">
   {{ end }}
 
+  {{ "<!-- Rescue CSS (Schedule & Send) -->" | safeHTML }}
+  {{ with resources.Get "css/rescue.css" }}
+  {{ $rescueCss := . | minify }}
+  <link rel="stylesheet" href="{{ $rescueCss.Permalink }}" media="screen">
+  {{ end }}
+
   {{ "<!-- Favicon -->" | safeHTML }}
   <link rel="shortcut icon" href="{{ `images/favicon.png` | absURL }} " type="image/x-icon">
   <link rel="icon" href="{{ `images/favicon.png` | absURL }} " type="image/x-icon">
