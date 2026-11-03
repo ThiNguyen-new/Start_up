@@ -99,32 +99,32 @@ products:
 ########################## Testimonial ########################
 testimonial:
   enable : true
-  title : "What People Are Saying <br> About Our Product"
+  title : "Bình luận minh họa về Survival Kit"
   testimonialItem:
     # testimonial item loop
-    - name : "Angelo Perara"
+    - name : "Sinh viên năm 1"
       image : "images/clients/client-1.jpg" # size 100px*100px
-      designation : "CEO, Dialogue Broad Band"
-      content : "Lorem ipsum dolor sit amet, <br> consetetur sadipscing elitr, diam <br> nonumy eirmod tempor"
+      designation : "Nhận xét minh họa · Exam Survival Kit"
+      content : "Mình hay rối khi nhìn cả đống bài cần làm. Checklist trong kit giúp mình chọn việc đầu tiên, còn tấm note động viên làm bàn học bớt căng thẳng."
       rating : "five" # rating star, one to five
       
     # testimonial item loop
-    - name : "Riya Ventila"
+    - name : "Sinh viên năm 2"
       image : "images/clients/client-2.jpg" # size 100px*100px
-      designation : "CEO, Dialogue Broad Band"
-      content : "Lorem ipsum dolor sit amet, <br> consetetur sadipscing elitr, diam <br> nonumy eirmod tempor"
+      designation : "Nhận xét minh họa · Mini Rescue Kit"
+      content : "Mình thích ý tưởng chọn kit theo Panic Level. Trà, snack với giấy note là mấy món nhỏ nhưng hợp những buổi ngồi ôn bài dài."
       rating : "three" # rating star, one to five
       
     # testimonial item loop
-    - name : "john Doe"
+    - name : "Thành viên nhóm đồ án"
       image : "images/clients/client-3.jpg" # size 100px*100px
-      designation : "CEO, Dialogue Broad Band"
-      content : "Lorem ipsum dolor sit amet, <br> consetetur sadipscing elitr, diam <br> nonumy eirmod tempor"
+      designation : "Nhận xét minh họa · Project Survival Kit"
+      content : "Nhóm mình có thể dùng giấy note để gom ý tưởng rồi chia task rõ hơn. Bộ kit không làm bài thay mình, nhưng giúp buổi họp có thứ tự hơn."
       rating : "five" # rating star, one to five
       
     # testimonial item loop
-    - name : "Riya Ventila"
-      image : "images/clients/client-2.jpg" # size 100px*100px
-      designation : "CEO, Dialogue Broad Band"
-      content : "Lorem ipsum dolor sit amet, <br> consetetur sadipscing elitr, diam <br> nonumy eirmod tempor"
+    - name : "Bạn cùng lớp"
+      image : "images/clients/client-4.jpg" # size 100px*100px
+      designation : "Nhận xét minh họa · Burnout Care Kit"
+      content : "Mình sẽ chọn hộp này làm quà sau kỳ thi. Tấm thiệp và lời nhắn khiến món quà giống một lời hỏi thăm, không phải lời nhắc phải cố thêm."
       rating : "four" # rating star, one to five

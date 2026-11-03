@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+  <title id="title">Final Boss SOS Kit</title><desc id="desc">Minh họa bộ kit nước rút với checklist ưu tiên, snack và chai nước.</desc>
+  <rect width="960" height="640" rx="32" fill="#f9eee6"/><circle cx="777" cy="115" r="85" fill="#e98268"/><circle cx="168" cy="490" r="86" fill="#e1ebe4"/><ellipse cx="483" cy="520" rx="302" ry="35" fill="#e8d5c7"/>
+  <rect x="218" y="271" width="528" height="228" rx="24" fill="#58776d"/><path d="M218 312h528v28H218z" fill="#45665c"/><rect x="256" y="363" width="451" height="136" rx="15" fill="#efc889"/>
+  <rect x="282" y="127" width="193" height="246" rx="14" fill="#fffdf7" stroke="#58776d" stroke-width="9" transform="rotate(-5 282 127)"/><circle cx="322" cy="203" r="12" fill="#e78163"/><circle cx="322" cy="250" r="12" fill="#e78163"/><circle cx="322" cy="297" r="12" fill="#e78163"/><path d="M351 203h85m-85 47h85m-85 47h68" stroke="#8da89a" stroke-width="9" stroke-linecap="round"/>
+  <rect x="563" y="158" width="101" height="189" rx="26" fill="#86a494"/><rect x="588" y="132" width="51" height="37" rx="10" fill="#57796d"/><path d="M579 228h69" stroke="#fff7e8" stroke-width="9" stroke-linecap="round"/>
+  <rect x="681" y="193" width="85" height="79" rx="15" fill="#e89b71"/><path d="M698 222c11-16 21-16 31 0s20 16 31 0" fill="none" stroke="#fff4dd" stroke-width="8" stroke-linecap="round"/>
+  <text x="485" y="462" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#45655b">PRIORITIZE. PAUSE. RESCUE.</text>
+</svg>

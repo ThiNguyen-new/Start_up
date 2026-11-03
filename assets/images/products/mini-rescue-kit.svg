@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+  <title id="title">Mini Rescue Kit</title><desc id="desc">Minh họa hộp quà nhỏ gồm trà túi lọc, snack và thiệp động viên.</desc>
+  <rect width="960" height="640" rx="32" fill="#fff2e5"/><circle cx="760" cy="144" r="82" fill="#f7d27a"/><circle cx="183" cy="479" r="105" fill="#e0eee2"/>
+  <ellipse cx="482" cy="522" rx="272" ry="35" fill="#e6d4bf"/><rect x="279" y="250" width="410" height="242" rx="25" fill="#d87954"/><path d="M279 297h410v29H279z" fill="#c36545"/><rect x="313" y="350" width="342" height="142" rx="17" fill="#f5c98c"/>
+  <path d="M483 251v240M280 368h409" stroke="#fff0cd" stroke-width="23"/><path d="M472 250c-68-24-98-77-70-105 26-26 74 3 92 60 18-57 66-86 92-60 28 28-2 81-70 105" fill="#ed9d72" stroke="#c36545" stroke-width="8"/>
+  <rect x="316" y="153" width="119" height="106" rx="14" fill="#fffdf7" transform="rotate(-9 316 153)"/><path d="M338 194l53-8m-49 32l43-7" stroke="#789286" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="626" cy="201" r="47" fill="#f7cf5c"/><path d="M610 201c9-23 20-23 30 0s21 23 31 0" fill="none" stroke="#fff7e7" stroke-width="7" stroke-linecap="round"/>
+  <text x="484" y="439" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#fffdf7">A LITTLE RESCUE</text>
+</svg>
