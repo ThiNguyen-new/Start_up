@@ -8,6 +8,23 @@
   var DEFAULT_CATEGORY = 'exam';
   var data = { products: {}, categories: [] };
   var formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
+  var assetBaseUrl = (function () {
+    var scriptUrl = document.currentScript && document.currentScript.src;
+    return scriptUrl ? new URL('../', scriptUrl) : new URL('.', window.location.href);
+  })();
+
+  // Resolve Hugo's root-relative image paths from this site's own script URL.
+  // This keeps images working when the site is opened from a QR code under a
+  // nested path or embedded in a page hosted on another domain (for example,
+  // Google Sites).
+  function resolveImageUrl(imagePath) {
+    if (!imagePath) { return ''; }
+    try {
+      return new URL(String(imagePath).replace(/^\/+/, ''), assetBaseUrl).href;
+    } catch (e) {
+      return imagePath;
+    }
+  }
 
   function load() {
     var el = document.getElementById('sk-kit-data');
@@ -70,7 +87,7 @@
       var subtotal = product.price * qty;
       items.push({
         id: pid, name: product.name, price: product.price,
-        image: product.image, qty: qty, subtotal: subtotal
+        image: resolveImageUrl(product.image), qty: qty, subtotal: subtotal
       });
       total += subtotal;
       count += qty;
