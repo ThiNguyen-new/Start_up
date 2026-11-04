@@ -1,12 +1,20 @@
-<section class="sk-section" id="schedule" aria-labelledby="schedule-heading">
+<section class="sk-section sk-usp" id="schedule" aria-labelledby="schedule-heading">
+  {{ partial "usp-decor.html" . }}
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-5 mb-4 mb-lg-0">
-        <h2 id="schedule-heading">{{ or (i18n "sk_schedule_title") "Lên Lịch Tiếp Sức Trước Deadline" }}</h2>
-        <p>{{ or (i18n "sk_schedule_help") "Chọn hạn chót, sau đó chọn ngày nhận trước deadline 1–2 ngày để Survival Kit kịp thời tiếp viện năng lượng." }}</p>
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <h2 id="schedule-heading" class="sk-usp-title">
+          {{ or (i18n "sk_schedule_title_lead") "Lên Lịch Tiếp Sức Trước" }}
+          <span class="sk-usp-hl">{{ or (i18n "sk_schedule_title_hl") "Deadline" }}</span>
+        </h2>
+        <p class="sk-usp-lead">{{ or (i18n "sk_schedule_help") "Chọn hạn chót, sau đó chọn ngày nhận trước deadline 1–2 ngày để Survival Kit kịp thời tiếp viện năng lượng." }}</p>
+        {{ with resources.Get "images/illustrations/schedule-rescue.svg" }}
+        <img class="sk-usp-illustration" src="{{ .RelPermalink }}" alt="" width="520" height="380" loading="lazy" decoding="async">
+        {{ end }}
       </div>
-      <div class="col-lg-6 offset-lg-1">
-        <form class="sk-form js-schedule-form" action="{{ "schedule-rescue/" | relLangURL }}" method="get">
+      <div class="col-lg-6">
+        <form class="sk-form sk-usp-form js-schedule-form" action="{{ "schedule-rescue/" | relLangURL }}" method="get">
+          <span class="sk-usp-sticker" aria-hidden="true">{{ or (i18n "sk_schedule_sticker") "Căn giờ chuẩn!" }} ⏰</span>
           <div class="sk-field">
             <label class="sk-label" for="deadline">{{ or (i18n "sk_deadline") "Ngày hạn chót (Deadline)" }}</label>
             <input class="sk-input js-deadline" id="deadline" name="deadline" type="date" required>
@@ -15,8 +23,8 @@
             <label class="sk-label" for="receive">{{ or (i18n "sk_receive") "Ngày bạn muốn nhận kit" }}</label>
             <input class="sk-input js-receive" id="receive" name="receive" type="date" required>
           </div>
-          <button type="submit" class="sk-btn sk-btn-primary sk-focusable">
-            {{ or (i18n "sk_schedule_submit") "Tiếp tục đặt lịch" }} <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
+          <button type="submit" class="sk-btn sk-btn-secondary sk-usp-submit sk-focusable">
+            {{ or (i18n "sk_schedule_submit") "Tiếp tục đặt lịch" }} <i class="ti-arrow-right ml-2" aria-hidden="true"></i>
           </button>
         </form>
       </div>

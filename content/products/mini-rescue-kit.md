@@ -11,6 +11,7 @@ productID: "mini-rescue-kit"
 type: "products"
 panic_level: 3
 kit_type: "exam"
+bestseller_rank: 1 # Top bán chạy trên trang chủ (1 = cao nhất). Xóa dòng này để bỏ khỏi top.
 images:
   - image: "images/products/survival-kit-gifts/mini-rescue-kit.jpg"
 image: "images/products/survival-kit-gifts/mini-rescue-kit.jpg"

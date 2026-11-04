@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 380" role="img" aria-label="Lịch để bàn có đánh dấu, đồng hồ báo thức có cánh và hộp tiếp viện bay tới">
+  <defs>
+    <linearGradient id="sr-kit" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD166"/>
+      <stop offset="1" stop-color="#F26D7D"/>
+    </linearGradient>
+    <linearGradient id="sr-cal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF8F0"/>
+      <stop offset="1" stop-color="#FCEBDD"/>
+    </linearGradient>
+    <linearGradient id="sr-ribbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F7748A"/>
+      <stop offset="1" stop-color="#F5A524"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="250" cy="352" rx="190" ry="16" fill="#E8B79A" opacity=".35"/>
+
+  <!-- ribbon swirl -->
+  <path d="M20 270c40-30 60 30 100 0" fill="none" stroke="url(#sr-ribbon)" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+
+  <!-- desk calendar -->
+  <path d="M70 330l40-196h190l-30 196z" fill="#C98A6B"/>
+  <g transform="rotate(-6 190 230)">
+    <rect x="80" y="130" width="210" height="190" rx="12" fill="url(#sr-cal)" stroke="#B9785A" stroke-width="3"/>
+    <rect x="80" y="130" width="210" height="34" rx="12" fill="#F28B6E"/>
+    <g fill="#8C5A44">
+      <rect x="100" y="120" width="8" height="22" rx="4"/><rect x="128" y="120" width="8" height="22" rx="4"/>
+      <rect x="156" y="120" width="8" height="22" rx="4"/><rect x="184" y="120" width="8" height="22" rx="4"/>
+      <rect x="212" y="120" width="8" height="22" rx="4"/><rect x="240" y="120" width="8" height="22" rx="4"/>
+      <rect x="268" y="120" width="8" height="22" rx="4"/>
+    </g>
+    <g stroke="#E3C3AE" stroke-width="2">
+      <path d="M96 196h178M96 226h178M96 256h178M96 286h178"/>
+      <path d="M126 176v130M156 176v130M186 176v130M216 176v130M246 176v130"/>
+    </g>
+    <g fill="none" stroke="#EF5B6B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M132 210l7 7 12-14"/><path d="M192 240l7 7 12-14"/><path d="M222 210l7 7 12-14"/>
+      <path d="M162 270l7 7 12-14"/>
+    </g>
+    <circle cx="261" cy="271" r="13" fill="none" stroke="#F5A524" stroke-width="3"/>
+  </g>
+
+  <!-- winged alarm clock on calendar -->
+  <g transform="translate(190 70)">
+    <path d="M-30 40c-40-10-60-40-50-60 20 5 40 20 50 40z" fill="#DCEBFA" stroke="#8FB3D9" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M30 40c40-10 60-40 50-60-20 5-40 20-50 40z" fill="#DCEBFA" stroke="#8FB3D9" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="-22" cy="-12" r="12" fill="#F28B6E" stroke="#C9714A" stroke-width="3"/>
+    <circle cx="22" cy="-12" r="12" fill="#F28B6E" stroke="#C9714A" stroke-width="3"/>
+    <circle cx="0" cy="30" r="40" fill="#F28B6E" stroke="#C9714A" stroke-width="3"/>
+    <circle cx="0" cy="30" r="31" fill="#FFF8F0"/>
+    <path d="M0 30V10M0 30l14 8" stroke="#2F3A56" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="0" cy="30" r="3" fill="#2F3A56"/>
+    <path d="M-24 72l-6 10M24 72l6 10" stroke="#C9714A" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- flying first-aid kit -->
+  <g transform="translate(370 170) rotate(12)">
+    <path d="M-60 -10c-40-20-50-55-35-70 20 10 30 35 35 55z" fill="#DCEBFA" stroke="#8FB3D9" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M60 -10c40-20 50-55 35-70-20 10-30 35-35 55z" fill="#DCEBFA" stroke="#8FB3D9" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-20 -46h40v14h-10v-6h-20v6h-10z" fill="#E35A6A" stroke="#B94352" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="-62" y="-34" width="124" height="88" rx="16" fill="url(#sr-kit)" stroke="#D0566A" stroke-width="3"/>
+    <circle cx="0" cy="8" r="24" fill="#FFF8F0"/>
+    <path d="M-6 -6h12v8h8v12h-8v8h-12v-8h-8v-12h8z" fill="#EF5B6B"/>
+  </g>
+
+  <!-- open book & sticky note -->
+  <g transform="translate(250 300) rotate(-8)">
+    <path d="M0 0c30-10 60-10 80 0v40c-20-10-50-10-80 0z" fill="#FFF8F0" stroke="#8FB3D9" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M80 0c20-10 50-10 80 0v40c-30-10-60-10-80 0z" fill="#FFF8F0" stroke="#8FB3D9" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M14 12h50M14 22h44M96 12h50M96 22h40" stroke="#B9CBE0" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <rect x="380" y="282" width="60" height="56" rx="4" fill="#FFE08A" stroke="#E0B54A" stroke-width="3" transform="rotate(10 410 310)"/>
+
+  <!-- hourglass -->
+  <g transform="translate(470 290) rotate(-12)">
+    <rect x="-24" y="-40" width="48" height="8" rx="3" fill="#A8693F"/>
+    <rect x="-24" y="32" width="48" height="8" rx="3" fill="#A8693F"/>
+    <path d="M-16 -32h32c0 18-12 24-12 32s12 14 12 32h-32c0-18 12-24 12-32s-12-14-12-32z" fill="#FFF8F0" stroke="#8FB3D9" stroke-width="3"/>
+    <path d="M-8 26h16l-8-12z" fill="#F5B83D"/>
+  </g>
+
+  <!-- paper plane -->
+  <g transform="translate(400 30) rotate(-10)">
+    <path d="M0 36L72 0 46 54 32 40z" fill="#FFF7EE" stroke="#C98A6B" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M32 40L72 0" stroke="#C98A6B" stroke-width="2"/>
+  </g>
+
+  <!-- sparkles & dots -->
+  <g fill="#F5B83D">
+    <path d="M60 80l6 16 16 6-16 6-6 16-6-16-16-6 16-6z"/>
+    <path d="M300 40l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+    <path d="M330 110l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
+  </g>
+  <g fill="#7FC7B8">
+    <path d="M44 200l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+  </g>
+  <circle cx="110" cy="40" r="5" fill="#F7748A"/>
+  <circle cx="352" cy="300" r="5" fill="#7FC7B8"/>
+  <circle cx="500" cy="200" r="4" fill="#F7748A"/>
+</svg>

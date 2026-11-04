@@ -1,12 +1,20 @@
-<section class="sk-section" id="gifting" aria-labelledby="gifting-heading">
+<section class="sk-section sk-usp" id="gifting" aria-labelledby="gifting-heading">
+  {{ partial "usp-decor.html" . }}
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-5 mb-4 mb-lg-0">
-        <h2 id="gifting-heading">{{ or (i18n "sk_gifting_title") "Gửi Tặng Kit Cho Người Thương" }}</h2>
-        <p>{{ or (i18n "sk_gifting_help") "Gửi kèm thiệp nhắn gửi động viên cho bạn thân, người yêu, secret crush hoặc cả nhóm đồ án đang chiến deadline." }}</p>
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <h2 id="gifting-heading" class="sk-usp-title">
+          {{ or (i18n "sk_gifting_title_lead") "Gửi Tặng Kit Cho" }}
+          <span class="sk-usp-hl">{{ or (i18n "sk_gifting_title_hl") "Người Thương" }}</span>
+        </h2>
+        <p class="sk-usp-lead">{{ or (i18n "sk_gifting_help") "Gửi kèm thiệp nhắn gửi động viên cho bạn thân, người yêu, secret crush hoặc cả nhóm đồ án đang chiến deadline." }}</p>
+        {{ with resources.Get "images/illustrations/gift-box.svg" }}
+        <img class="sk-usp-illustration" src="{{ .RelPermalink }}" alt="" width="520" height="380" loading="lazy" decoding="async">
+        {{ end }}
       </div>
-      <div class="col-lg-6 offset-lg-1">
-        <form class="sk-form js-gifting-form" action="{{ "send-rescue/" | relLangURL }}" method="get">
+      <div class="col-lg-6">
+        <form class="sk-form sk-usp-form js-gifting-form" action="{{ "send-rescue/" | relLangURL }}" method="get">
+          <span class="sk-usp-sticker" aria-hidden="true">{{ or (i18n "sk_gifting_sticker") "Chọn quà thôi!" }} 🎁</span>
           <div class="sk-field">
             <label class="sk-label" for="recipient">{{ or (i18n "sk_recipient") "Người nhận (tên hoặc biệt danh)" }}</label>
             <input class="sk-input js-gift-recipient" id="recipient" name="recipient" type="text" required autocomplete="name" maxlength="60" placeholder="Ví dụ: Minh Anh, Hoàng Nam...">
@@ -24,8 +32,8 @@
             <label class="sk-label" for="gift-message">{{ or (i18n "sk_gift_note") "Lời nhắn trên thiệp" }}</label>
             <textarea class="sk-input js-gift-message" id="gift-message" name="message" rows="3" maxlength="200" placeholder="Nhập lời chúc hoặc lời nhắn động viên..."></textarea>
           </div>
-          <button type="submit" class="sk-btn sk-btn-secondary sk-focusable">
-            {{ or (i18n "sk_gifting_submit") "Tiếp tục gửi" }} <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
+          <button type="submit" class="sk-btn sk-btn-secondary sk-usp-submit sk-focusable">
+            {{ or (i18n "sk_gifting_submit") "Tiếp tục gửi" }} <svg class="sk-usp-plane ml-2" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M22 2L2 10.5l7.5 3L12 21l3.5-6.5L22 2z" fill="currentColor" opacity=".25"/><path d="M22 2L2 10.5l7.5 3L12 21l10-19zM9.5 13.5L22 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
           </button>
         </form>
       </div>

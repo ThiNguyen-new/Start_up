@@ -11,6 +11,7 @@ productID: "club-survival-kit"
 type: "products"
 panic_level: 4
 kit_type: "club"
+bestseller_rank: 3 # Top bán chạy trên trang chủ (1 = cao nhất). Xóa dòng này để bỏ khỏi top.
 images:
   - image: "images/products/survival-kit-gifts/club-survival-kit.jpg"
 image: "images/products/survival-kit-gifts/club-survival-kit.jpg"

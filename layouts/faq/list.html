@@ -1,0 +1,86 @@
+{{ define "main" }}
+
+{{ if hugo.Data.contact.contact.enable }}
+<section class="sk-section sk-usp sk-faq sk-faq-intro" aria-labelledby="faq-heading">
+  {{ partial "usp-decor.html" . }}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center mb-5">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent p-0 justify-content-center mb-2">
+            <li class="breadcrumb-item"><a class="text-dark sk-focusable" href="{{ site.Home.RelPermalink }}">{{ or site.Params.home "Home" }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+          </ol>
+        </nav>
+        <h1 id="faq-heading" class="sk-faq-title mb-3">{{ .Title }}</h1>
+        {{ with .Description }}<p class="sk-usp-lead mx-auto mb-0">{{ . }}</p>{{ end }}
+      </div>
+    </div>
+
+    {{/* Tách nội dung markdown theo từng heading ### thành từng thẻ. */}}
+    <div class="sk-faq-cards">
+      {{ range $i, $chunk := split (string .Content) "<h3" }}
+      {{ if gt (len (trim $chunk " \n")) 0 }}
+      <article class="sk-faq-card content">
+        {{ if eq $i 0 }}{{ $chunk | safeHTML }}{{ else }}{{ printf "<h3%s" $chunk | safeHTML }}{{ end }}
+      </article>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="sk-section sk-usp sk-faq pt-0" aria-labelledby="faq-ask-heading">
+  {{ partial "usp-decor.html" . }}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 mb-5 mb-lg-0">
+        <div class="sticky-top top-100">
+          <h2 id="faq-ask-heading" class="sk-faq-title">{{ or (i18n "sk_ask_question") "Ask Your Question" }}</h2>
+          <form class="sk-form sk-usp-form" action="{{ site.Params.contact.formAction }}" method="POST">
+            <div class="sk-field">
+              <label class="sr-only" for="name">Your Name</label>
+              <input type="text" class="sk-input" id="name" name="name" placeholder="Your Name" autocomplete="name">
+            </div>
+            <div class="sk-field">
+              <label class="sr-only" for="email">Your Email</label>
+              <input type="email" class="sk-input" id="email" name="email" placeholder="Your Email" autocomplete="email">
+            </div>
+            <div class="sk-field">
+              <label class="sr-only" for="message">Your Message</label>
+              <textarea name="message" id="message" class="sk-input" rows="4" placeholder="Your Message"></textarea>
+            </div>
+            <button type="submit" value="send" class="sk-btn sk-btn-secondary sk-usp-submit sk-focusable">
+              Send Now <svg class="ml-2" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M22 2L2 10.5l7.5 3L12 21l10-19zM9.5 13.5L22 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+      {{ with hugo.Data.faq }}
+      <div class="col-lg-7">
+        <div id="accordion" class="sk-faq-list">
+          {{ range $i, $item := .faqItem }}
+          {{ $id := printf "faq-%d" (add $i 1) }}
+          <div class="sk-faq-item">
+            <a class="sk-faq-q sk-focusable collapsed" data-toggle="collapse" href="#{{ $id }}" role="button" aria-expanded="false" aria-controls="{{ $id }}">
+              <span>{{ $item.title | markdownify }}</span>
+              <span class="sk-faq-chev" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+            <div id="{{ $id }}" class="collapse" data-parent="#accordion">
+              <div class="sk-faq-a">{{ $item.content | markdownify }}</div>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ partial "cta.html" . }}
+
+{{ end }}

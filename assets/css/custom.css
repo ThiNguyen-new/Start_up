@@ -319,6 +319,23 @@ a:hover {
   color: var(--color-secondary);
 }
 
+/* Nút trong khung CTA gradient: nền sáng, chữ màu primary cho dễ đọc */
+.sk-cta .sk-btn-ghost {
+  background: var(--color-text-inverted);
+  border-color: var(--color-text-inverted);
+  color: var(--color-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow);
+}
+
+.sk-cta .sk-btn-ghost:hover,
+.sk-cta .sk-btn-ghost:focus {
+  background: transparent;
+  border-color: var(--color-text-inverted);
+  color: var(--color-text-inverted);
+  text-decoration: none;
+}
+
 .btn-light {
   background: var(--color-surface);
   color: var(--color-secondary);
@@ -548,4 +565,468 @@ select:focus-visible,
   .sk-panic-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+/* ==========================================================================
+   USP sections (Gửi tặng kit / Lên lịch tiếp sức): minh họa + trang trí
+   ========================================================================== */
+.sk-usp {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.sk-usp > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Lớp trang trí nền */
+.sk-usp-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sk-usp-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(4px);
+}
+
+.sk-usp-blob--a {
+  width: 46vw;
+  max-width: 640px;
+  aspect-ratio: 1;
+  right: -12vw;
+  top: -18%;
+  background: radial-gradient(circle at 40% 40%,
+    color-mix(in srgb, var(--color-primary) 22%, transparent),
+    color-mix(in srgb, var(--color-accent) 10%, transparent) 60%,
+    transparent 72%);
+}
+
+.sk-usp-blob--b {
+  width: 36vw;
+  max-width: 480px;
+  aspect-ratio: 1;
+  left: -10vw;
+  bottom: -20%;
+  background: radial-gradient(circle,
+    color-mix(in srgb, var(--color-accent) 18%, transparent),
+    transparent 70%);
+}
+
+.sk-usp-deco {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+}
+
+.sk-usp-deco--heart1 { top: 8%;  left: 7%;  width: 40px; height: 40px; fill: #f26d7d; transform: rotate(-12deg); }
+.sk-usp-deco--heart2 { top: 16%; left: 3%;  width: 26px; height: 26px; fill: #f7969f; transform: rotate(10deg); }
+.sk-usp-deco--heart3 { top: 42%; right: 2%; width: 30px; height: 30px; fill: #f26d7d; transform: rotate(14deg); }
+.sk-usp-deco--spark1 { top: 6%;  right: 5%; width: 34px; height: 34px; fill: var(--color-accent); }
+.sk-usp-deco--spark2 { top: 14%; right: 2.5%; width: 20px; height: 20px; fill: var(--color-accent); }
+
+.sk-usp-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-text-light);
+  opacity: 0.5;
+}
+.sk-usp-dot--a { top: 5%; left: 5%; }
+.sk-usp-dot--b { bottom: 10%; right: 40%; background: #7fc7b8; opacity: 0.8; }
+
+/* Tiêu đề + đoạn mô tả lớn hơn */
+.sk-usp-title {
+  font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+  line-height: 1.12;
+  margin-bottom: var(--space-4);
+}
+
+.sk-usp-hl {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(90deg, #ef5b7b, #f5a524);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.15em;
+}
+
+.sk-usp-hl::after {
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 0;
+  height: 0.12em;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-dark, #2b1d1a), var(--color-primary), #f5a524);
+  opacity: 0.85;
+}
+
+.sk-usp-lead {
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--color-text-dark);
+  max-width: 34rem;
+}
+
+.sk-usp-illustration {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  margin-top: var(--space-4);
+  filter: drop-shadow(0 18px 24px rgba(194, 65, 43, 0.12));
+}
+
+/* Form dạng thẻ kính mờ + sticker góc */
+.sk-usp-form {
+  position: relative;
+  padding: calc(var(--space-5) * 1.6) calc(var(--space-5) * 1.4);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 48px -20px rgba(194, 65, 43, 0.25), var(--shadow);
+}
+
+.sk-usp-sticker {
+  position: absolute;
+  top: -1.1rem;
+  right: 1.5rem;
+  padding: 0.4rem 1rem;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--color-primary);
+  background: var(--color-body);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transform: rotate(-3deg);
+}
+
+.sk-usp-form .sk-label {
+  font-size: 1.0625rem;
+}
+
+.sk-usp-form .sk-input {
+  width: 100%;
+  font-size: 1.0625rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--color-light) 60%, var(--color-surface));
+}
+
+.sk-usp-form .sk-input:focus {
+  background: var(--color-surface);
+}
+
+.sk-usp-submit {
+  width: 100%;
+  justify-content: center;
+  font-size: 1.125rem;
+  min-height: 3.5rem;
+  margin-top: var(--space-2);
+  background: linear-gradient(90deg, var(--color-secondary), #2c4a7a);
+  border: 0;
+  box-shadow: 0 14px 28px -12px rgba(28, 39, 64, 0.55);
+}
+
+.sk-usp-submit:hover,
+.sk-usp-submit:focus {
+  background: linear-gradient(90deg, #2c4a7a, var(--color-secondary));
+  transform: translateY(-1px);
+}
+
+@media (max-width: 991.98px) {
+  .sk-usp-illustration { max-width: 360px; margin-left: auto; margin-right: auto; }
+  .sk-usp-deco--heart3, .sk-usp-deco--spark2 { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-usp-submit:hover, .sk-usp-submit:focus { transform: none; }
+}
+
+html.dark .sk-usp-submit,
+html.dark .sk-usp-submit:hover,
+html.dark .sk-usp-submit:focus {
+  background: var(--color-secondary);
+  color: var(--color-text-inverted);
+}
+
+/* ==========================================================================
+   Product card: badge "Bán chạy" + Featured Survival Kits (trang chủ)
+   ========================================================================== */
+.sk-product-media {
+  position: relative;
+}
+
+.sk-bestseller {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-text-inverted);
+  background: linear-gradient(90deg, var(--color-primary), #f5a524);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 6px 14px -6px rgba(194, 65, 43, 0.6);
+}
+
+.sk-featured .sk-product-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.1rem 1.5rem;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 24px 48px -24px rgba(194, 65, 43, 0.3), var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sk-featured .sk-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 52px -22px rgba(194, 65, 43, 0.4), var(--shadow);
+}
+
+.sk-featured .sk-product-media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: calc(var(--radius-lg) - 8px);
+}
+
+.sk-featured .sk-product-card > .mt-3 {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sk-product-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.sk-featured .sk-product-tags .sk-badge-accent {
+  text-transform: capitalize;
+}
+
+.sk-featured .sk-product-card h3 {
+  font-size: clamp(1.35rem, 2vw, 1.6rem);
+  margin-top: 0.5rem;
+}
+
+.sk-featured .sk-product-card h3 a {
+  color: var(--color-primary-hover, var(--color-primary));
+}
+
+.sk-featured .sk-product-card p {
+  font-size: 1.0625rem;
+  color: var(--color-text-dark);
+}
+
+.sk-featured .sk-product-price {
+  margin-top: auto;
+}
+
+.sk-featured .sk-product-price .lead {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.sk-featured .snipcart-add-item {
+  align-self: center;
+  min-width: 70%;
+  justify-content: center;
+  min-height: 3.25rem;
+  font-size: 1.0625rem;
+  border: 0 !important;
+  background: linear-gradient(90deg, var(--color-secondary), #2c4a7a) !important;
+  box-shadow: 0 14px 28px -12px rgba(28, 39, 64, 0.55);
+}
+
+.sk-featured .snipcart-add-item:hover,
+.sk-featured .snipcart-add-item:focus {
+  background: linear-gradient(90deg, #2c4a7a, var(--color-secondary)) !important;
+}
+
+html.dark .sk-featured .snipcart-add-item,
+html.dark .sk-featured .snipcart-add-item:hover,
+html.dark .sk-featured .snipcart-add-item:focus {
+  background: var(--color-secondary) !important;
+  color: var(--color-text-inverted) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-featured .sk-product-card,
+  .sk-featured .sk-product-card:hover { transition: none; transform: none; }
+}
+
+/* ==========================================================================
+   FAQ: form hỏi đáp + accordion (dùng lại nền/khung của .sk-usp)
+   ========================================================================== */
+.sk-faq-title {
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  margin-bottom: var(--space-5);
+}
+
+.sk-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sk-faq-item {
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.sk-faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem 1.1rem 1.5rem;
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-text-dark);
+  text-decoration: none !important;
+}
+
+.sk-faq-q:hover {
+  color: var(--color-primary);
+}
+
+.sk-faq-q p {
+  margin: 0;
+  color: inherit;
+}
+
+.sk-faq-chev {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-light);
+  color: var(--color-text-dark);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.sk-faq-q[aria-expanded="true"] .sk-faq-chev {
+  transform: rotate(180deg);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverted);
+}
+
+.sk-faq-a {
+  padding: 0 1.5rem 1.25rem;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--color-text-light);
+}
+
+.sk-faq-a p:last-child {
+  margin-bottom: 0;
+}
+
+/* FAQ: bớt trang trí cho gọn */
+.sk-faq .sk-usp-deco--heart2,
+.sk-faq .sk-usp-deco--spark2,
+.sk-faq .sk-usp-dot {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-faq-chev { transition: none; }
+}
+
+/* FAQ phần trên: nội dung markdown tách thành thẻ, 2 cột kiểu masonry */
+.sk-faq-intro .sk-faq-title {
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.sk-faq-cards {
+  column-count: 2;
+  column-gap: 1.25rem;
+}
+
+.sk-faq-card {
+  display: inline-block;
+  width: 100%;
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
+  padding: 1.5rem 1.6rem;
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.sk-faq-card h3 {
+  position: relative;
+  font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+  line-height: 1.35;
+  margin: 0 0 0.75rem;
+  padding-left: 0.9rem;
+}
+
+.sk-faq-card h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  bottom: 0.2em;
+  width: 4px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(180deg, var(--color-primary), #f5a524);
+}
+
+.sk-faq-card p,
+.sk-faq-card li {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--color-text-light);
+}
+
+.sk-faq-card strong {
+  color: var(--color-text-dark);
+}
+
+.sk-faq-card ol,
+.sk-faq-card ul {
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.sk-faq-card li {
+  margin-bottom: 0.35rem;
+}
+
+.sk-faq-card > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 991.98px) {
+  .sk-faq-cards { column-count: 1; }
 }
