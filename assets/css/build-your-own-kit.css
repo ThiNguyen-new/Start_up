@@ -30,6 +30,7 @@
 .sk-panic-radio-label {
   flex: 1 1 calc(14.28% - 0.5rem);
   min-width: 44px;
+  overflow: hidden;
   margin-bottom: 0;
   cursor: pointer;
 }
@@ -62,8 +63,8 @@
 }
 
 .sk-panic-radio-input:checked + .sk-panic-btn {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--panic-accent, var(--color-primary));
+  border-color: var(--panic-accent, var(--color-primary));
   color: var(--color-text-inverted);
 }
 
@@ -545,6 +546,59 @@ html { transition: --panic-accent 0.35s ease; }
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--panic-accent) 30%, transparent);
 }
 
+/* Khung meter/picker ngả nhẹ theo màu level (xanh → đỏ), chuyển mượt nhờ @property --panic-accent */
+.sk-card.sk-panic-tint {
+  background-color: color-mix(in srgb, var(--panic-accent) 7%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--panic-accent) 28%, var(--color-border));
+  box-shadow: 0 12px 32px -14px color-mix(in srgb, var(--panic-accent) 40%, transparent);
+}
+
+/* Hàng nút mode trang chủ: lưới 7 cột, chữ không tràn viền */
+.sk-panic-steps {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.sk-panic-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-light);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+.sk-panic-step-num { font-weight: 700; flex-shrink: 0; }
+.sk-panic-step-name {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.sk-panic-step:hover {
+  border-color: color-mix(in srgb, var(--panic-accent) 45%, var(--color-border));
+  color: var(--color-text-dark);
+}
+.sk-panic-step.is-active {
+  color: var(--panic-accent);
+  font-weight: 700;
+  border-color: var(--panic-accent);
+  background: color-mix(in srgb, var(--panic-accent) 12%, var(--color-surface));
+}
+@media (max-width: 575.98px) {
+  .sk-panic-steps { gap: 0.3rem; }
+  .sk-panic-step { padding: 0.4rem 0; }
+}
+
 /* Showcase kit: mờ nhẹ khi đổi nội dung, giữ chiều cao để layout không giật */
 .js-panic-kit-showcase { transition: opacity 0.18s ease; }
 .js-panic-kit-showcase.is-swapping { opacity: 0.55; }
@@ -552,7 +606,8 @@ html { transition: --panic-accent 0.35s ease; }
 
 @media (prefers-reduced-motion: reduce) {
   html,
-  .js-panic-kit-showcase { transition: none; }
+  .js-panic-kit-showcase,
+  .sk-panic-step { transition: none; }
   .js-panic-slider::-webkit-slider-thumb { transition: none; }
   .js-panic-slider::-moz-range-thumb { transition: none; }
 }

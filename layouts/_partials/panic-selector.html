@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <!-- Panic Meter Control Card -->
-        <div class="sk-card mb-4 p-4">
+        <div class="sk-card sk-panic-tint mb-4 p-4">
           <!-- Meter Header & Current Status Display -->
           <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap">
             <div>
@@ -25,7 +25,7 @@
             </div>
             <div class="mt-2 mt-sm-0">
               <span class="sk-badge sk-panic js-panic-meter-badge" data-level="4">
-                Panic Level <span class="js-panic-meter-badge-num">4</span>
+                Panic Level&nbsp;<span class="js-panic-meter-badge-num">4</span>
               </span>
             </div>
           </div>
@@ -37,11 +37,11 @@
           </div>
 
           <!-- Step Indicators 1 to 7 -->
-          <div class="d-flex justify-content-between px-1 text-muted small font-weight-medium">
+          <div class="sk-panic-steps">
             {{ range site.Data.theme.panic_levels }}
-            <button type="button" class="btn btn-link p-0 text-muted sk-focusable js-panic-step" data-level="{{ .level }}" aria-label="Set Panic Level {{ .level }}">
-              <span class="font-weight-bold">{{ .level }}</span>
-              <span class="d-none d-md-inline"> · {{ .name }}</span>
+            <button type="button" class="sk-panic-step sk-focusable js-panic-step" data-level="{{ .level }}" aria-pressed="false" aria-label="Set Panic Level {{ .level }}: {{ .name }}" title="{{ .name }}">
+              <span class="sk-panic-step-num">{{ .level }}</span>
+              <span class="sk-panic-step-name d-none d-lg-inline">{{ .name }}</span>
             </button>
             {{ end }}
           </div>
