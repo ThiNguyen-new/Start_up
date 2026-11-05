@@ -673,3 +673,155 @@ html { transition: --panic-accent 0.35s ease; }
   transition: border-color 0.35s ease;
 }
 
+
+/* ==========================================================================
+   Phụ lục B: Thanh lọc / tìm kiếm / sắp xếp món (assets/js/byok-filter.js)
+   ========================================================================== */
+.sk-byok-filter {
+  margin-bottom: 1.75rem;
+  padding: 1rem 1.1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.sk-byok-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.sk-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 40px;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface);
+  color: var(--color-text-dark);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.sk-filter-pill:hover {
+  border-color: var(--color-primary);
+}
+
+.sk-filter-pill.is-active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverted);
+}
+
+.sk-filter-count {
+  min-width: 1.4rem;
+  padding: 0 0.35rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-light);
+  color: var(--color-text-dark);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.sk-filter-pill.is-active .sk-filter-count {
+  background-color: color-mix(in srgb, var(--color-text-inverted) 25%, transparent);
+  color: var(--color-text-inverted);
+}
+
+.sk-byok-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.sk-filter-search {
+  position: relative;
+  flex: 1 1 260px;
+}
+
+.sk-filter-search svg {
+  position: absolute;
+  top: 50%;
+  left: 0.85rem;
+  transform: translateY(-50%);
+  color: var(--color-text-light);
+  pointer-events: none;
+}
+
+.sk-filter-search .sk-input {
+  width: 100%;
+  padding-left: 2.5rem;
+}
+
+.sk-filter-sort {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+}
+
+.sk-filter-sort-label {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  white-space: nowrap;
+}
+
+.sk-filter-sort .sk-input {
+  min-width: 11rem;
+}
+
+.sk-filter-status:empty {
+  display: none;
+}
+
+.sk-filter-status {
+  margin-top: 0.6rem;
+}
+
+.sk-filter-empty {
+  margin-bottom: 2rem;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--color-text-light);
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: 16px;
+}
+
+.sk-filter-empty svg {
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.sk-filter-empty .font-weight-bold {
+  color: var(--color-text-dark);
+}
+
+.sk-category-block[hidden],
+.js-byok-card[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 575.98px) {
+  .sk-byok-filter-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sk-filter-pill { flex: 0 0 auto; }
+  .sk-filter-sort { flex: 1 1 100%; }
+  .sk-filter-sort .sk-input { flex: 1; min-width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-filter-pill { transition: none; }
+}
