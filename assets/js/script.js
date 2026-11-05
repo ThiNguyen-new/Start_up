@@ -75,7 +75,12 @@ $(window).on('load', function () {
     arrows: false,
     dots: true,
     customPaging: function (slider, i) {
-      var image = $(slider.$slides[i]).data('image');
+      // Lấy ảnh đã xử lý trong slide (src đã được Hugo đổi sang đường dẫn tương đối),
+      // không dùng data-image (đường dẫn ảnh gốc trong assets/, không được publish
+      // và vỡ khi site chạy trong thư mục con như /Start_up/ trên GitHub Pages).
+      var $slide = $(slider.$slides[i]);
+      var $img = $slide.find('img').first();
+      var image = ($img.length && ($img.prop('currentSrc') || $img.prop('src'))) || $slide.data('image');
       return '<img class="img-fluid" src="' + image + '" alt="product-img">';
     }
   });

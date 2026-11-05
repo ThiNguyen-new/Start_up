@@ -8,20 +8,33 @@
   var DEFAULT_CATEGORY = 'exam';
   var data = { products: {}, categories: [] };
   var formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
+  var assetBaseUrl = (function () {
+    var scriptUrl = document.currentScript && document.currentScript.src;
+    return scriptUrl ? new URL('../', scriptUrl) : new URL('.', window.location.href);
+  })();
+
+  // Resolve Hugo's root-relative image paths from this site's own script URL.
+  // This keeps images working when the site is opened from a QR code under a
+  // nested path or embedded in a page hosted on another domain (for example,
+  // Google Sites).
+  function resolveImageUrl(imagePath) {
+    if (!imagePath) { return ''; }
+    try {
+      return new URL(String(imagePath).replace(/^\/+/, ''), assetBaseUrl).href;
+    } catch (e) {
+      return imagePath;
+    }
+  }
 
   function load() {
     var el = document.getElementById('sk-kit-data');
     if (!el) { return; }
     try { data = JSON.parse(el.textContent); } catch (e) { /* giữ data rỗng */ }
-    /* data-root-url được Hugo (relativeURLs) đổi thành đường dẫn tương đối theo trang,
-       nên ghép nó vào đường dẫn ảnh thì chạy đúng ở mọi thư mục con (vd /Start_up/). */
-    var root = el.getAttribute('data-root-url') || '';
-    Object.keys(data.products || {}).forEach(function (id) {
-      var p = data.products[id];
-      if (p && p.image && !/^([a-z]+:)?\/\//i.test(p.image) && p.image.charAt(0) !== '/') {
-        p.image = root + p.image;
-      }
-    });
+    /* Giữ nguyên đường dẫn ảnh gốc ("images/..."). Chỉ resolveImageUrl() đổi nó
+       thành URL tuyệt đối, tính từ URL của chính file script này (luôn nằm ở
+       <gốc site>/js/), nên đúng ở mọi thư mục con như /Start_up/.
+       Không ghép thêm data-root-url ở đây: ghép 2 lần sẽ ra "../../images"
+       và vỡ ảnh ở các trang con trên GitHub Pages. */
   }
 
   function categories() { return data.categories || []; }
@@ -79,7 +92,7 @@
       var subtotal = product.price * qty;
       items.push({
         id: pid, name: product.name, price: product.price,
-        image: product.image, qty: qty, subtotal: subtotal
+        image: resolveImageUrl(product.image), qty: qty, subtotal: subtotal
       });
       total += subtotal;
       count += qty;
