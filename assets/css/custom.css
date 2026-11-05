@@ -7,7 +7,7 @@
     --font-primary / --font-display
 
   Classes for Person 3:
-    .sk-display          display/slogan type (Bebas Neue)
+    .sk-display          display/slogan type (Oswald — hỗ trợ tiếng Việt)
     .sk-card             product / content card
     .sk-card--rescue     highlighted rescue card
     .sk-btn, .sk-btn-primary, .sk-btn-secondary, .sk-btn-ghost
@@ -20,7 +20,7 @@
     .sk-focusable
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 
 :root {
   --color-primary: #c2412b;
@@ -41,7 +41,7 @@
   --color-text-inverted: #fff7ed;
   --color-focus: #1c2740;
   --font-primary: "Plus Jakarta Sans", Quicksand, sans-serif;
-  --font-display: "Bebas Neue", "Plus Jakarta Sans", sans-serif;
+  --font-display: "Oswald", "Plus Jakarta Sans", sans-serif;
   --text-base: 1rem;
   --text-h1: 3.052rem;
   --text-h2: 2.441rem;
@@ -168,9 +168,11 @@ h6,
 
 .sk-display {
   font-family: var(--font-display);
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  line-height: 0.95;
+  /* đủ chỗ cho dấu tiếng Việt chồng tầng (Ố, Ộ, Ẫ) giữa các dòng */
+  line-height: 1.18;
 }
 
 a {
@@ -1293,4 +1295,35 @@ a.cart.sk-btn {
   position: relative;
   width: auto !important;
   flex: 0 0 auto;
+}
+
+/* Header mobile/tablet: [logo] ........ [giỏ] [☰], menu mở ra bên dưới.
+   Theme Hargo đặt .cart position:absolute dưới 992px nên phải ghi đè. */
+@media (max-width: 991.98px) {
+  .navigation .navbar {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .navigation .navbar-brand {
+    order: 0;
+    margin-right: auto;
+  }
+  .navigation a.cart.sk-btn {
+    order: 1;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    min-height: 44px;
+    padding: 0.5rem 0.95rem;
+    margin-right: 0.5rem;
+  }
+  .navigation .navbar-toggler {
+    order: 2;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .navigation .navbar-collapse {
+    order: 3;
+    flex-basis: 100%;
+  }
 }
