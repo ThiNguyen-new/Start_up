@@ -3,31 +3,45 @@
 {{/* Breadcrumb & Section Header */}}
 {{ partial "page-title.html" . }}
 
-<section class="section pt-4" data-build-url="{{ "build-your-own-kit/" | relLangURL }}">
+{{/* 34 tỉnh/thành sau sắp xếp đơn vị hành chính 2025 (2 cấp: Tỉnh/Thành → Phường/Xã) */}}
+{{ $provinces := slice "TP. Hồ Chí Minh" "Hà Nội" "Đà Nẵng" "Hải Phòng" "Cần Thơ" "Huế" "An Giang" "Bắc Ninh" "Cà Mau" "Cao Bằng" "Đắk Lắk" "Điện Biên" "Đồng Nai" "Đồng Tháp" "Gia Lai" "Hà Tĩnh" "Hưng Yên" "Khánh Hòa" "Lai Châu" "Lâm Đồng" "Lạng Sơn" "Lào Cai" "Nghệ An" "Ninh Bình" "Phú Thọ" "Quảng Ngãi" "Quảng Ninh" "Quảng Trị" "Sơn La" "Tây Ninh" "Thái Nguyên" "Thanh Hóa" "Tuyên Quang" "Vĩnh Long" }}
+
+<section class="section pt-4 sk-shop" data-build-url="{{ "build-your-own-kit/" | relLangURL }}">
   <div class="container">
     {{/* Demo Disclaimer Notice */}}
     <div class="row mb-4">
       <div class="col-12">
         <div class="sk-disclaimer-alert d-flex align-items-center" role="note">
-          <i class="ti-info-alt text-primary mr-3 h4 mb-0" aria-hidden="true"></i>
+          <svg class="text-primary mr-3 flex-shrink-0" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           <div>
-            <strong>{{ or (i18n "sk_demo_notice") "Bản demo giỏ hàng" }}:</strong>
-            <span>{{ or (i18n "sk_cart_disclaimer") "Giá, tồn kho và đơn hàng chỉ mang tính minh họa. Website không lưu trữ dữ liệu cá nhân và không có giao dịch tài chính thật." }}</span>
+            <strong>Bản demo:</strong>
+            <span>Giá, đơn hàng và thanh toán MoMo/ZaloPay chỉ là mô phỏng. Không có giao dịch thật, thông tin bạn nhập không được gửi đi hay lưu lại.</span>
           </div>
         </div>
       </div>
     </div>
+
+    {{/* Stepper */}}
+    <ol class="sk-steps js-steps" aria-label="Các bước đặt hàng" hidden>
+      <li class="sk-step" data-step="cart"><span>1</span> Giỏ hàng</li>
+      <li class="sk-step" data-step="checkout"><span>2</span> Thông tin giao hàng</li>
+      <li class="sk-step" data-step="pay"><span>3</span> Thanh toán</li>
+      <li class="sk-step" data-step="done"><span>4</span> Hoàn tất</li>
+    </ol>
 
     {{/* Empty Cart View */}}
     <div class="row js-cart-empty-view text-center py-5" hidden>
       <div class="col-md-8 mx-auto">
         <div class="sk-card p-5">
           <i class="ti-shopping-cart text-muted mb-3 d-block display-4" aria-hidden="true"></i>
-          <h2 class="h3 font-weight-bold mb-2">Giỏ hàng demo đang trống</h2>
-          <p class="text-muted mb-4">Bạn chưa chọn món đồ nào cho Survival Kit của mình.</p>
+          <h2 class="h3 font-weight-bold mb-2">Giỏ hàng đang trống</h2>
+          <p class="text-muted mb-4">Bạn chưa chọn món nào cho Survival Kit của mình.</p>
           <div class="d-flex flex-wrap justify-content-center gap-2">
-            <a href="{{ "build-your-own-kit/" | relLangURL }}" class="btn sk-btn sk-btn-primary sk-focusable m-1">
-              <i class="ti-plus mr-1" aria-hidden="true"></i> Tự phối bộ kit (BYOK)
+            <a href="{{ "products/" | relLangURL }}" class="btn sk-btn sk-btn-primary sk-focusable m-1">
+              <i class="ti-bag mr-1" aria-hidden="true"></i> Xem các Survival Kit
+            </a>
+            <a href="{{ "build-your-own-kit/" | relLangURL }}" class="btn btn-outline-primary sk-focusable m-1">
+              <i class="ti-plus mr-1" aria-hidden="true"></i> Tự phối bộ kit
             </a>
             <a href="{{ "schedule-rescue/" | relLangURL }}" class="btn btn-outline-primary sk-focusable m-1">
               <i class="ti-calendar mr-1" aria-hidden="true"></i> Lên lịch cứu hộ
@@ -40,37 +54,22 @@
       </div>
     </div>
 
-    {{/* Active Cart View */}}
+    {{/* ============ BƯỚC 1: GIỎ HÀNG ============ */}}
     <div class="row js-cart-active-view" hidden>
       <div class="col-lg-8 mb-4 mb-lg-0">
         <div class="sk-card p-4">
           <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3 flex-wrap">
             <div>
-              <h2 class="h4 font-weight-bold mb-1">Chi Tiết Bộ Kit Của Bạn</h2>
-              <span class="text-muted small">Cấu hình sản phẩm trong đơn Survival Kit</span>
+              <h2 class="h4 font-weight-bold mb-1">Giỏ hàng của bạn</h2>
+              <span class="text-muted small js-cart-count-label"></span>
             </div>
-            <div class="mt-2 mt-sm-0">
+            <div class="mt-2 mt-sm-0 js-cart-badges">
               <span class="sk-badge sk-panic js-cart-panic-badge mr-2">Panic Level 3</span>
               <span class="sk-badge-accent js-cart-category-badge">Loại kit: Mùa thi</span>
             </div>
           </div>
 
-          {{/* Table of Selected Items */}}
-          <div class="table-responsive mb-4">
-            <table class="table table-borderless align-middle mb-0">
-              <thead>
-                <tr class="border-bottom text-muted small text-uppercase">
-                  <th scope="col">Món đồ</th>
-                  <th scope="col" class="text-center">Số lượng</th>
-                  <th scope="col" class="text-right">Đơn giá</th>
-                  <th scope="col" class="text-right">Thành tiền</th>
-                </tr>
-              </thead>
-              <tbody class="js-cart-items-tbody">
-                <!-- Injected via JavaScript -->
-              </tbody>
-            </table>
-          </div>
+          <ul class="sk-cart-list js-cart-items-list" aria-label="Sản phẩm trong giỏ"></ul>
 
           {{/* Schedule Details Card (if schedule payload present) */}}
           <div class="rescue-review-card js-cart-schedule-box mb-4" hidden>
@@ -78,7 +77,7 @@
               <span class="badge badge-primary font-weight-bold p-2">
                 <i class="ti-calendar mr-1" aria-hidden="true"></i> Lịch Giao Cứu Hộ Đã Đặt
               </span>
-              <a href="{{ "schedule-rescue/" | relLangURL }}" class="btn btn-sm btn-link text-primary p-0">
+              <a href="{{ "schedule-rescue/" | relLangURL }}" class="sk-linkbtn">
                 <i class="ti-reload mr-1" aria-hidden="true"></i> Đổi lịch
               </a>
             </div>
@@ -106,7 +105,7 @@
               <span class="badge badge-info font-weight-bold p-2">
                 <i class="ti-gift mr-1" aria-hidden="true"></i> Quà Tặng Tiếp Sức Đã Đặt
               </span>
-              <a href="{{ "send-rescue/" | relLangURL }}" class="btn btn-sm btn-link text-primary p-0">
+              <a href="{{ "send-rescue/" | relLangURL }}" class="sk-linkbtn">
                 <i class="ti-reload mr-1" aria-hidden="true"></i> Sửa quà tặng
               </a>
             </div>
@@ -154,51 +153,219 @@
           </div>
 
           {{/* Personalized Note Card for BYOK */}}
-          <div class="sk-kit-preview-box js-cart-byok-note-box">
+          <div class="sk-kit-preview-box js-cart-byok-note-box" hidden>
             <span class="font-weight-bold text-dark d-block mb-1">
-              <i class="ti-write text-primary mr-1" aria-hidden="true"></i> Ghi chú đơn hàng / Lời nhắn:
+              <i class="ti-write text-primary mr-1" aria-hidden="true"></i> Lời nhắn trong bộ kit tự phối:
             </span>
-            <p class="sk-preview-note-text js-cart-message-text mb-0">
-              (Không có lời nhắn cá nhân)
-            </p>
+            <p class="sk-preview-note-text js-cart-message-text mb-0"></p>
           </div>
         </div>
       </div>
 
-      {{/* Order Summary Sidebar */}}
+      {{/* Order Summary Sidebar (bước giỏ hàng) */}}
       <div class="col-lg-4">
         <div class="sk-sticky-summary">
-          <h3 class="sk-summary-title">Tóm Tắt Đơn Demo</h3>
-
-          <div class="d-flex justify-content-between mb-2">
-            <span class="text-muted">Tổng số món:</span>
-            <strong class="text-dark js-cart-total-qty">0</strong>
-          </div>
-
-          <div class="d-flex justify-content-between mb-3">
-            <span class="text-muted">Phí đóng gói & giao:</span>
-            <span class="text-success font-weight-bold">Miễn phí (Demo)</span>
-          </div>
-
+          <h3 class="sk-summary-title">Tóm tắt đơn hàng</h3>
+          <div class="sk-sum-row"><span>Tạm tính (<span class="js-cart-total-qty">0</span> món)</span><strong class="js-sum-subtotal">0₫</strong></div>
+          <div class="sk-sum-row text-muted small"><span>Phí giao hàng</span><span>Tính ở bước sau</span></div>
           <div class="sk-summary-total-box">
-            <span class="sk-summary-total-label">Tổng thanh toán:</span>
-            <span class="sk-summary-total-amount js-cart-total-price">0 ₫</span>
+            <span class="sk-summary-total-label">Tổng cộng:</span>
+            <span class="sk-summary-total-amount js-cart-total-price">0₫</span>
           </div>
-
-          <div class="mb-3">
-            <button type="button" class="btn sk-btn sk-btn-primary btn-block js-btn-demo-checkout sk-focusable">
-              Đặt hàng demo <i class="ti-check ml-1" aria-hidden="true"></i>
-            </button>
-          </div>
-
+          <button type="button" class="btn sk-btn sk-btn-primary btn-block js-go-checkout sk-focusable mb-3">
+            Tiến hành đặt hàng <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
+          </button>
           <div class="d-flex justify-content-between">
-            <a href="{{ "build-your-own-kit/" | relLangURL }}" class="btn btn-outline-secondary btn-sm sk-focusable">
-              <i class="ti-pencil mr-1" aria-hidden="true"></i> Chỉnh sửa kit
+            <a href="{{ "products/" | relLangURL }}" class="btn btn-outline-secondary btn-sm sk-focusable">
+              <i class="ti-arrow-left mr-1" aria-hidden="true"></i> Mua thêm
             </a>
             <button type="button" class="btn btn-outline-danger btn-sm js-btn-clear-cart sk-focusable">
               <i class="ti-trash mr-1" aria-hidden="true"></i> Xóa giỏ
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    {{/* ============ BƯỚC 2: THÔNG TIN GIAO HÀNG + THANH TOÁN ============ */}}
+    <form class="row js-checkout-view" hidden novalidate autocomplete="off" aria-labelledby="checkout-heading">
+      <div class="col-lg-8 mb-4 mb-lg-0">
+        <div class="sk-card p-4 mb-4">
+          <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+            <h2 id="checkout-heading" class="h4 font-weight-bold mb-0">Thông tin nhận hàng</h2>
+            <button type="button" class="sk-linkbtn js-fill-sample">Điền dữ liệu mẫu</button>
+          </div>
+          <p class="text-muted small mb-4">Bản demo: bạn có thể dùng dữ liệu mẫu. Đừng nhập thông tin thật của người khác.</p>
+
+          <div class="form-row">
+            <div class="col-md-6 sk-field">
+              <label class="sk-label" for="co-name">Họ và tên <span class="text-primary">*</span></label>
+              <input class="sk-input w-100" id="co-name" name="name" type="text" maxlength="60" required placeholder="Nguyễn Văn A">
+              <div class="sk-field-error" data-for="name"></div>
+            </div>
+            <div class="col-md-6 sk-field">
+              <label class="sk-label" for="co-phone">Số điện thoại <span class="text-primary">*</span></label>
+              <input class="sk-input w-100" id="co-phone" name="phone" type="tel" inputmode="numeric" maxlength="12" required placeholder="09xx xxx xxx">
+              <div class="sk-field-error" data-for="phone"></div>
+            </div>
+          </div>
+          <div class="sk-field">
+            <label class="sk-label" for="co-email">Email <span class="text-muted font-weight-normal">(không bắt buộc)</span></label>
+            <input class="sk-input w-100" id="co-email" name="email" type="email" maxlength="80" placeholder="ban@vidu.com">
+            <div class="sk-field-error" data-for="email"></div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 sk-field">
+              <label class="sk-label" for="co-province">Tỉnh / Thành phố <span class="text-primary">*</span></label>
+              <select class="sk-input w-100" id="co-province" name="province" required>
+                <option value="">-- Chọn Tỉnh / Thành phố --</option>
+                {{ range $provinces }}<option value="{{ . }}">{{ . }}</option>{{ end }}
+              </select>
+              <div class="sk-field-error" data-for="province"></div>
+            </div>
+            <div class="col-md-6 sk-field">
+              <label class="sk-label" for="co-ward">Phường / Xã <span class="text-primary">*</span></label>
+              <input class="sk-input w-100" id="co-ward" name="ward" type="text" maxlength="60" required placeholder="VD: Phường Sài Gòn">
+              <div class="sk-field-error" data-for="ward"></div>
+            </div>
+          </div>
+          <div class="sk-field">
+            <label class="sk-label" for="co-address">Địa chỉ cụ thể <span class="text-primary">*</span></label>
+            <input class="sk-input w-100" id="co-address" name="address" type="text" maxlength="120" required placeholder="Số nhà, tên đường, tòa nhà / KTX, phòng...">
+            <div class="sk-field-error" data-for="address"></div>
+          </div>
+          <div class="sk-field mb-0">
+            <label class="sk-label" for="co-note">Ghi chú cho shipper <span class="text-muted font-weight-normal">(không bắt buộc)</span></label>
+            <textarea class="sk-input w-100" id="co-note" name="note" rows="2" maxlength="200" placeholder="VD: Gọi trước khi giao, gửi ở phòng bảo vệ KTX..."></textarea>
+          </div>
+        </div>
+
+        <div class="sk-card p-4 mb-4">
+          <h2 class="h5 font-weight-bold mb-3">Phương thức giao hàng</h2>
+          <div class="sk-choice-list" role="radiogroup" aria-label="Phương thức giao hàng">
+            <label class="sk-choice">
+              <input type="radio" name="shipping" value="standard" checked>
+              <span class="sk-choice-body">
+                <span class="sk-choice-title">Giao tiêu chuẩn <small class="text-muted">· 2–4 ngày</small></span>
+                <span class="sk-choice-desc">Miễn phí cho đơn từ 150.000₫</span>
+              </span>
+              <span class="sk-choice-price js-ship-standard">20.000₫</span>
+            </label>
+            <label class="sk-choice">
+              <input type="radio" name="shipping" value="express">
+              <span class="sk-choice-body">
+                <span class="sk-choice-title">Giao hỏa tốc <small class="text-muted">· trong 2 giờ</small></span>
+                <span class="sk-choice-desc">Nội thành TP. Hồ Chí Minh và Hà Nội</span>
+              </span>
+              <span class="sk-choice-price">35.000₫</span>
+            </label>
+          </div>
+          <div class="sk-field-error" data-for="shipping"></div>
+        </div>
+
+        <div class="sk-card p-4">
+          <h2 class="h5 font-weight-bold mb-3">Phương thức thanh toán</h2>
+          <div class="sk-choice-list" role="radiogroup" aria-label="Phương thức thanh toán">
+            <label class="sk-choice sk-choice--momo">
+              <input type="radio" name="payment" value="momo" required>
+              <span class="sk-wallet-mark sk-wallet-mark--momo" aria-hidden="true">MoMo</span>
+              <span class="sk-choice-body">
+                <span class="sk-choice-title">Ví MoMo</span>
+                <span class="sk-choice-desc">Quét mã QR bằng ứng dụng MoMo (mô phỏng)</span>
+              </span>
+            </label>
+            <label class="sk-choice sk-choice--zalopay">
+              <input type="radio" name="payment" value="zalopay" required>
+              <span class="sk-wallet-mark sk-wallet-mark--zalopay" aria-hidden="true">ZaloPay</span>
+              <span class="sk-choice-body">
+                <span class="sk-choice-title">Ví ZaloPay</span>
+                <span class="sk-choice-desc">Quét mã QR bằng ứng dụng ZaloPay (mô phỏng)</span>
+              </span>
+            </label>
+          </div>
+          <div class="sk-field-error" data-for="payment"></div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="sk-sticky-summary">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="sk-summary-title mb-0">Đơn hàng (<span class="js-co-qty">0</span>)</h3>
+            <button type="button" class="sk-linkbtn js-back-cart">Sửa</button>
+          </div>
+          <ul class="sk-mini-list js-co-items"></ul>
+
+          <div class="sk-voucher">
+            <label class="sk-label small mb-1" for="co-voucher">Mã giảm giá</label>
+            <div class="d-flex">
+              <input class="sk-input flex-grow-1 mr-2" id="co-voucher" type="text" maxlength="20" placeholder="Nhập mã">
+              <button type="button" class="sk-voucher-btn js-apply-voucher">Áp dụng</button>
+            </div>
+            <div class="small mt-1 js-voucher-msg text-muted">Mã demo: <code>DEADLINE10</code>, <code>FREESHIP</code></div>
+          </div>
+
+          <div class="sk-sum-row"><span>Tạm tính</span><span class="js-co-subtotal">0₫</span></div>
+          <div class="sk-sum-row"><span>Phí giao hàng</span><span class="js-co-shipping">0₫</span></div>
+          <div class="sk-sum-row text-success js-co-discount-row" hidden><span>Giảm giá</span><span class="js-co-discount">-0₫</span></div>
+          <div class="sk-summary-total-box">
+            <span class="sk-summary-total-label">Tổng thanh toán:</span>
+            <span class="sk-summary-total-amount js-co-total">0₫</span>
+          </div>
+          <p class="small text-muted mb-3">Đã bao gồm VAT (nếu có).</p>
+          <button type="submit" class="btn sk-btn sk-btn-primary btn-block sk-focusable">
+            Đặt hàng <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
+          </button>
+          <p class="small text-muted mt-3 mb-0">Nhấn “Đặt hàng” là bạn đồng ý với <a href="{{ "terms-conditions/" | relLangURL }}">Điều khoản</a> của bản demo.</p>
+        </div>
+      </div>
+    </form>
+
+    {{/* ============ BƯỚC 3: THANH TOÁN VÍ (MÔ PHỎNG) ============ */}}
+    <div class="row justify-content-center js-pay-view" hidden>
+      <div class="col-lg-6 col-md-8">
+        <div class="sk-card sk-pay-card p-0 overflow-hidden" data-wallet="momo">
+          <div class="sk-pay-head">
+            <span class="sk-wallet-mark sk-wallet-mark--light js-pay-wallet-name">MoMo</span>
+            <span class="sk-pay-sim">MÔ PHỎNG · không phải trang của ví điện tử</span>
+          </div>
+          <div class="p-4 text-center">
+            <p class="text-muted mb-1">Số tiền cần thanh toán</p>
+            <p class="sk-pay-amount js-pay-amount">0₫</p>
+            <div class="sk-pay-qr" aria-label="Mã QR minh họa, không quét được" role="img">
+              <svg class="js-pay-qr" viewBox="0 0 29 29" width="220" height="220" shape-rendering="crispEdges"></svg>
+              <span class="sk-pay-qr-stamp">DEMO</span>
+            </div>
+            <p class="small text-muted mt-2 mb-3">Mã QR chỉ để minh họa, không quét được và không trừ tiền.</p>
+            <dl class="sk-pay-meta">
+              <div><dt>Mã đơn hàng</dt><dd class="js-pay-order">—</dd></div>
+              <div><dt>Nội dung</dt><dd class="js-pay-content">—</dd></div>
+              <div><dt>Mã hết hạn sau</dt><dd class="js-pay-timer">05:00</dd></div>
+            </dl>
+            <div class="js-pay-expired alert alert-warning small" hidden>Mã đã hết hạn. <button type="button" class="sk-linkbtn js-pay-renew">Tạo mã mới</button></div>
+            <button type="button" class="btn sk-btn sk-btn-primary btn-block js-pay-success sk-focusable">
+              Giả lập: thanh toán thành công
+            </button>
+            <button type="button" class="sk-linkbtn sk-linkbtn--muted d-block mx-auto mt-3 js-pay-cancel">Hủy, quay lại chọn phương thức khác</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{/* ============ BƯỚC 4: HOÀN TẤT ============ */}}
+    <div class="row justify-content-center js-done-view" hidden>
+      <div class="col-lg-6 col-md-8">
+        <div class="sk-card p-5 text-center" role="status">
+          <div class="sk-done-icon" aria-hidden="true"><i class="ti-check"></i></div>
+          <h2 class="h3 font-weight-bold mt-3">Đặt hàng thành công!</h2>
+          <p class="text-muted">Cảm ơn bạn đã thử bản demo Survival Kit. Đây là đơn mô phỏng, không có tiền nào bị trừ.</p>
+          <dl class="sk-pay-meta text-left my-4">
+            <div><dt>Mã đơn hàng</dt><dd class="js-done-order">—</dd></div>
+            <div><dt>Thanh toán qua</dt><dd class="js-done-method">—</dd></div>
+            <div><dt>Tổng tiền</dt><dd class="js-done-total">—</dd></div>
+            <div><dt>Dự kiến giao</dt><dd class="js-done-eta">—</dd></div>
+          </dl>
+          <p class="small text-muted">Thông tin giao hàng bạn vừa nhập đã được xóa khỏi trang và không được lưu.</p>
+          <a href="{{ "products/" | relLangURL }}" class="btn sk-btn sk-btn-primary sk-focusable">Tiếp tục mua sắm</a>
         </div>
       </div>
     </div>
@@ -210,15 +377,19 @@
 (function () {
   'use strict';
   var CART_KEY = 'survivalKitCart';
-  var currencyFormatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
+  var VOUCHERS = {
+    DEADLINE10: { type: 'percent', value: 10, max: 30000, label: 'Giảm 10% (tối đa 30.000₫)' },
+    FREESHIP: { type: 'ship', label: 'Miễn phí giao hàng' }
+  };
+  var WALLETS = { momo: 'MoMo', zalopay: 'ZaloPay' };
+  var state = { step: 'cart', voucher: null, order: null, timer: null };
 
   function formatVND(amt) {
-    try {
-      return currencyFormatter.format(amt);
-    } catch (e) {
-      return (amt || 0).toLocaleString('vi-VN') + ' ₫';
-    }
+    return (Math.round(Number(amt) || 0)).toLocaleString('vi-VN') + '₫';
   }
+
+  function $(sel) { return document.querySelector(sel); }
+  function show(el, on) { if (el) { if (on) el.removeAttribute('hidden'); else el.setAttribute('hidden', 'hidden'); } }
 
   function getCartData() {
     try {
@@ -234,91 +405,174 @@
     }
   }
 
-  function renderCart() {
-    var cart = getCartData();
-    var emptyView = document.querySelector('.js-cart-empty-view');
-    var activeView = document.querySelector('.js-cart-active-view');
+  function saveCart(cart) {
+    if (window.DemoCart) return window.DemoCart.save(cart);
+    try { sessionStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {}
+    return cart;
+  }
 
-    if (!cart || !cart.items || cart.items.length === 0) {
-      if (emptyView) emptyView.removeAttribute('hidden');
-      if (activeView) activeView.setAttribute('hidden', 'hidden');
-      return;
+  function subtotalOf(cart) {
+    return cart.items.reduce(function (s, it) { return s + (Number(it.price) || 0) * (Number(it.qty) || 0); }, 0);
+  }
+
+  function qtyOf(cart) {
+    return cart.items.reduce(function (s, it) { return s + (Number(it.qty) || 0); }, 0);
+  }
+
+  /* ---------- Step switching ---------- */
+  function goStep(step) {
+    var changed = state.step !== step;
+    state.step = step;
+    var cart = getCartData();
+    var hasCart = !!cart;
+    show($('.js-cart-empty-view'), step === 'cart' && !hasCart);
+    show($('.js-cart-active-view'), step === 'cart' && hasCart);
+    show($('.js-checkout-view'), step === 'checkout');
+    show($('.js-pay-view'), step === 'pay');
+    show($('.js-done-view'), step === 'done');
+    show($('.js-steps'), hasCart || step === 'pay' || step === 'done');
+    var order = ['cart', 'checkout', 'pay', 'done'];
+    document.querySelectorAll('.sk-step').forEach(function (li) {
+      var idx = order.indexOf(li.getAttribute('data-step'));
+      var cur = order.indexOf(step);
+      li.classList.toggle('is-active', idx === cur);
+      li.classList.toggle('is-done', idx < cur);
+      if (idx === cur) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+    });
+    if (step === 'checkout') renderCheckout();
+    if (changed) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ---------- Step 1: cart ---------- */
+  function buildItemRow(it) {
+    var li = document.createElement('li');
+    li.className = 'sk-cart-item';
+
+    var thumb = document.createElement('div');
+    thumb.className = 'sk-cart-thumb';
+    if (it.image) {
+      var img = document.createElement('img');
+      img.src = it.image;
+      img.alt = '';
+      img.loading = 'lazy';
+      img.onerror = function () { thumb.removeChild(img); thumb.classList.add('is-empty'); };
+      thumb.appendChild(img);
+    } else {
+      thumb.classList.add('is-empty');
     }
 
-    if (emptyView) emptyView.setAttribute('hidden', 'hidden');
-    if (activeView) activeView.removeAttribute('hidden');
+    var info = document.createElement('div');
+    info.className = 'sk-cart-info';
+    var name = document.createElement('strong');
+    name.className = 'd-block text-dark';
+    name.textContent = it.name;
+    var meta = document.createElement('span');
+    meta.className = 'small text-muted';
+    meta.textContent = (it.category || 'Món đồ') + (it.variant ? ' · ' + it.variant : '');
+    var unit = document.createElement('span');
+    unit.className = 'd-block small text-muted';
+    unit.textContent = 'Đơn giá: ' + formatVND(it.price);
+    info.appendChild(name);
+    info.appendChild(meta);
+    info.appendChild(unit);
 
-    // Badges
-    var panicBadge = document.querySelector('.js-cart-panic-badge');
-    if (panicBadge) {
+    var qty = document.createElement('div');
+    qty.className = 'sk-qty';
+    var minus = document.createElement('button');
+    minus.type = 'button';
+    minus.textContent = '−';
+    minus.setAttribute('aria-label', 'Giảm số lượng ' + it.name);
+    var val = document.createElement('span');
+    val.textContent = it.qty;
+    val.setAttribute('aria-live', 'polite');
+    var plus = document.createElement('button');
+    plus.type = 'button';
+    plus.textContent = '+';
+    plus.setAttribute('aria-label', 'Tăng số lượng ' + it.name);
+    minus.disabled = it.qty <= 1;
+    minus.addEventListener('click', function () { changeQty(it.id, it.name, -1); });
+    plus.addEventListener('click', function () { changeQty(it.id, it.name, 1); });
+    qty.appendChild(minus);
+    qty.appendChild(val);
+    qty.appendChild(plus);
+
+    var right = document.createElement('div');
+    right.className = 'sk-cart-right';
+    var sub = document.createElement('strong');
+    sub.className = 'text-primary';
+    sub.textContent = formatVND(it.price * it.qty);
+    var rm = document.createElement('button');
+    rm.type = 'button';
+    rm.className = 'sk-linkbtn sk-linkbtn--muted';
+    rm.textContent = 'Xóa';
+    rm.setAttribute('aria-label', 'Xóa ' + it.name + ' khỏi giỏ');
+    rm.addEventListener('click', function () { removeItem(it.id, it.name); });
+    right.appendChild(sub);
+    right.appendChild(rm);
+
+    li.appendChild(thumb);
+    li.appendChild(info);
+    li.appendChild(qty);
+    li.appendChild(right);
+    return li;
+  }
+
+  function matchItem(it, id, name) {
+    return it.id ? it.id === id : it.name === name;
+  }
+
+  function changeQty(id, name, delta) {
+    var cart = getCartData();
+    if (!cart) return;
+    cart.items.forEach(function (it) {
+      if (matchItem(it, id, name)) it.qty = Math.max(1, Math.min(99, (Number(it.qty) || 1) + delta));
+    });
+    saveCart(cart);
+    renderCart();
+  }
+
+  function removeItem(id, name) {
+    var cart = getCartData();
+    if (!cart) return;
+    cart.items = cart.items.filter(function (it) { return !matchItem(it, id, name); });
+    if (cart.items.length === 0 && window.DemoCart) {
+      window.DemoCart.clear();
+    } else {
+      saveCart(cart);
+    }
+    renderCart();
+  }
+
+  function renderCart() {
+    var cart = getCartData();
+    if (!cart) { goStep('cart'); return; }
+
+    var panicBadge = $('.js-cart-panic-badge');
+    var catBadge = $('.js-cart-category-badge');
+    var isCustomKit = !!(cart.level || cart.category || cart.theme);
+    show($('.js-cart-badges'), isCustomKit);
+    if (panicBadge && isCustomKit) {
       var lvl = cart.level || 3;
       panicBadge.textContent = 'Panic Level ' + lvl;
       panicBadge.setAttribute('data-level', lvl);
     }
-
-    var catBadge = document.querySelector('.js-cart-category-badge, .js-cart-theme-badge');
-    if (catBadge) {
+    if (catBadge && isCustomKit) {
       var catName = cart.categoryName;
       if (!catName) {
-        var categoryLabels = {
-          exam: 'Mùa thi',
-          project: 'Đồ án',
-          club: 'CLB & nhóm',
-          care: 'Chăm sóc & tặng bạn',
-          free: 'Tự do',
-          rush: 'Nước rút'
-        };
+        var categoryLabels = { exam: 'Mùa thi', project: 'Đồ án', club: 'CLB & nhóm', care: 'Chăm sóc & tặng bạn', free: 'Tự do', rush: 'Nước rút' };
         catName = categoryLabels[cart.category] || categoryLabels[cart.theme] || cart.category || cart.theme || 'Mùa thi';
       }
       catBadge.textContent = 'Loại kit: ' + catName;
     }
 
-    // Items table
-    var tbody = document.querySelector('.js-cart-items-tbody');
-    if (tbody) {
-      tbody.innerHTML = '';
-      cart.items.forEach(function (it) {
-        var tr = document.createElement('tr');
-        tr.className = 'border-bottom';
-
-        var tdName = document.createElement('td');
-        var nameStrong = document.createElement('strong');
-        nameStrong.className = 'd-block text-dark';
-        nameStrong.textContent = it.name;
-        var catSpan = document.createElement('span');
-        catSpan.className = 'badge badge-light text-muted';
-        catSpan.textContent = it.category || 'Món đồ';
-        tdName.appendChild(nameStrong);
-        tdName.appendChild(catSpan);
-        if (it.variant) {
-          var variantSpan = document.createElement('span');
-          variantSpan.className = 'd-block text-muted small mt-1';
-          variantSpan.textContent = it.variant;
-          tdName.appendChild(variantSpan);
-        }
-
-        var tdQty = document.createElement('td');
-        tdQty.className = 'text-center font-weight-bold';
-        tdQty.textContent = it.qty;
-
-        var tdPrice = document.createElement('td');
-        tdPrice.className = 'text-right text-muted';
-        tdPrice.textContent = formatVND(it.price);
-
-        var tdSubtotal = document.createElement('td');
-        tdSubtotal.className = 'text-right font-weight-bold text-primary';
-        tdSubtotal.textContent = formatVND(it.price * it.qty);
-
-        tr.appendChild(tdName);
-        tr.appendChild(tdQty);
-        tr.appendChild(tdPrice);
-        tr.appendChild(tdSubtotal);
-        tbody.appendChild(tr);
-      });
+    var list = $('.js-cart-items-list');
+    if (list) {
+      list.innerHTML = '';
+      cart.items.forEach(function (it) { list.appendChild(buildItemRow(it)); });
     }
 
     // Schedule Info Box
-    var schedBox = document.querySelector('.js-cart-schedule-box');
+    var schedBox = $('.js-cart-schedule-box');
     if (schedBox) {
       if (cart.schedule) {
         schedBox.removeAttribute('hidden');
@@ -326,7 +580,6 @@
         var rEl = schedBox.querySelector('.js-cart-sched-receive');
         var cEl = schedBox.querySelector('.js-cart-sched-contact');
         var codeEl = schedBox.querySelector('.js-cart-sched-code');
-
         if (dEl) dEl.textContent = cart.schedule.deadline + (cart.schedule.deadlineLabel ? ' (' + cart.schedule.deadlineLabel + ')' : '');
         if (rEl) rEl.textContent = cart.schedule.receive + (cart.schedule.slot ? ' · Khung giờ: ' + cart.schedule.slot : '');
         if (cEl && cart.schedule.contact) {
@@ -339,7 +592,7 @@
     }
 
     // Gift Info Box
-    var giftBox = document.querySelector('.js-cart-gift-box');
+    var giftBox = $('.js-cart-gift-box');
     if (giftBox) {
       if (cart.gift) {
         giftBox.removeAttribute('hidden');
@@ -348,7 +601,6 @@
         var gRecvEl = giftBox.querySelector('.js-cart-gift-receive');
         var gSenderEl = giftBox.querySelector('.js-cart-gift-sender');
         var gMsgEl = giftBox.querySelector('.js-cart-gift-message');
-
         if (gTypeEl) gTypeEl.textContent = cart.gift.giftTypeName || cart.gift.giftType;
         if (gRecipEl && cart.gift.recipient) {
           gRecipEl.textContent = (cart.gift.recipient.name || '') + ' · ' + (cart.gift.recipient.phone || '') + ' · ' + (cart.gift.recipient.address || '');
@@ -368,76 +620,280 @@
       }
     }
 
-    // CTA Box if neither schedule nor gift exists
-    var ctaBox = document.querySelector('.js-cart-rescue-cta');
-    if (ctaBox) {
-      if (!cart.schedule && !cart.gift) {
-        ctaBox.removeAttribute('hidden');
-      } else {
-        ctaBox.setAttribute('hidden', 'hidden');
-      }
-    }
+    show($('.js-cart-rescue-cta'), !cart.schedule && !cart.gift);
 
-    // BYOK Note (Strictly textContent)
-    var msgBox = document.querySelector('.js-cart-byok-note-box');
-    var msgText = document.querySelector('.js-cart-message-text');
-    if (msgText) {
-      if (cart.message) {
-        if (msgBox) msgBox.removeAttribute('hidden');
-        msgText.textContent = '“' + cart.message + '”';
-      } else if (cart.gift) {
-        // If it's a gift, hide redundant generic note box
-        if (msgBox) msgBox.setAttribute('hidden', 'hidden');
-      } else {
-        msgText.textContent = '(Không có lời nhắn cá nhân)';
-      }
-    }
+    // BYOK note (textContent only)
+    var msgText = $('.js-cart-message-text');
+    if (msgText) msgText.textContent = cart.message ? '“' + cart.message + '”' : '';
+    show($('.js-cart-byok-note-box'), !!cart.message && !cart.gift);
 
-    // Totals
-    var totalQtyEl = document.querySelector('.js-cart-total-qty');
-    if (totalQtyEl) {
-      totalQtyEl.textContent = cart.totalItems || 0;
-    }
+    var qty = qtyOf(cart);
+    var sub = subtotalOf(cart);
+    var qtyEl = $('.js-cart-total-qty');
+    if (qtyEl) qtyEl.textContent = qty;
+    var countLabel = $('.js-cart-count-label');
+    if (countLabel) countLabel.textContent = qty + ' sản phẩm';
+    var subEl = $('.js-sum-subtotal');
+    if (subEl) subEl.textContent = formatVND(sub);
+    var totalEl = $('.js-cart-total-price');
+    if (totalEl) totalEl.textContent = formatVND(sub);
 
-    var totalPriceEl = document.querySelector('.js-cart-total-price');
-    if (totalPriceEl) {
-      totalPriceEl.textContent = formatVND(cart.total || 0);
+    if (state.step === 'cart') goStep('cart');
+  }
+
+  /* ---------- Step 2: checkout ---------- */
+  function shippingFee(subtotal) {
+    var form = $('.js-checkout-view');
+    var method = form && form.elements.shipping ? form.elements.shipping.value : 'standard';
+    if (state.voucher && state.voucher.type === 'ship') return 0;
+    if (method === 'express') return 35000;
+    return subtotal >= 150000 ? 0 : 20000;
+  }
+
+  function discountOf(subtotal) {
+    var v = state.voucher;
+    if (!v || v.type !== 'percent') return 0;
+    return Math.min(v.max, Math.round(subtotal * v.value / 100));
+  }
+
+  function totals() {
+    var cart = getCartData() || { items: [] };
+    var sub = subtotalOf(cart);
+    var ship = shippingFee(sub);
+    var disc = discountOf(sub);
+    return { cart: cart, sub: sub, ship: ship, disc: disc, total: Math.max(0, sub + ship - disc) };
+  }
+
+  function renderCheckout() {
+    var t = totals();
+    var list = $('.js-co-items');
+    if (list) {
+      list.innerHTML = '';
+      t.cart.items.forEach(function (it) {
+        var li = document.createElement('li');
+        var n = document.createElement('span');
+        n.textContent = it.name + ' × ' + it.qty;
+        var p = document.createElement('span');
+        p.textContent = formatVND(it.price * it.qty);
+        li.appendChild(n);
+        li.appendChild(p);
+        list.appendChild(li);
+      });
+    }
+    $('.js-co-qty').textContent = qtyOf(t.cart);
+    $('.js-co-subtotal').textContent = formatVND(t.sub);
+    $('.js-co-shipping').textContent = t.ship === 0 ? 'Miễn phí' : formatVND(t.ship);
+    $('.js-co-discount').textContent = '-' + formatVND(t.disc);
+    show($('.js-co-discount-row'), t.disc > 0);
+    $('.js-co-total').textContent = formatVND(t.total);
+    var std = $('.js-ship-standard');
+    if (std) std.textContent = (t.sub >= 150000 || (state.voucher && state.voucher.type === 'ship')) ? 'Miễn phí' : '20.000₫';
+  }
+
+  function setError(name, msg) {
+    var form = $('.js-checkout-view');
+    var box = form.querySelector('.sk-field-error[data-for="' + name + '"]');
+    var input = form.elements[name];
+    if (box) box.textContent = msg || '';
+    if (input && input.setAttribute) {
+      if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
     }
   }
 
-  function setupCartActions() {
-    var checkoutBtn = document.querySelector('.js-btn-demo-checkout');
-    if (checkoutBtn) {
-      checkoutBtn.addEventListener('click', function () {
-        window.alert('Đây là bản demo, không có đơn hàng hay thanh toán thật.');
-        try {
-          sessionStorage.removeItem(CART_KEY);
-        } catch (e) {}
-        renderCart();
-      });
+  function validate(form) {
+    var ok = true;
+    var v = function (n) { return (form.elements[n].value || '').trim(); };
+    var checks = [
+      ['name', v('name').length >= 2, 'Vui lòng nhập họ tên.'],
+      ['phone', /^(0|\+84)(3|5|7|8|9)\d{8}$/.test(v('phone').replace(/[\s.]/g, '')), 'Số điện thoại chưa đúng (VD: 0987 654 321).'],
+      ['email', !v('email') || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email')), 'Email chưa đúng định dạng.'],
+      ['province', !!v('province'), 'Vui lòng chọn Tỉnh / Thành phố.'],
+      ['ward', v('ward').length >= 2, 'Vui lòng nhập Phường / Xã.'],
+      ['address', v('address').length >= 5, 'Vui lòng nhập địa chỉ cụ thể.'],
+      ['payment', !!form.elements.payment.value, 'Vui lòng chọn MoMo hoặc ZaloPay.']
+    ];
+    var first = null;
+    checks.forEach(function (c) {
+      setError(c[0], c[1] ? '' : c[2]);
+      if (!c[1]) { ok = false; if (!first) first = c[0]; }
+    });
+    if (first) {
+      var el = form.elements[first];
+      if (el && el.focus) el.focus(); else if (el && el[0]) el[0].focus();
     }
+    return ok;
+  }
 
-    var clearBtn = document.querySelector('.js-btn-clear-cart');
+  function makeOrderCode() {
+    var d = new Date();
+    var pad = function (n) { return String(n).padStart(2, '0'); };
+    var rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+    return 'SK' + String(d.getFullYear()).slice(2) + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + rand;
+  }
+
+  /* ---------- Step 3: simulated wallet ---------- */
+  function drawFakeQr(seed) {
+    var svg = $('.js-pay-qr');
+    if (!svg) return;
+    var n = 29;
+    var h = 0;
+    for (var i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+    var rnd = function () { h ^= h << 13; h >>>= 0; h ^= h >> 17; h ^= h << 5; h >>>= 0; return h / 4294967296; };
+    var cells = [];
+    var finder = function (x, y) {
+      cells.push('<rect x="' + x + '" y="' + y + '" width="7" height="7"/>');
+      cells.push('<rect x="' + (x + 1) + '" y="' + (y + 1) + '" width="5" height="5" fill="#fff"/>');
+      cells.push('<rect x="' + (x + 2) + '" y="' + (y + 2) + '" width="3" height="3"/>');
+    };
+    var inFinder = function (x, y) {
+      return (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9);
+    };
+    for (var y = 0; y < n; y++) {
+      for (var x = 0; x < n; x++) {
+        if (!inFinder(x, y) && rnd() > 0.52) cells.push('<rect x="' + x + '" y="' + y + '" width="1" height="1"/>');
+      }
+    }
+    finder(0, 0); finder(n - 7, 0); finder(0, n - 7);
+    svg.innerHTML = '<rect width="' + n + '" height="' + n + '" fill="#fff"/>' + cells.join('');
+  }
+
+  function startTimer() {
+    clearInterval(state.timer);
+    var left = 300;
+    var el = $('.js-pay-timer');
+    show($('.js-pay-expired'), false);
+    $('.js-pay-success').disabled = false;
+    var tick = function () {
+      var m = Math.floor(left / 60), s = left % 60;
+      if (el) el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      if (left <= 0) {
+        clearInterval(state.timer);
+        show($('.js-pay-expired'), true);
+        $('.js-pay-success').disabled = true;
+      }
+      left -= 1;
+    };
+    tick();
+    state.timer = setInterval(tick, 1000);
+  }
+
+  function openPay() {
+    var o = state.order;
+    var card = $('.sk-pay-card');
+    card.setAttribute('data-wallet', o.method);
+    $('.js-pay-wallet-name').textContent = WALLETS[o.method];
+    $('.js-pay-amount').textContent = formatVND(o.total);
+    $('.js-pay-order').textContent = o.code;
+    $('.js-pay-content').textContent = 'Thanh toan don ' + o.code;
+    drawFakeQr(o.code + o.method);
+    goStep('pay');
+    startTimer();
+  }
+
+  function finishOrder() {
+    clearInterval(state.timer);
+    var o = state.order;
+    $('.js-done-order').textContent = o.code;
+    $('.js-done-method').textContent = 'Ví ' + WALLETS[o.method] + ' (mô phỏng)';
+    $('.js-done-total').textContent = formatVND(o.total);
+    $('.js-done-eta').textContent = o.express ? 'Trong 2 giờ' : '2–4 ngày làm việc';
+    // Không lưu bất kỳ thông tin nào: xóa form, voucher và giỏ hàng.
+    var form = $('.js-checkout-view');
+    if (form) form.reset();
+    state.voucher = null;
+    state.order = null;
+    if (window.DemoCart) window.DemoCart.clear(); else { try { sessionStorage.removeItem(CART_KEY); } catch (e) {} }
+    goStep('done');
+  }
+
+  /* ---------- Wiring ---------- */
+  function setup() {
+    var go = $('.js-go-checkout');
+    if (go) go.addEventListener('click', function () { if (getCartData()) goStep('checkout'); });
+    var back = $('.js-back-cart');
+    if (back) back.addEventListener('click', function () { goStep('cart'); });
+
+    var clearBtn = $('.js-btn-clear-cart');
     if (clearBtn) {
       clearBtn.addEventListener('click', function () {
-        if (window.confirm('Bạn có chắc muốn xóa toàn bộ món đồ trong giỏ hàng demo?')) {
-          try {
-            sessionStorage.removeItem(CART_KEY);
-          } catch (e) {}
-          renderCart();
+        if (window.confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?')) {
+          if (window.DemoCart) window.DemoCart.clear(); else { try { sessionStorage.removeItem(CART_KEY); } catch (e) {} }
+          goStep('cart');
         }
       });
     }
+
+    var form = $('.js-checkout-view');
+    if (form) {
+      form.addEventListener('change', function (e) {
+        if (e.target.name === 'shipping') renderCheckout();
+        if (e.target.name) setError(e.target.name, '');
+      });
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!validate(form)) return;
+        var t = totals();
+        state.order = {
+          code: makeOrderCode(),
+          method: form.elements.payment.value,
+          total: t.total,
+          express: form.elements.shipping.value === 'express'
+        };
+        openPay();
+      });
+    }
+
+    var sample = $('.js-fill-sample');
+    if (sample) {
+      sample.addEventListener('click', function () {
+        var f = $('.js-checkout-view');
+        f.elements.name.value = 'Nguyễn Văn Demo';
+        f.elements.phone.value = '0987654321';
+        f.elements.email.value = 'demo@vidu.com';
+        f.elements.province.value = 'TP. Hồ Chí Minh';
+        f.elements.ward.value = 'Phường Sài Gòn';
+        f.elements.address.value = '123 Đường Mẫu, KTX Khu B, phòng 101';
+        ['name', 'phone', 'email', 'province', 'ward', 'address'].forEach(function (n) { setError(n, ''); });
+      });
+    }
+
+    var apply = $('.js-apply-voucher');
+    if (apply) {
+      apply.addEventListener('click', function () {
+        var code = ($('#co-voucher').value || '').trim().toUpperCase();
+        var msg = $('.js-voucher-msg');
+        if (!code) { state.voucher = null; msg.textContent = 'Bạn chưa nhập mã.'; msg.className = 'small mt-1 js-voucher-msg text-muted'; }
+        else if (VOUCHERS[code]) { state.voucher = VOUCHERS[code]; msg.textContent = 'Đã áp dụng: ' + VOUCHERS[code].label; msg.className = 'small mt-1 js-voucher-msg text-success'; }
+        else { state.voucher = null; msg.textContent = 'Mã không hợp lệ.'; msg.className = 'small mt-1 js-voucher-msg text-danger'; }
+        renderCheckout();
+      });
+    }
+
+    $('.js-pay-success').addEventListener('click', finishOrder);
+    $('.js-pay-renew').addEventListener('click', function () {
+      state.order.code = makeOrderCode();
+      openPay();
+    });
+    $('.js-pay-cancel').addEventListener('click', function () {
+      clearInterval(state.timer);
+      goStep('checkout');
+    });
+
+    document.addEventListener('democartchange', function () {
+      if (state.step === 'cart') renderCart();
+    });
+  }
+
+  function init() {
+    setup();
+    renderCart();
+    goStep('cart');
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      renderCart();
-      setupCartActions();
-    });
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    renderCart();
-    setupCartActions();
+    init();
   }
 })();
 </script>

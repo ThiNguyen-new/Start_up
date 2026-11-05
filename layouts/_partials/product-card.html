@@ -36,10 +36,14 @@
       <span class="lead text-primary">{{ replace (lang.FormatNumberCustom 0 (float .)) "," "." }}{{ site.Params.currencySymbol }}</span>
       {{ end }}
     </div>
+    {{ $thumb := "" }}
+    {{ range first 1 .Params.images }}
+    {{ with resources.Get .image }}{{ $thumb = (.Fill "160x160 webp").RelPermalink }}{{ end }}
+    {{ end }}
     {{ with .Params.productID }}
-    <button type="button" class="snipcart-add-item sk-btn sk-btn-primary sk-focusable" data-item-id="{{ . }}"
-      data-item-name="{{ $.Title }}" {{ range first 1 $.Params.images }} data-item-image="{{ .image | absURL }}"
-      {{ end }} data-item-price="{{ $.Params.price }}" data-item-url="{{ $.Permalink }}" data-item-description="{{ $.Params.description }}">
+    <button type="button" class="js-add-to-cart sk-btn sk-btn-primary sk-focusable" data-item-id="{{ . }}"
+      data-item-name="{{ $.Title }}" data-item-image="{{ $thumb }}"
+      data-item-price="{{ $.Params.price }}" data-item-url="{{ $.RelPermalink }}" data-item-description="{{ $.Params.description }}">
       {{ or (i18n "add_to_cart") "Add to cart" }} <i class="ti-shopping-cart ml-2" aria-hidden="true"></i>
     </button>
     {{ end }}

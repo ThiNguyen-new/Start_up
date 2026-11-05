@@ -77,10 +77,8 @@
   </div>
 </footer>
 
-{{ with site.Params.snipcartApiKey }}
-{{ "<!-- Snipcart -->" | safeHTML }}
-<div id="snipcart" data-api-key="{{ . }}" hidden></div>
-{{ end }}
+{{ "<!-- Demo Cart (thay Snipcart): giỏ hàng VND lưu trong sessionStorage -->" | safeHTML }}
+<div class="sk-cart-toast" role="status" aria-live="polite" hidden></div>
 
 {{ with site.Params.gmapAPI }}
 {{ "<!-- Google Maps API -->" | safeHTML }}
@@ -101,6 +99,12 @@
 {{ with resources.Get "js/kit-recommend.js" }}
 {{ $recoScript := . | minify }}
 <script src="{{ $recoScript.Permalink }}"></script>
+{{ end }}
+
+{{ "<!-- Demo Cart Script -->" | safeHTML }}
+{{ with resources.Get "js/demo-cart.js" }}
+{{ $cartScript := . | minify }}
+<script src="{{ $cartScript.Permalink }}"></script>
 {{ end }}
 
 {{ "<!-- Main Script -->" | safeHTML }}

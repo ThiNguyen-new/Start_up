@@ -45,12 +45,11 @@
           {{ end }}
         </ul>
       </div>
-      {{ with site.Params.snipcartApiKey }}
-      <button type="button" class="cart snipcart-summary snipcart-checkout sk-btn sk-btn-ghost sk-focusable" aria-label="{{ or (i18n "cart") "Cart" }}">
+      {{/* Giỏ hàng demo (VND, MoMo/ZaloPay mô phỏng) — xem assets/js/demo-cart.js */}}
+      <a href="{{ "cart-demo/" | relLangURL }}" class="cart sk-btn sk-btn-ghost sk-focusable" aria-label="{{ or (i18n "cart") "Giỏ hàng" }}">
         <i class="ti-shopping-cart" aria-hidden="true"></i>
-        <span class="badge badge-primary snipcart-items-count"></span>
-      </button>
-      {{ end }}
+        <span class="badge badge-primary js-cart-count" hidden>0</span>
+      </a>
     </nav>
   </div>
 </header>
