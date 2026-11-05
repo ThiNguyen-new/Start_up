@@ -9,9 +9,9 @@
     <div class="row mb-4">
       <div class="col-12">
         <div class="sk-disclaimer-alert d-flex align-items-center" role="note">
-          <i class="ti-info-alt text-primary mr-3 h4 mb-0" aria-hidden="true"></i>
+          {{ partial "icon-info.html" (dict "Class" "text-primary mr-3 flex-shrink-0" "Size" 26) }}
           <div>
-            <strong>{{ or (i18n "sk_demo_notice") "Bản demo tương tác" }}:</strong>
+            <strong>{{ strings.TrimSuffix "." (or (i18n "sk_demo_notice") "Bản demo tương tác") }}:</strong>
             <span>{{ or (i18n "sk_schedule_disclaimer") "Lịch hẹn và thông tin giao hàng chỉ mang tính minh họa. Website không lưu trữ dữ liệu cá nhân lên máy chủ và không thu phí thật." }}</span>
           </div>
         </div>
@@ -266,7 +266,7 @@
 
               {{/* Policy Brief */}}
               <div class="alert alert-light border small text-muted mb-4" role="note">
-                <strong class="d-block text-dark mb-1"><i class="ti-info-alt mr-1"></i> Chính sách giao & đổi lịch:</strong>
+                <strong class="d-block text-dark mb-1">{{ partial "icon-info.html" (dict "Class" "mr-1 align-text-bottom" "Size" 16) }} Chính sách giao & đổi lịch:</strong>
                 <ul class="mb-0 pl-3">
                   <li>Được đổi lịch miễn phí trước giờ nhận ít nhất 24 giờ.</li>
                   <li>Nếu vắng mặt tại thời điểm giao, kit sẽ được gửi tại lễ tân/bảo vệ hoặc hỗ trợ giao lại ca kế tiếp.</li>
