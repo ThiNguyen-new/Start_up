@@ -11,12 +11,12 @@ weight = 2
 
 [[main]]
 name = "Schedule Rescue"
-url = "products/"
+url = "schedule-rescue/"
 weight = 3
 
 [[main]]
 name = "Send a Rescue"
-url = "contact/"
+url = "send-rescue/"
 weight = 4
 
 [[main]]
@@ -52,12 +52,12 @@ weight = 2
 
 [[footer]]
 name = "Schedule Rescue"
-url = "products/"
+url = "schedule-rescue/"
 weight = 3
 
 [[footer]]
 name = "Send a Rescue"
-url = "contact/"
+url = "send-rescue/"
 weight = 4
 
 [[footer]]

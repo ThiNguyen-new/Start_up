@@ -1,0 +1,524 @@
+{{ define "main" }}
+
+{{/* Breadcrumb & Section Header */}}
+{{ partial "page-title.html" . }}
+
+<section class="section pt-4" data-cart-url="{{ "cart-demo/" | relLangURL }}">
+  <div class="container">
+    {{/* Demo Disclaimer Notice */}}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="sk-disclaimer-alert d-flex align-items-center" role="note">
+          <i class="ti-info-alt text-primary mr-3 h4 mb-0" aria-hidden="true"></i>
+          <div>
+            <strong>{{ or (i18n "sk_demo_notice") "Bản demo tương tác" }}:</strong>
+            <span>{{ or (i18n "sk_send_disclaimer") "Quà tặng và thông điệp chỉ mang tính minh họa. Website không lưu trữ dữ liệu cá nhân người nhận lên máy chủ và không thu phí thật." }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{ if site.Params.features.enable_send_rescue }}
+    {{/* Main Stepper Workflow */}}
+    <div class="row">
+      <div class="col-12">
+        {{/* 5-Step Progress Indicator */}}
+        <nav class="rescue-stepper" aria-label="Các bước gửi tặng kit tiếp sức">
+          <button type="button" class="rescue-stepper-item is-active js-stepper-tab" data-step="1" aria-current="step">
+            <span class="rescue-stepper-num">1</span>
+            <span class="rescue-stepper-label">01. Kiểu rescue</span>
+          </button>
+          <button type="button" class="rescue-stepper-item js-stepper-tab" data-step="2">
+            <span class="rescue-stepper-num">2</span>
+            <span class="rescue-stepper-label">02. Chọn kit</span>
+          </button>
+          <button type="button" class="rescue-stepper-item js-stepper-tab" data-step="3">
+            <span class="rescue-stepper-num">3</span>
+            <span class="rescue-stepper-label">03. Người nhận & Ngày</span>
+          </button>
+          <button type="button" class="rescue-stepper-item js-stepper-tab" data-step="4">
+            <span class="rescue-stepper-num">4</span>
+            <span class="rescue-stepper-label">04. Thiệp & Lời nhắn</span>
+          </button>
+          <button type="button" class="rescue-stepper-item js-stepper-tab" data-step="5">
+            <span class="rescue-stepper-num">5</span>
+            <span class="rescue-stepper-label">05. Xác nhận</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      {{/* Left Column: 5-Step Form Content */}}
+      <div class="col-lg-8">
+        <form id="rescue-send-form" class="js-rescue-send-form" novalidate>
+          
+          {{/* STEP 1: Chọn Kiểu Rescue */}}
+          <fieldset class="rescue-step js-rescue-step" data-step="1">
+            <legend class="rescue-step-legend">Bước 1: Chọn Kiểu Rescue Tiếp Sức</legend>
+            <p class="text-muted small mb-3">
+              Chọn bối cảnh tiếp sức để chúng mình gợi ý bộ kit và phong cách thiệp nhắn gửi phù hợp nhất.
+            </p>
+
+            <div class="rescue-gift-types-grid">
+              {{ $giftTypes := index site.Data.survival_kit "gift-types" }}
+              {{ range $idx, $gt := $giftTypes }}
+              <label class="rescue-type-card js-gift-type-card {{ if eq $idx 0 }}is-selected{{ end }}" for="gift-type-{{ .id }}">
+                <input type="radio"
+                       name="giftType"
+                       id="gift-type-{{ .id }}"
+                       value="{{ .id }}"
+                       class="js-input-gift-type"
+                       {{ if eq $idx 0 }}checked{{ end }}>
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="font-weight-bold text-dark h6 mb-0">{{ .name }}</span>
+                  {{ if .allowAnonymous }}
+                  <span class="badge badge-pill badge-info font-weight-normal small">Hỗ trợ ẩn danh 💌</span>
+                  {{ end }}
+                </div>
+                <p class="text-muted small mb-2">{{ .tone }}</p>
+                <div class="mt-auto pt-2 border-top d-flex justify-content-between align-items-center">
+                  <span class="text-muted small">Kit gợi ý:</span>
+                  <span class="badge badge-light font-weight-bold text-uppercase">{{ .defaultCategory }}</span>
+                </div>
+              </label>
+              {{ end }}
+            </div>
+          </fieldset>
+
+          {{/* STEP 2: Chọn Kit */}}
+          <fieldset class="rescue-step js-rescue-step" data-step="2" hidden>
+            <legend class="rescue-step-legend">Bước 2: Chọn Bộ Kit Tiếp Sức</legend>
+            <p class="text-muted small mb-3">
+              Chọn mức độ căng thẳng của người nhận. Chúng mình sẽ chuẩn bị bộ kit phù hợp nhất để gửi tới tay họ!
+            </p>
+            {{ partial "rescue-kit-step.html" . }}
+          </fieldset>
+
+          {{/* STEP 3: Người Nhận & Ngày Giao */}}
+          <fieldset class="rescue-step js-rescue-step" data-step="3" hidden>
+            <legend class="rescue-step-legend">Bước 3: Người Nhận & Ngày Giao Hàng</legend>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="rescue-field">
+                  <label for="rescue-recipient-name" class="rescue-field-label">
+                    Họ tên hoặc biệt danh người nhận <span class="text-danger">*</span>:
+                  </label>
+                  <input type="text"
+                         id="rescue-recipient-name"
+                         name="recipientName"
+                         class="form-control sk-input js-input-recipient-name"
+                         required
+                         maxlength="60"
+                         placeholder="Ví dụ: Minh Anh, Hoàng Nam, Bé Heo..."
+                         aria-describedby="rescue-recipient-name-error">
+                  <span id="rescue-recipient-name-error" class="rescue-field-error js-error-recipient-name" hidden></span>
+                  <span class="rescue-field-help">Tên này sẽ được viết nắn nót trên thiệp gửi tặng.</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="rescue-field">
+                  <label for="rescue-recipient-phone" class="rescue-field-label">
+                    Số điện thoại người nhận <span class="text-danger">*</span>:
+                  </label>
+                  <input type="tel"
+                         id="rescue-recipient-phone"
+                         name="recipientPhone"
+                         class="form-control sk-input js-input-recipient-phone"
+                         required
+                         placeholder="0901 234 567"
+                         aria-describedby="rescue-recipient-phone-error">
+                  <span id="rescue-recipient-phone-error" class="rescue-field-error js-error-recipient-phone" hidden></span>
+                  <span class="rescue-field-help">Shipper sẽ gọi trước khi giao hộp kit.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="rescue-field">
+              <label for="rescue-recipient-address" class="rescue-field-label">
+                Địa chỉ nhận hàng (TP. Hồ Chí Minh) <span class="text-danger">*</span>:
+              </label>
+              <textarea id="rescue-recipient-address"
+                        name="recipientAddress"
+                        rows="2"
+                        class="form-control sk-input js-input-recipient-address"
+                        required
+                        maxlength="200"
+                        placeholder="KTX Khu A ĐHQG, Toà H6 ĐH Bách Khoa, Số nhà, Đường, Quận..."
+                        aria-describedby="rescue-recipient-address-error"></textarea>
+              <span id="rescue-recipient-address-error" class="rescue-field-error js-error-recipient-address" hidden></span>
+              <span class="rescue-field-help">Giao tận tay bạn bè tại trường học, ký túc xá hoặc nhà riêng ở TP. Hồ Chí Minh.</span>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="rescue-field">
+                  <label for="rescue-recipient-deadline" class="rescue-field-label">
+                    Deadline của người nhận <span class="text-muted font-weight-normal">(tuỳ chọn)</span>:
+                  </label>
+                  <input type="date"
+                         id="rescue-recipient-deadline"
+                         name="recipientDeadline"
+                         class="form-control sk-input js-input-recipient-deadline"
+                         aria-describedby="rescue-recipient-deadline-error">
+                  <span id="rescue-recipient-deadline-error" class="rescue-field-error js-error-recipient-deadline" hidden></span>
+                  <span class="rescue-field-help">Nếu biết, điền để chọn ngày giao trước deadline 1–2 ngày.</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="rescue-field">
+                  <label for="rescue-delivery-date" class="rescue-field-label">
+                    Ngày giao kit <span class="text-danger">*</span>:
+                  </label>
+                  <input type="date"
+                         id="rescue-delivery-date"
+                         name="deliveryDate"
+                         class="form-control sk-input js-input-delivery-date"
+                         required
+                         aria-describedby="rescue-delivery-date-error">
+                  <span id="rescue-delivery-date-error" class="rescue-field-error js-error-delivery-date" hidden></span>
+
+                  {{/* Fast selection buttons when deadline is chosen */}}
+                  <div class="rescue-quick-dates js-quick-dates-container" hidden>
+                    <button type="button" class="rescue-quick-btn js-btn-quick-gift-date" data-offset="1">
+                      <i class="ti-bolt mr-1" aria-hidden="true"></i> Giao trước 1 ngày
+                    </button>
+                    <button type="button" class="rescue-quick-btn js-btn-quick-gift-date" data-offset="2">
+                      <i class="ti-bolt mr-1" aria-hidden="true"></i> Giao trước 2 ngày
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rescue-field">
+              <label for="rescue-delivery-slot" class="rescue-field-label">
+                Khung giờ giao hàng mong muốn:
+              </label>
+              {{ $rules := index site.Data.survival_kit "schedule-rules" }}
+              <select id="rescue-delivery-slot" name="slot" class="form-control sk-input js-input-slot">
+                {{ range $rules.slots }}
+                <option value="{{ .id }}">{{ .label }}</option>
+                {{ end }}
+              </select>
+            </div>
+
+            <div class="rescue-field">
+              <label for="rescue-delivery-note" class="rescue-field-label">
+                Ghi chú giao hàng <span class="text-muted font-weight-normal">(tuỳ chọn)</span>:
+              </label>
+              <input type="text"
+                     id="rescue-delivery-note"
+                     name="deliveryNote"
+                     class="form-control sk-input js-input-delivery-note"
+                     maxlength="120"
+                     placeholder="Gửi bảo vệ, tạo bất ngờ không gọi trước tên người gửi...">
+            </div>
+          </fieldset>
+
+          {{/* STEP 4: Thiệp & Lời Nhắn */}}
+          <fieldset class="rescue-step js-rescue-step" data-step="4" hidden>
+            <legend class="rescue-step-legend">Bước 4: Thiệp & Lời Nhắn Yêu Thương</legend>
+
+            {{/* Card format options */}}
+            <div class="rescue-field">
+              <label class="rescue-field-label d-block">Hình thức thiệp:</label>
+              <div class="d-flex flex-wrap gap-2">
+                <div class="custom-control custom-radio mr-3">
+                  <input type="radio" id="format-box" name="cardFormat" value="physical_box" class="custom-control-input js-input-card-format" checked>
+                  <label class="custom-control-label" for="format-box">Thiệp in kèm hộp kit (Đã bao gồm)</label>
+                </div>
+                <div class="custom-control custom-radio mr-3">
+                  <input type="radio" id="format-wax" name="cardFormat" value="wax_letter" class="custom-control-input js-input-card-format">
+                  <label class="custom-control-label" for="format-wax">Thư tay niêm phong sáp (+0 ₫)</label>
+                </div>
+                <div class="custom-control custom-radio mr-3">
+                  <input type="radio" id="format-digital" name="cardFormat" value="digital" class="custom-control-input js-input-card-format" disabled>
+                  <label class="custom-control-label text-muted" for="format-digital">Thông điệp điện tử <span class="badge badge-secondary small">Sắp ra mắt</span></label>
+                </div>
+              </div>
+            </div>
+
+            {{/* Dynamic Card Design Template Picker */}}
+            <div class="rescue-field">
+              <label class="rescue-field-label d-block">Mẫu thiệp:</label>
+              <div class="rescue-card-templates-grid js-card-templates-container">
+                <!-- Injected dynamically based on active giftType -->
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="rescue-field">
+                  <label for="rescue-sender-name" class="rescue-field-label">
+                    Tên người gửi (in trên thiệp) <span class="text-danger">*</span>:
+                  </label>
+                  <input type="text"
+                         id="rescue-sender-name"
+                         name="senderName"
+                         class="form-control sk-input js-input-sender-name"
+                         maxlength="60"
+                         placeholder="Tên của bạn hoặc biệt danh thân thuộc"
+                         required
+                         aria-describedby="rescue-sender-name-error">
+                  <span id="rescue-sender-name-error" class="rescue-field-error js-error-sender-name" hidden></span>
+                </div>
+              </div>
+
+              <div class="col-md-6 d-flex align-items-center">
+                {{/* Anonymous toggle (only displayed if allowAnonymous) */}}
+                <div class="rescue-anonymous-box js-anonymous-wrapper w-100" hidden>
+                  <div class="custom-control custom-checkbox mt-2">
+                    <input type="checkbox"
+                           id="rescue-is-anonymous"
+                           name="isAnonymous"
+                           class="custom-control-input js-input-anonymous">
+                    <label class="custom-control-label font-weight-bold text-dark" for="rescue-is-anonymous">
+                      Gửi ẩn danh (Secret Crush) 💌
+                    </label>
+                  </div>
+                  <span class="rescue-field-help d-block">Trên thiệp chỉ ghi: "Từ một người bạn ẩn danh". Người nhận có quyền từ chối thông điệp nếu muốn.</span>
+                </div>
+              </div>
+            </div>
+
+            {{/* Private Contact Fields for Anonymous mode */}}
+            <div class="rescue-private-contact-box js-anonymous-private-fields p-3 rounded mb-3 border bg-light" hidden>
+              <div class="d-flex align-items-center text-info mb-2 small font-weight-bold">
+                <i class="ti-lock mr-2" aria-hidden="true"></i> Thông tin riêng tư cửa hàng (Tuyệt đối không gửi cho người nhận):
+              </div>
+              <div class="rescue-field mb-0">
+                <label for="rescue-private-phone" class="rescue-field-label small">
+                  Số điện thoại của bạn (để cửa hàng xác minh đơn khi cần) <span class="text-danger">*</span>:
+                </label>
+                <input type="tel"
+                       id="rescue-private-phone"
+                       name="privateSenderPhone"
+                       class="form-control form-control-sm sk-input js-input-private-phone"
+                       placeholder="09xx xxx xxx"
+                       aria-describedby="rescue-private-phone-error">
+                <span id="rescue-private-phone-error" class="rescue-field-error js-error-private-phone" hidden></span>
+              </div>
+            </div>
+
+            {{/* Message Area */}}
+            <div class="rescue-field">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label for="rescue-message" class="rescue-field-label mb-0">
+                  Lời nhắn gửi gắm <span class="text-danger">*</span>:
+                </label>
+                <span class="small text-muted"><span class="js-message-char-count font-weight-bold">0</span>/200 ký tự</span>
+              </div>
+              <textarea id="rescue-message"
+                        name="message"
+                        rows="3"
+                        class="form-control sk-input js-input-message"
+                        required
+                        maxlength="200"
+                        placeholder="Nhập lời chúc, lời nhắn động viên..."
+                        aria-describedby="rescue-message-error"></textarea>
+              <span id="rescue-message-error" class="rescue-field-error js-error-message" hidden></span>
+
+              {{/* Sample messages helper */}}
+              <div class="mt-2">
+                <span class="small font-weight-bold text-muted d-block mb-1">
+                  <i class="ti-light-bulb text-warning mr-1" aria-hidden="true"></i> Gợi ý lời nhắn:
+                </span>
+                <div class="rescue-sample-msg-list js-sample-messages-container">
+                  <!-- Injected dynamically -->
+                </div>
+              </div>
+            </div>
+
+            {{/* Live Card Preview Box */}}
+            <div class="mt-4">
+              <span class="font-weight-bold text-dark small text-uppercase d-block mb-2">Xem trước thiệp gửi kèm:</span>
+              <div class="rescue-card-preview-container js-card-preview-box">
+                <div class="rescue-card-preview-header d-flex justify-content-between">
+                  <span>Survival Kit Greeting Card</span>
+                  <span class="js-card-preview-template-name small font-weight-normal">Mẫu ấm áp</span>
+                </div>
+                <div class="rescue-card-preview-to">
+                  Gửi: <span class="js-card-preview-recipient">...</span>
+                </div>
+                <div class="rescue-card-preview-body js-card-preview-text">
+                  (Chưa có lời nhắn. Hãy nhập lời nhắn ở trên hoặc chọn gợi ý.)
+                </div>
+                <div class="rescue-card-preview-from">
+                  Từ: <span class="js-card-preview-sender">...</span>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          {{/* STEP 5: Xác Nhận & Gửi Rescue */}}
+          <fieldset class="rescue-step js-rescue-step" data-step="5" hidden>
+            <legend class="rescue-step-legend">Bước 5: Xác Nhận & Gửi Rescue</legend>
+
+            {{/* Normal Review View */}}
+            <div class="rescue-normal-review js-rescue-review-view">
+              <div class="rescue-review-card">
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Kiểu Rescue:</span>
+                  <div class="text-right">
+                    <span class="rescue-review-value js-review-gift-type"></span>
+                    <button type="button" class="btn btn-link btn-sm p-0 d-block ml-auto text-primary js-btn-edit-step" data-target-step="1">Đổi kiểu</button>
+                  </div>
+                </div>
+
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Bộ kit đã chọn:</span>
+                  <div class="text-right">
+                    <span class="rescue-review-value js-review-kit-name"></span>
+                    <button type="button" class="btn btn-link btn-sm p-0 d-block ml-auto text-primary js-btn-edit-step" data-target-step="2">Sửa kit</button>
+                  </div>
+                </div>
+
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Người nhận & Địa chỉ:</span>
+                  <div class="text-right">
+                    <span class="rescue-review-value js-review-recipient"></span>
+                    <button type="button" class="btn btn-link btn-sm p-0 d-block ml-auto text-primary js-btn-edit-step" data-target-step="3">Sửa người nhận</button>
+                  </div>
+                </div>
+
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Thời gian giao:</span>
+                  <div class="text-right">
+                    <span class="rescue-review-value js-review-delivery-time"></span>
+                    <button type="button" class="btn btn-link btn-sm p-0 d-block ml-auto text-primary js-btn-edit-step" data-target-step="3">Đổi ngày giao</button>
+                  </div>
+                </div>
+
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Thiệp & Lời nhắn:</span>
+                  <div class="text-right">
+                    <span class="rescue-review-value js-review-card-info"></span>
+                    <button type="button" class="btn btn-link btn-sm p-0 d-block ml-auto text-primary js-btn-edit-step" data-target-step="4">Sửa thiệp</button>
+                  </div>
+                </div>
+
+                <div class="rescue-review-row">
+                  <span class="rescue-review-label">Tổng thanh toán dự kiến:</span>
+                  <span class="rescue-review-value text-primary h5 mb-0 js-review-total">0 ₫</span>
+                </div>
+              </div>
+
+              {{/* Safety & Privacy Notice */}}
+              <div class="alert alert-light border small text-muted mb-4" role="note">
+                <strong class="d-block text-dark mb-1"><i class="ti-shield mr-1 text-primary"></i> Quy định nội dung & An toàn:</strong>
+                <ul class="mb-0 pl-3">
+                  <li>Survival Kit tôn trọng quyền riêng tư nhưng có quyền từ chối chuyển phát các thông điệp có dấu hiệu quấy rối, xúc phạm hoặc đe dọa.</li>
+                  <li>Người nhận có toàn quyền từ chối nhận quà hoặc liên hệ ban quản trị tại <span class="text-primary font-weight-bold">{{ site.Params.email }}</span>.</li>
+                  <li>Bản demo mô phỏng trải nghiệm gửi tặng, không lưu trữ dữ liệu cá nhân lên máy chủ và không thu phí thật.</li>
+                </ul>
+              </div>
+
+              <div class="custom-control custom-checkbox mb-2">
+                <input type="checkbox" class="custom-control-input js-input-agree-harassment" id="rescue-agree-harassment" required>
+                <label class="custom-control-label small text-muted" for="rescue-agree-harassment">
+                  Tôi cam kết lời nhắn và quà tặng không chứa nội dung xúc phạm, quấy rối hoặc vi phạm thuần phong mỹ tục.
+                </label>
+                <span class="rescue-field-error js-error-agree-harassment" hidden>Vui lòng xác nhận cam kết nội dung.</span>
+              </div>
+
+              <div class="custom-control custom-checkbox mb-4">
+                <input type="checkbox" class="custom-control-input js-input-agree-terms" id="rescue-agree-terms" required>
+                <label class="custom-control-label small text-muted" for="rescue-agree-terms">
+                  Tôi đồng ý với <a href="{{ "terms-conditions/" | relLangURL }}" target="_blank" class="text-primary font-weight-bold">Điều khoản & Chính sách</a> và hiểu đây là bản demo mô phỏng.
+                </label>
+                <span class="rescue-field-error js-error-agree-terms" hidden>Vui lòng đồng ý với điều khoản dịch vụ.</span>
+              </div>
+
+              <button type="button" class="btn sk-btn sk-btn-primary btn-block btn-lg js-btn-confirm-send sk-focusable">
+                <i class="ti-gift mr-2" aria-hidden="true"></i> Gửi quà cứu trợ ngay (Demo)
+              </button>
+            </div>
+
+            {{/* Success View (Hiện sau khi bấm gửi rescue) */}}
+            <div class="rescue-success-card js-rescue-success-view" hidden>
+              <div class="mb-3">
+                <i class="ti-check-box text-success display-4" aria-hidden="true"></i>
+              </div>
+              <h3 class="h3 font-weight-bold text-dark mb-1">Gửi Tiếp Sức Thành Công!</h3>
+              <p class="text-muted mb-3">Món quà và thông điệp ấm áp của bạn đã được tiếp nhận vào hệ thống mô phỏng.</p>
+
+              <div>
+                <span class="text-muted small text-uppercase font-weight-bold d-block">Mã đơn cứu hộ demo:</span>
+                <span class="rescue-order-code js-success-order-code">SK-20261103-XXXX</span>
+              </div>
+
+              {{/* Final Card Preview on Success Screen */}}
+              <div class="mt-4 mb-4 text-left">
+                <div class="rescue-card-preview-container js-success-card-preview">
+                  <div class="rescue-card-preview-header d-flex justify-content-between">
+                    <span>Survival Kit Greeting Card</span>
+                    <span class="js-success-preview-template-name small font-weight-normal"></span>
+                  </div>
+                  <div class="rescue-card-preview-to">
+                    Gửi: <span class="js-success-preview-recipient"></span>
+                  </div>
+                  <div class="rescue-card-preview-body js-success-preview-text"></div>
+                  <div class="rescue-card-preview-from">
+                    Từ: <span class="js-success-preview-sender"></span>
+                  </div>
+                </div>
+              </div>
+
+              {{/* Action Buttons */}}
+              <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                <button type="button" class="btn btn-outline-primary sk-focusable m-1 js-btn-copy-message">
+                  <i class="ti-clipboard mr-1" aria-hidden="true"></i> <span class="js-copy-text">Sao chép lời nhắn</span>
+                </button>
+                <a href="{{ "cart-demo/" | relLangURL }}" class="btn sk-btn sk-btn-primary sk-focusable m-1">
+                  <i class="ti-shopping-cart mr-1" aria-hidden="true"></i> Xem giỏ hàng demo
+                </a>
+                <button type="button" class="btn btn-light sk-focusable m-1 js-btn-reset-wizard">
+                  <i class="ti-reload mr-1" aria-hidden="true"></i> Gửi thêm một rescue khác
+                </button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+      {{/* Right Column: Sticky Summary Sidebar */}}
+      <div class="col-lg-4">
+        {{ partial "rescue-summary.html" . }}
+      </div>
+    </div>
+    {{ else }}
+    <div class="row text-center py-5">
+      <div class="col-12">
+        <p class="text-muted lead">Tính năng chưa mở</p>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+{{/* Embed gift types data */}}
+<script type="application/json" id="rescue-gift-types">
+{{ index site.Data.survival_kit "gift-types" | jsonify | safeJS }}
+</script>
+
+{{/* Embed schedule rules data */}}
+<script type="application/json" id="rescue-schedule-rules">
+{{ index site.Data.survival_kit "schedule-rules" | jsonify | safeJS }}
+</script>
+
+{{/* Scripts: rescue-common and send-rescue */}}
+{{ with resources.Get "js/rescue-common.js" }}
+{{ $rcScript := . | minify }}
+<script src="{{ $rcScript.Permalink }}" defer></script>
+{{ end }}
+
+{{ with resources.Get "js/send-rescue.js" }}
+{{ $srScript := . | minify }}
+<script src="{{ $srScript.Permalink }}" defer></script>
+{{ end }}
+
+{{ end }}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "bestie",
+    "name": "Bestie Rescue",
+    "tone": "Ấm áp, chia sẻ, gần gũi",
+    "defaultCategory": "care",
+    "allowAnonymous": false,
+    "samples": [
+      "Deadline này để tụi mình cùng gánh. Cố lên bạn thân!",
+      "Nạp miếng năng lượng rồi chiến tiếp nào bạn ơi!"
+    ],
+    "cards": [
+      { "id": "bestie-warm", "name": "Ấm áp", "accent": "--color-primary" },
+      { "id": "bestie-fun", "name": "Vui vẻ", "accent": "--color-accent" }
+    ]
+  },
+  {
+    "id": "love",
+    "name": "Love Rescue",
+    "tone": "Ngọt ngào, quan tâm, yêu thương",
+    "defaultCategory": "care",
+    "allowAnonymous": false,
+    "samples": [
+      "Có anh/em luôn ở đây cổ vũ. Đừng thức khuya quá nhé!",
+      "Gửi ngàn cái ôm tiếp sức cho người thương vượt ải deadline."
+    ],
+    "cards": [
+      { "id": "love-heart", "name": "Trái tim", "accent": "--color-primary" },
+      { "id": "love-sweet", "name": "Ngọt ngào", "accent": "--color-accent" }
+    ]
+  },
+  {
+    "id": "crush",
+    "name": "Secret Crush Rescue",
+    "tone": "Nhẹ nhàng, dễ thương, bí mật",
+    "defaultCategory": "care",
+    "allowAnonymous": true,
+    "samples": [
+      "Cố lên nhé, có người đang âm thầm cổ vũ cậu đó.",
+      "Uống chút trà cho đỡ căng thẳng nhé crush ơi!"
+    ],
+    "cards": [
+      { "id": "crush-night", "name": "Đêm sao", "accent": "--color-info" },
+      { "id": "crush-blush", "name": "Bẽn lẽn", "accent": "--color-accent" }
+    ]
+  },
+  {
+    "id": "team",
+    "name": "Team Rescue",
+    "tone": "Khí thế, đồng lòng, bùng nổ",
+    "defaultCategory": "club",
+    "allowAnonymous": false,
+    "samples": [
+      "Cả nhóm cùng gánh, không ai bị bỏ lại phía sau!",
+      "Tập trung cao độ chốt hạ dự án nào cả team!"
+    ],
+    "cards": [
+      { "id": "team-power", "name": "Chiến binh", "accent": "--color-secondary" },
+      { "id": "team-fire", "name": "Bùng cháy", "accent": "--color-warning" }
+    ]
+  }
+]

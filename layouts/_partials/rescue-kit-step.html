@@ -1,0 +1,54 @@
+{{/* Shared Kit Selection Step for Schedule Rescue & Send Rescue */}}
+<div class="rescue-kit-selection-wrap">
+  {{/* Kit Source Option (Gợi ý theo Panic Level hoặc Tự phối) */}}
+  <div class="rescue-kit-source-banner mb-3 p-3 sk-card bg-light d-flex align-items-center justify-content-between flex-wrap">
+    <div>
+      <span class="font-weight-bold text-dark d-block">Lựa chọn bộ kit:</span>
+      <span class="text-muted small">Kit được gợi ý tự động dựa trên mức áp lực deadline và nhóm nhu cầu của bạn.</span>
+    </div>
+    <a href="{{ "build-your-own-kit/" | relLangURL }}" class="btn btn-outline-primary btn-sm sk-focusable mt-2 mt-sm-0">
+      <i class="ti-pencil-alt mr-1" aria-hidden="true"></i> Tự phối món riêng
+    </a>
+  </div>
+
+  {{/* Custom Kit Card (nếu trong giỏ đã có kit tự phối) */}}
+  <div class="sk-card p-3 mb-3 js-custom-kit-banner" hidden>
+    <div class="d-flex align-items-center justify-content-between flex-wrap">
+      <div>
+        <span class="badge badge-info mb-1">Kit trong giỏ hàng</span>
+        <h4 class="h6 font-weight-bold mb-0 js-custom-kit-title">Bộ kit tự phối của bạn</h4>
+        <span class="text-muted small js-custom-kit-details"></span>
+      </div>
+      <button type="button" class="btn sk-btn sk-btn-primary btn-sm js-btn-use-custom mt-2 mt-sm-0">
+        Chọn kit tự phối này
+      </button>
+    </div>
+  </div>
+
+  {{/* Panic Level Picker (4 mức Chill, Nervous, High Panic, SOS) */}}
+  {{ partial "panic-picker.html" . }}
+
+  {{/* Category Picker (Mùa thi, Đồ án, CLB, Dài ngày) */}}
+  {{ partial "kit-category-picker.html" . }}
+
+  {{/* Kit Recommendation Card */}}
+  <section class="sk-reco-card js-reco-card mb-4" aria-labelledby="reco-heading" hidden>
+    <span id="reco-heading" class="text-muted small text-uppercase d-block js-reco-heading"></span>
+    <h3 class="h4 font-weight-bold mb-1 js-reco-name"></h3>
+    <p class="text-muted mb-3 js-reco-tagline"></p>
+    <ul class="sk-kit-chips js-reco-items"></ul>
+    <div class="d-flex align-items-center justify-content-between flex-wrap pt-2 border-top">
+      <div>
+        <span class="text-muted small d-block">Tổng giá trị kit:</span>
+        <strong class="h5 text-primary mb-0 js-reco-total"></strong>
+      </div>
+      <span class="badge badge-success px-3 py-2 js-selected-kit-badge">
+        <i class="ti-check mr-1" aria-hidden="true"></i> Đang áp dụng kit này
+      </span>
+    </div>
+  </section>
+
+  {{/* Embed kit & product data for JS */}}
+  {{ partial "kits-data.html" . }}
+</div>
+

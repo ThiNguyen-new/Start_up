@@ -5,7 +5,7 @@
   {{ if not $image }}
     {{ errorf "products.json: không tìm thấy ảnh asset %s cho %s" .image .id }}
   {{ end }}
-  {{ $item := dict "id" .id "name" .name "price" .price "category" .category "image" $image.RelPermalink }}
+  {{ $item := dict "id" .id "name" .name "price" .price "category" .category "image" .image }}
   {{ $products = merge $products (dict .id $item) }}
 {{ end }}
 {{ range $cat := site.Data.survival_kit.kits }}
@@ -22,6 +22,6 @@
     {{ end }}
   {{ end }}
 {{ end }}
-<script type="application/json" id="sk-kit-data">
+<script type="application/json" id="sk-kit-data" data-root-url="{{ "/" | relURL }}">
 {{ dict "products" $products "categories" site.Data.survival_kit.kits | jsonify | safeJS }}
 </script>

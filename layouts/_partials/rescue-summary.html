@@ -1,0 +1,58 @@
+{{/* Shared Sticky Summary Sidebar for Schedule Rescue & Send Rescue */}}
+<aside class="sk-sticky-summary rescue-summary-card" aria-label="Tóm tắt thông tin cứu trợ">
+  <h3 class="sk-summary-title">Tóm Tắt Đơn Cứu Trợ</h3>
+
+  {{/* Selected Kit Header */}}
+  <div class="mb-3 pb-3 border-bottom">
+    <div class="d-flex align-items-center justify-content-between mb-1">
+      <span class="text-muted small font-weight-bold text-uppercase">Bộ kit đã chọn:</span>
+      <span class="sk-badge sk-panic small js-summary-panic-badge">Level 3</span>
+    </div>
+    <h4 class="h5 font-weight-bold text-dark mb-1 js-summary-kit-name">Đang nạp kit...</h4>
+    <span class="text-muted small js-summary-category-badge">Loại kit: Mùa thi</span>
+  </div>
+
+  {{/* Items List in Kit */}}
+  <div class="mb-3">
+    <span class="text-muted small font-weight-bold d-block mb-2">Các món trong kit (<span class="js-summary-items-count">0</span> món):</span>
+    <div class="sk-summary-items-list js-summary-items-list">
+      <!-- Injected by JavaScript -->
+    </div>
+  </div>
+
+  {{/* Dynamic Context Details (Lịch giao hoặc Quà tặng) */}}
+  <div class="mb-3 pb-3 border-bottom js-summary-context-box" hidden>
+    <span class="text-muted small font-weight-bold d-block mb-1">Chi tiết tiếp sức:</span>
+    <div class="small js-summary-context-details text-dark">
+      <!-- Injected by JavaScript -->
+    </div>
+  </div>
+
+  {{/* Total Box */}}
+  <div class="sk-summary-total-box">
+    <span class="sk-summary-total-label">Tổng cộng:</span>
+    <span class="sk-summary-total-amount js-summary-total-price">0 ₫</span>
+  </div>
+
+  {{/* Stepper Action Buttons */}}
+  <div class="rescue-summary-actions mt-3">
+    <button type="button" class="btn sk-btn sk-btn-primary btn-block js-btn-next-step sk-focusable mb-2">
+      Tiếp tục <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm btn-block js-btn-prev-step sk-focusable" hidden>
+      <i class="ti-arrow-left mr-1" aria-hidden="true"></i> Quay lại bước trước
+    </button>
+  </div>
+</aside>
+
+{{/* Mobile Sticky Bottom Bar */}}
+<div class="sk-mobile-sticky-bar rescue-mobile-bar" aria-label="Tóm tắt di động">
+  <div>
+    <span class="text-muted small d-block"><span class="js-summary-items-count">0</span> món · <span class="js-summary-current-step-label">Bước 1</span></span>
+    <span class="font-weight-bold text-primary h5 mb-0 js-summary-total-price">0 ₫</span>
+  </div>
+  <button type="button" class="btn sk-btn sk-btn-primary btn-sm js-btn-next-step sk-focusable">
+    Tiếp tục <i class="ti-arrow-right ml-1" aria-hidden="true"></i>
+  </button>
+</div>
+

@@ -1,0 +1,542 @@
+/* ==========================================================================
+   Rescue Features Styles: Schedule a Rescue & Send a Rescue
+   Uses system design tokens from custom.css and build-your-own-kit.css
+   Strict adherence to color tokens, no hardcoded hex.
+   ========================================================================== */
+
+/* Stepper Progress Bar */
+.rescue-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  padding: var(--space-3) 0;
+  position: relative;
+}
+
+.rescue-stepper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  right: 2rem;
+  height: 2px;
+  background-color: var(--color-border);
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.rescue-stepper-item {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.rescue-stepper-num {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  transition: all 0.25s ease;
+}
+
+.rescue-stepper-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  margin-top: var(--space-2);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.rescue-stepper-item.is-active .rescue-stepper-num {
+  background-color: var(--panic-accent, var(--color-primary));
+  border-color: var(--panic-accent, var(--color-primary));
+  color: var(--color-text-inverted);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--panic-accent, var(--color-primary)) 25%, transparent);
+}
+
+.rescue-stepper-item.is-active .rescue-stepper-label {
+  color: var(--color-text-dark);
+  font-weight: 700;
+}
+
+.rescue-stepper-item.is-completed .rescue-stepper-num {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--color-text-inverted);
+}
+
+/* Step Fieldset */
+.rescue-step {
+  border: none;
+  padding: 0;
+  margin: 0 0 var(--space-5) 0;
+}
+
+.rescue-step[hidden] {
+  display: none !important;
+}
+
+.rescue-step-legend {
+  font-family: var(--font-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
+  width: 100%;
+}
+
+/* Form layout & controls */
+.rescue-field {
+  margin-bottom: var(--space-4);
+}
+
+.rescue-field-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--color-text-dark);
+  margin-bottom: var(--space-2);
+}
+
+.rescue-field-help {
+  font-size: 0.8125rem;
+  color: var(--color-text-light);
+  margin-top: var(--space-1);
+}
+
+.rescue-field-error {
+  color: var(--color-primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-top: var(--space-1);
+  display: block;
+}
+
+.rescue-field-error[hidden] {
+  display: none !important;
+}
+
+/* Quick Date Helpers */
+.rescue-quick-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.rescue-quick-btn {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rescue-quick-btn:hover {
+  background-color: var(--color-light);
+  color: var(--panic-accent, var(--color-primary));
+  border-color: var(--panic-accent, var(--color-primary));
+}
+
+/* Timeline Visualizer */
+.rescue-timeline-box {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.rescue-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-top: var(--space-3);
+  padding: 0 var(--space-2);
+}
+
+.rescue-timeline::before {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  right: 2rem;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-border), var(--panic-accent, var(--color-primary)));
+  z-index: 1;
+}
+
+.rescue-timeline-node {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  flex: 1;
+}
+
+.rescue-timeline-dot {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.rescue-timeline-node.is-receive .rescue-timeline-dot {
+  background-color: var(--panic-accent, var(--color-primary));
+  border-color: var(--panic-accent, var(--color-primary));
+  color: var(--color-text-inverted);
+}
+
+.rescue-timeline-node.is-deadline .rescue-timeline-dot {
+  background-color: var(--color-dark);
+  border-color: var(--color-dark);
+  color: var(--color-text-inverted);
+}
+
+.rescue-timeline-text {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-top: var(--space-1);
+}
+
+/* Confirmation & Review */
+.rescue-review-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.rescue-review-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--space-3) 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.rescue-review-row:last-child {
+  border-bottom: none;
+}
+
+.rescue-review-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+}
+
+.rescue-review-value {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  text-align: right;
+  word-break: break-word;
+}
+
+/* Success View & Order Code */
+.rescue-success-card {
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-success);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  text-align: center;
+}
+
+.rescue-order-code {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background-color: var(--color-light);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  margin: var(--space-2) 0 var(--space-3);
+  letter-spacing: 0.05em;
+}
+
+/* Simulated 5-Step Order Tracker */
+.rescue-status-tracker {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--space-4) 0;
+  position: relative;
+}
+
+.rescue-status-tracker::before {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background-color: var(--color-border);
+  z-index: 1;
+}
+
+.rescue-status-step {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  flex: 1;
+}
+
+.rescue-status-dot {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto var(--space-1);
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+}
+
+.rescue-status-step.is-done .rescue-status-dot {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--color-text-inverted);
+}
+
+.rescue-status-step.is-current .rescue-status-dot {
+  background-color: var(--panic-accent, var(--color-primary));
+  border-color: var(--panic-accent, var(--color-primary));
+  color: var(--color-text-inverted);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--panic-accent, var(--color-primary)) 20%, transparent);
+}
+
+.rescue-status-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+/* Gift Cards & Preview */
+.rescue-gift-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.rescue-gift-card-btn {
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.rescue-gift-card-btn:hover {
+  border-color: var(--panic-accent, var(--color-primary));
+  box-shadow: 0 4px 12px rgba(28, 39, 64, 0.08);
+}
+
+.rescue-gift-card-btn[aria-checked="true"] {
+  border-color: var(--panic-accent, var(--color-primary));
+  background-color: var(--color-light);
+  box-shadow: 0 0 0 2px var(--panic-accent, var(--color-primary));
+}
+
+.rescue-card-preview-container {
+  background-color: var(--color-surface);
+  border: 2px dashed var(--panic-accent, var(--color-primary));
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-top: var(--space-3);
+  position: relative;
+  overflow: hidden;
+}
+
+.rescue-card-preview-header {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  margin-bottom: var(--space-2);
+}
+
+.rescue-card-preview-to {
+  font-weight: 700;
+  color: var(--color-secondary);
+  font-size: 1.125rem;
+  margin-bottom: var(--space-2);
+}
+
+.rescue-card-preview-body {
+  font-style: italic;
+  color: var(--color-text-dark);
+  margin-bottom: var(--space-3);
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 3rem;
+}
+
+.rescue-card-preview-from {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  text-align: right;
+  font-weight: 600;
+}
+
+/* Send a Rescue Elements */
+.rescue-gift-types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.rescue-type-card {
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 0;
+}
+
+.rescue-type-card:hover {
+  border-color: var(--panic-accent, var(--color-primary));
+  box-shadow: 0 4px 12px rgba(28, 39, 64, 0.08);
+}
+
+.rescue-type-card.is-selected {
+  border-color: var(--panic-accent, var(--color-primary));
+  background-color: var(--color-light);
+  box-shadow: 0 0 0 2px var(--panic-accent, var(--color-primary));
+}
+
+.rescue-type-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rescue-card-templates-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.rescue-card-template-pill {
+  padding: 0.375rem 0.875rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all 0.2s ease;
+}
+
+.rescue-card-template-pill:hover {
+  border-color: var(--panic-accent, var(--color-primary));
+}
+
+.rescue-card-template-pill.is-selected {
+  border-color: var(--panic-accent, var(--color-primary));
+  background: var(--color-light);
+  color: var(--panic-accent, var(--color-primary));
+}
+
+.rescue-template-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+}
+
+.rescue-sample-msg-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.rescue-sample-msg-btn {
+  background-color: var(--color-light);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-dark);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.rescue-sample-msg-btn:hover {
+  background-color: var(--color-surface);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.rescue-anonymous-box {
+  background-color: var(--color-light);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.rescue-private-contact-box {
+  border-left: 4px solid var(--color-info) !important;
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+  .rescue-stepper-label {
+    display: none;
+  }
+
+  .rescue-status-name {
+    font-size: 0.6875rem;
+  }
+}
+

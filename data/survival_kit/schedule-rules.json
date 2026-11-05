@@ -1,0 +1,13 @@
+{
+  "minLeadDays": 1,
+  "maxLeadDays": 2,
+  "prepDays": 1,
+  "changeWindowHours": 24,
+  "blackoutDates": ["2027-01-01"],
+  "slots": [
+    { "id": "morning", "label": "Sáng (8:00–11:00)" },
+    { "id": "afternoon", "label": "Chiều (13:00–17:00)" },
+    { "id": "evening", "label": "Tối (18:00–21:00)" }
+  ],
+  "zones": { "enabled": true, "allowed": ["TP. Hồ Chí Minh"] }
+}
