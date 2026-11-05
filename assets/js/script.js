@@ -262,10 +262,8 @@ $(window).on('load', function () {
       sliderEl.setAttribute('aria-valuetext', 'Level ' + lvl + (name ? ': ' + name : ''));
       sliderEl.style.setProperty('--f', ((Number(lvl) - 1) / 6).toFixed(4));
     }
-    $('.js-panic-step').removeClass('text-primary font-weight-bold').addClass('text-muted');
-    $('.js-panic-step[data-level="' + lvl + '"]')
-      .removeClass('text-muted')
-      .addClass('text-primary font-weight-bold');
+    $('.js-panic-step').removeClass('is-active').attr('aria-pressed', 'false');
+    $('.js-panic-step[data-level="' + lvl + '"]').addClass('is-active').attr('aria-pressed', 'true');
     var $show = $('.js-panic-kit-showcase').addClass('is-swapping');
     setTimeout(function () { $show.removeClass('is-swapping'); }, 140);
     if (window.PanicLevel && window.PanicLevel.get() !== Number(lvl)) {

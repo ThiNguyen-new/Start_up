@@ -22,29 +22,31 @@
 {{ partial "panic-selector.html" . }}
 {{ end }}
 
-<section class="sk-section pt-0" id="featured-kits">
+{{/* Top 3 bán chạy: sắp theo front matter `bestseller_rank` (1 = cao nhất).
+     Không phụ thuộc Panic Level. Nếu chưa kit nào có rank thì lấy 3 kit đầu. */}}
+{{ $products := where site.RegularPages "Type" "products" }}
+{{ $kits := first 3 (sort (where $products "Params.bestseller_rank" "ge" 1) "Params.bestseller_rank") }}
+{{ if not $kits }}{{ $kits = first 3 $products }}{{ end }}
+<section class="sk-section sk-usp sk-featured" id="featured-kits" aria-labelledby="featured-heading">
+  {{ partial "usp-decor.html" . }}
   <div class="container">
     <div class="row">
-      <div class="col-12 text-center mb-4">
-        <h2>{{ or (i18n "sk_featured_kits") "Featured Survival Kits" }}</h2>
+      <div class="col-12 text-center mb-5">
+        <h2 id="featured-heading" class="sk-usp-title">
+          {{ or (i18n "sk_featured_kits_lead") "Featured" }}
+          <span class="sk-usp-hl">{{ or (i18n "sk_featured_kits_hl") "Survival Kits" }}</span>        </h2>
       </div>
     </div>
-    <div class="row">
-      {{ $kits := first 6 (where site.RegularPages "Type" "products") }}
-      {{ if $kits }}
+    <div class="row justify-content-center">
       {{ range $kits }}
-      <div class="col-lg-4 col-sm-6 mb-4 js-kit-card" {{ partial "kit-card-attrs.html" . | safeHTMLAttr }}>
+      <div class="col-lg-4 col-md-6 mb-4">
         {{ partial "product-card.html" . }}
       </div>
-      {{ end }}
       {{ else }}
       <div class="col-12">
         <p>{{ or (i18n "sk_no_kits") "Kits will show here once content is published." }}</p>
       </div>
       {{ end }}
-      <div class="col-12">
-        <p class="js-kit-empty text-center mt-2" hidden>{{ or (i18n "sk_filter_empty") "No kits match this Panic Level yet." }}</p>
-      </div>
     </div>
   </div>
 </section>

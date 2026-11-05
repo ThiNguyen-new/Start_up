@@ -11,6 +11,7 @@ productID: "exam-survival-kit"
 type: "products"
 panic_level: 5
 kit_type: "exam"
+bestseller_rank: 2 # Top bán chạy trên trang chủ (1 = cao nhất). Xóa dòng này để bỏ khỏi top.
 images:
   - image: "images/products/survival-kit-gifts/exam-survival-kit.jpg"
 image: "images/products/survival-kit-gifts/exam-survival-kit.jpg"

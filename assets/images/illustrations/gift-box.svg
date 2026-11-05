@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 380" role="img" aria-label="Hộp quà Survival Kit mở ra với thiệp, sổ tay, bánh quy và thư tay">
+  <defs>
+    <linearGradient id="gb-box" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD3A8"/>
+      <stop offset="1" stop-color="#F29A6B"/>
+    </linearGradient>
+    <linearGradient id="gb-box-dark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F6B184"/>
+      <stop offset="1" stop-color="#E07A55"/>
+    </linearGradient>
+    <linearGradient id="gb-book" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7FD1C7"/>
+      <stop offset="1" stop-color="#3E9C93"/>
+    </linearGradient>
+    <linearGradient id="gb-pink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFB7C5"/>
+      <stop offset="1" stop-color="#F06C8A"/>
+    </linearGradient>
+    <linearGradient id="gb-ribbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F7748A"/>
+      <stop offset="1" stop-color="#B36BD9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- soft ground shadow -->
+  <ellipse cx="260" cy="352" rx="170" ry="16" fill="#E8B79A" opacity=".35"/>
+
+  <!-- ribbon swirl left -->
+  <path d="M40 300c40-30 70 20 110-5s30-60 70-50" fill="none" stroke="url(#gb-ribbon)" stroke-width="10" stroke-linecap="round" opacity=".85"/>
+
+  <!-- envelope left -->
+  <g transform="rotate(-18 120 150)">
+    <rect x="70" y="112" width="104" height="72" rx="8" fill="#FFF7EE" stroke="#C98A6B" stroke-width="3"/>
+    <path d="M72 116l50 38 50-38" fill="none" stroke="#C98A6B" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M122 160c-9-8-16-12-16-19a8 8 0 0 1 16-2 8 8 0 0 1 16 2c0 7-7 11-16 19z" fill="#EF5B6B"/>
+  </g>
+
+  <!-- envelope right with heart card -->
+  <g transform="rotate(14 395 120)">
+    <rect x="345" y="98" width="100" height="70" rx="8" fill="#FFF0F2" stroke="#C98A6B" stroke-width="3"/>
+    <rect x="360" y="58" width="70" height="66" rx="8" fill="#FFE1E7" stroke="#E28AA0" stroke-width="3"/>
+    <path d="M395 111c-14-11-22-17-22-27a11 11 0 0 1 22-3 11 11 0 0 1 22 3c0 10-8 16-22 27z" fill="url(#gb-pink)"/>
+    <path d="M347 102l48 36 48-36" fill="none" stroke="#C98A6B" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+
+  <!-- paper plane -->
+  <g transform="translate(430 40) rotate(-12)">
+    <path d="M0 40L80 0 50 60 36 44z" fill="#FFF7EE" stroke="#C98A6B" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M36 44L80 0" stroke="#C98A6B" stroke-width="2"/>
+    <path d="M-10 70c-20 10-40 5-50 20" fill="none" stroke="#C98A6B" stroke-width="2" stroke-dasharray="4 6" stroke-linecap="round"/>
+  </g>
+
+  <g transform="translate(0 -34)">
+  <!-- items peeking out of box -->
+  <!-- pink folder -->
+  <rect x="205" y="140" width="66" height="110" rx="8" fill="url(#gb-pink)" transform="rotate(-6 238 195)"/>
+  <!-- notebook -->
+  <g transform="rotate(14 320 200)">
+    <rect x="285" y="140" width="80" height="112" rx="10" fill="url(#gb-book)" stroke="#2F7C74" stroke-width="3"/>
+    <g stroke="#2F7C74" stroke-width="3" stroke-linecap="round">
+      <path d="M282 156h10M282 172h10M282 188h10M282 204h10M282 220h10"/>
+    </g>
+    <path d="M330 166l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z" fill="#FFD166"/>
+    <circle cx="338" cy="224" r="13" fill="#FFF7EE"/>
+    <circle cx="334" cy="222" r="2" fill="#2F3A56"/><circle cx="342" cy="222" r="2" fill="#2F3A56"/>
+    <path d="M333 228c3 3 7 3 10 0" fill="none" stroke="#2F3A56" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <!-- cookie bag -->
+  <g transform="rotate(-14 180 220)">
+    <path d="M140 180h76l-6 90h-64z" fill="#F7D9A8" stroke="#C98A6B" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M140 180l8-10 8 10 8-10 8 10 8-10 8 10 8-10 8 10 8-10 4 10" fill="none" stroke="#C98A6B" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="178" cy="226" r="24" fill="#E3A15C"/>
+    <circle cx="170" cy="218" r="3" fill="#7A4A2A"/><circle cx="186" cy="232" r="3" fill="#7A4A2A"/><circle cx="182" cy="214" r="2.5" fill="#7A4A2A"/>
+    <path d="M178 238c-6-5-10-7-10-11a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 4-4 6-10 11z" fill="#EF5B6B"/>
+  </g>
+  <!-- jar -->
+  <g>
+    <rect x="232" y="214" width="58" height="70" rx="12" fill="#CFEFF2" stroke="#6FB3BC" stroke-width="3"/>
+    <rect x="236" y="204" width="50" height="14" rx="5" fill="#9BD6DE" stroke="#6FB3BC" stroke-width="3"/>
+    <rect x="240" y="236" width="42" height="30" rx="6" fill="#FFD98A"/>
+    <path d="M261 260c-6-5-10-7-10-11a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 4-4 6-10 11z" fill="#EF5B6B"/>
+  </g>
+
+  </g>
+
+  <!-- box -->
+  <path d="M120 262l140-28 140 28-140 30z" fill="#E9935F"/>
+  <path d="M120 262v72l140 22v-64z" fill="url(#gb-box)" stroke="#C9714A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M400 262v72l-140 22v-64z" fill="url(#gb-box-dark)" stroke="#C9714A" stroke-width="3" stroke-linejoin="round"/>
+  <!-- flaps -->
+  <path d="M120 262l-46-30 140-26 46 28z" fill="#FFC79B" stroke="#C9714A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M400 262l46-30-140-26-46 28z" fill="#F7AE80" stroke="#C9714A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M120 262l-30 40 140 28 30-38z" fill="#FFBE8E" stroke="#C9714A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M400 262l30 40-140 28-30-38z" fill="#EE9C6C" stroke="#C9714A" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- ribbons on box sides -->
+  <path d="M300 320c30 10 50-10 70 10s10 40 40 40" fill="none" stroke="url(#gb-ribbon)" stroke-width="8" stroke-linecap="round" opacity=".9"/>
+
+  <!-- sparkles -->
+  <g fill="#F5B83D">
+    <path d="M200 70l5 14 14 5-14 5-5 14-5-14-14-5 14-5z"/>
+    <path d="M470 220l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+  </g>
+  <g fill="#7FC7B8">
+    <path d="M70 230l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+    <path d="M440 300l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
+  </g>
+  <circle cx="250" cy="90" r="5" fill="#F7748A"/>
+  <circle cx="470" cy="170" r="4" fill="#F5B83D"/>
+  <path d="M30 150c-7-6-11-9-11-14a6 6 0 0 1 11-2 6 6 0 0 1 11 2c0 5-4 8-11 14z" fill="#F7748A" opacity=".8"/>
+</svg>
