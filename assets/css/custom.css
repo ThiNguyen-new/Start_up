@@ -7,7 +7,7 @@
     --font-primary / --font-display
 
   Classes for Person 3:
-    .sk-display          display/slogan type (Bebas Neue)
+    .sk-display          display/slogan type (Oswald — hỗ trợ tiếng Việt)
     .sk-card             product / content card
     .sk-card--rescue     highlighted rescue card
     .sk-btn, .sk-btn-primary, .sk-btn-secondary, .sk-btn-ghost
@@ -20,7 +20,7 @@
     .sk-focusable
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 
 :root {
   --color-primary: #c2412b;
@@ -41,7 +41,7 @@
   --color-text-inverted: #fff7ed;
   --color-focus: #1c2740;
   --font-primary: "Plus Jakarta Sans", Quicksand, sans-serif;
-  --font-display: "Bebas Neue", "Plus Jakarta Sans", sans-serif;
+  --font-display: "Oswald", "Plus Jakarta Sans", sans-serif;
   --text-base: 1rem;
   --text-h1: 3.052rem;
   --text-h2: 2.441rem;
@@ -168,9 +168,11 @@ h6,
 
 .sk-display {
   font-family: var(--font-display);
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  line-height: 0.95;
+  /* đủ chỗ cho dấu tiếng Việt chồng tầng (Ố, Ộ, Ẫ) giữa các dòng */
+  line-height: 1.18;
 }
 
 a {
@@ -846,7 +848,7 @@ html.dark .sk-usp-submit:focus {
   font-weight: 700;
 }
 
-.sk-featured .snipcart-add-item {
+.sk-featured .js-add-to-cart {
   align-self: center;
   min-width: 70%;
   justify-content: center;
@@ -857,14 +859,14 @@ html.dark .sk-usp-submit:focus {
   box-shadow: 0 14px 28px -12px rgba(28, 39, 64, 0.55);
 }
 
-.sk-featured .snipcart-add-item:hover,
-.sk-featured .snipcart-add-item:focus {
+.sk-featured .js-add-to-cart:hover,
+.sk-featured .js-add-to-cart:focus {
   background: linear-gradient(90deg, #2c4a7a, var(--color-secondary)) !important;
 }
 
-html.dark .sk-featured .snipcart-add-item,
-html.dark .sk-featured .snipcart-add-item:hover,
-html.dark .sk-featured .snipcart-add-item:focus {
+html.dark .sk-featured .js-add-to-cart,
+html.dark .sk-featured .js-add-to-cart:hover,
+html.dark .sk-featured .js-add-to-cart:focus {
   background: var(--color-secondary) !important;
   color: var(--color-text-inverted) !important;
 }
@@ -1029,4 +1031,299 @@ html.dark .sk-featured .snipcart-add-item:focus {
 
 @media (max-width: 991.98px) {
   .sk-faq-cards { column-count: 1; }
+}
+
+/* ==========================================================================
+   Giỏ hàng demo + checkout kiểu Việt Nam (MoMo / ZaloPay mô phỏng)
+   ========================================================================== */
+.cart .badge[hidden] { display: none; }
+
+.sk-cart-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 1080;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: calc(100% - 2rem);
+  padding: 0.85rem 1.25rem;
+  color: var(--color-text-inverted);
+  background: var(--color-secondary);
+  border-radius: 14px;
+  box-shadow: 0 16px 32px -12px rgba(28, 39, 64, 0.5);
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.sk-cart-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+.sk-cart-toast a { color: var(--color-accent); font-weight: 700; white-space: nowrap; }
+
+/* Stepper */
+.sk-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+.sk-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-light);
+  font-weight: 600;
+}
+.sk-step span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 0.875rem;
+}
+.sk-step.is-active { color: var(--color-primary); }
+.sk-step.is-active span { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-text-inverted); }
+.sk-step.is-done span { background: var(--color-light); color: var(--color-text-dark); }
+
+/* Danh sách sản phẩm trong giỏ */
+.sk-cart-list { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+.sk-cart-item {
+  display: grid;
+  grid-template-columns: 72px 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.sk-cart-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-light);
+}
+.sk-cart-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.sk-cart-thumb.is-empty::after {
+  content: "🎁";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.75rem;
+}
+.sk-cart-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; min-width: 6.5rem; }
+
+.sk-qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.sk-qty button {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  background: var(--color-light);
+  color: var(--color-text-dark);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.sk-qty button:disabled { opacity: 0.4; }
+.sk-qty span { min-width: 2.25rem; text-align: center; font-weight: 700; }
+
+@media (max-width: 575.98px) {
+  .sk-cart-item { grid-template-columns: 60px 1fr; }
+  .sk-cart-thumb { width: 60px; height: 60px; }
+  .sk-qty { grid-column: 2; justify-self: start; }
+  .sk-cart-right { grid-column: 2; flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+/* Tóm tắt */
+.sk-sum-row { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem; }
+.sk-mini-list { list-style: none; padding: 0; margin: 0 0 1rem; font-size: 0.9375rem; }
+.sk-mini-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+.sk-voucher { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border); }
+
+/* Form checkout */
+.sk-field-error { min-height: 1.1rem; margin-top: 0.25rem; font-size: 0.8125rem; color: #c0392b; }
+.sk-input[aria-invalid="true"] { border-color: #c0392b; }
+
+.sk-choice-list { display: grid; gap: 0.75rem; }
+.sk-choice {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.sk-choice input { accent-color: var(--color-primary); width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
+.sk-choice:has(input:checked) {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));
+}
+.sk-choice--momo:has(input:checked) { border-color: #a50064; background: color-mix(in srgb, #a50064 6%, var(--color-surface)); }
+.sk-choice--zalopay:has(input:checked) { border-color: #0068ff; background: color-mix(in srgb, #0068ff 6%, var(--color-surface)); }
+.sk-choice-body { display: flex; flex-direction: column; flex-grow: 1; }
+.sk-choice-title { font-weight: 700; color: var(--color-text-dark); }
+.sk-choice-desc { font-size: 0.875rem; color: var(--color-text-light); }
+.sk-choice-price { font-weight: 700; white-space: nowrap; }
+
+/* Nhãn chữ của ví (không dùng logo thật) */
+.sk-wallet-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.5rem;
+  height: 2.25rem;
+  padding: 0 0.6rem;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+}
+.sk-wallet-mark--momo { background: #a50064; }
+.sk-wallet-mark--zalopay { background: #0068ff; }
+
+/* Màn hình thanh toán mô phỏng */
+.sk-pay-card { --wallet: #a50064; }
+.sk-pay-card[data-wallet="zalopay"] { --wallet: #0068ff; }
+.sk-pay-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--wallet);
+  color: #fff;
+}
+.sk-wallet-mark--light { background: rgba(255, 255, 255, 0.18); }
+.sk-pay-sim { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; opacity: 0.9; }
+.sk-pay-amount { font-size: 2rem; font-weight: 800; color: var(--wallet); margin-bottom: 1rem; }
+.sk-pay-qr {
+  position: relative;
+  display: inline-block;
+  padding: 12px;
+  border: 2px solid var(--wallet);
+  border-radius: 16px;
+  background: #fff;
+}
+.sk-pay-qr svg { display: block; fill: #1c2740; }
+.sk-pay-qr-stamp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0.25rem 0.75rem;
+  border-radius: 8px;
+  background: var(--wallet);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  transform: translate(-50%, -50%) rotate(-12deg);
+}
+.sk-pay-meta { margin: 0 0 1.25rem; text-align: left; }
+.sk-pay-meta > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+.sk-pay-meta dt { font-weight: 400; color: var(--color-text-light); }
+.sk-pay-meta dd { margin: 0; font-weight: 700; text-align: right; word-break: break-all; }
+.sk-pay-card .js-pay-success { background: var(--wallet) !important; border-color: var(--wallet) !important; }
+
+.sk-done-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: #1f7a5c;
+  color: #fff;
+  font-size: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-cart-toast, .sk-choice { transition: none; }
+}
+
+.sk-linkbtn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+.sk-linkbtn:hover { text-decoration: underline; }
+.sk-linkbtn--muted { color: var(--color-text-light); font-weight: 500; font-size: 0.875rem; }
+.sk-voucher-btn {
+  flex-shrink: 0;
+  padding: 0 1rem;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm, 10px);
+  background: transparent;
+  color: var(--color-primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+.sk-voucher-btn:hover { background: var(--color-primary); color: var(--color-text-inverted); }
+
+/* Nút giỏ hàng ở header không bị kéo full-width trên mobile */
+a.cart.sk-btn {
+  position: relative;
+  width: auto !important;
+  flex: 0 0 auto;
+}
+
+/* Header mobile/tablet: [logo] ........ [giỏ] [☰], menu mở ra bên dưới.
+   Theme Hargo đặt .cart position:absolute dưới 992px nên phải ghi đè. */
+@media (max-width: 991.98px) {
+  .navigation .navbar {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .navigation .navbar-brand {
+    order: 0;
+    margin-right: auto;
+  }
+  .navigation a.cart.sk-btn {
+    order: 1;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    min-height: 44px;
+    padding: 0.5rem 0.95rem;
+    margin-right: 0.5rem;
+  }
+  .navigation .navbar-toggler {
+    order: 2;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .navigation .navbar-collapse {
+    order: 3;
+    flex-basis: 100%;
+  }
 }

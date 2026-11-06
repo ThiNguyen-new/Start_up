@@ -30,15 +30,11 @@
     var el = document.getElementById('sk-kit-data');
     if (!el) { return; }
     try { data = JSON.parse(el.textContent); } catch (e) { /* giữ data rỗng */ }
-    /* data-root-url được Hugo (relativeURLs) đổi thành đường dẫn tương đối theo trang,
-       nên ghép nó vào đường dẫn ảnh thì chạy đúng ở mọi thư mục con (vd /Start_up/). */
-    var root = el.getAttribute('data-root-url') || '';
-    Object.keys(data.products || {}).forEach(function (id) {
-      var p = data.products[id];
-      if (p && p.image && !/^([a-z]+:)?\/\//i.test(p.image) && p.image.charAt(0) !== '/') {
-        p.image = root + p.image;
-      }
-    });
+    /* Giữ nguyên đường dẫn ảnh gốc ("images/..."). Chỉ resolveImageUrl() đổi nó
+       thành URL tuyệt đối, tính từ URL của chính file script này (luôn nằm ở
+       <gốc site>/js/), nên đúng ở mọi thư mục con như /Start_up/.
+       Không ghép thêm data-root-url ở đây: ghép 2 lần sẽ ra "../../images"
+       và vỡ ảnh ở các trang con trên GitHub Pages. */
   }
 
   function categories() { return data.categories || []; }

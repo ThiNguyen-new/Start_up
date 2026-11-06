@@ -1,0 +1,20 @@
+{{ define "main" }}
+
+{{ partial "page-title.html" . }}
+
+{{/* Ghi đè theme: dùng chung product-card (giá VND 39.000₫, nút giỏ hàng demo). */}}
+<section class="section pt-0">
+  <div class="container">
+    <div class="row">
+      {{ range .Data.Pages }}
+      <div class="col-lg-4 col-sm-6 mb-4">
+        {{ partial "product-card.html" . }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{ partial "cta.html" . }}
+
+{{ end }}

@@ -49,7 +49,7 @@
     "font_family": {
       "primary": "Plus Jakarta Sans:wght@400;500;600;700",
       "primary_type": "sans-serif",
-      "secondary": "Bebas Neue:wght@400",
+      "secondary": "Oswald:wght@500;600;700",
       "secondary_type": "sans-serif"
     },
     "font_size": {

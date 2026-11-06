@@ -9,9 +9,9 @@
     <div class="row mb-4">
       <div class="col-12">
         <div class="sk-disclaimer-alert d-flex align-items-center" role="note">
-          <i class="ti-info-alt text-primary mr-3 h4 mb-0" aria-hidden="true"></i>
+          {{ partial "icon-info.html" (dict "Class" "text-primary mr-3 flex-shrink-0" "Size" 26) }}
           <div>
-            <strong>{{ or (i18n "sk_demo_notice") "Bản demo tương tác" }}:</strong>
+            <strong>{{ strings.TrimSuffix "." (or (i18n "sk_demo_notice") "Bản demo tương tác") }}:</strong>
             <span>{{ or (i18n "sk_send_disclaimer") "Quà tặng và thông điệp chỉ mang tính minh họa. Website không lưu trữ dữ liệu cá nhân người nhận lên máy chủ và không thu phí thật." }}</span>
           </div>
         </div>

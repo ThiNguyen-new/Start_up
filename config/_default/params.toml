@@ -14,7 +14,8 @@ copyright = "| Copyright &copy; 2026 [Survival Kit - HCMUS](/) All Rights Reserv
 
 # Currency & Commerce
 currencySymbol = "₫"
-snipcartApiKey = "M2E5YjA3NjMtYzRiYS00YzVjLWEyYWYtNDY5ZDI0OWZhYjg5"
+# Snipcart đã được thay bằng giỏ hàng demo nội bộ (assets/js/demo-cart.js),
+# thanh toán MoMo/ZaloPay chỉ mô phỏng, không thu tiền thật.
 
 # Google Maps API
 gmapAPI = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"

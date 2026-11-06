@@ -367,6 +367,20 @@
       totalItems: totals.totalItems
     };
 
+    // Giữ lại các kit đã thêm bằng nút "Add to cart" (source: 'product').
+    try {
+      var prev = JSON.parse(sessionStorage.getItem(CART_KEY) || 'null');
+      if (prev && Array.isArray(prev.items)) {
+        prev.items.forEach(function (it) {
+          if (it && it.source === 'product') {
+            cartPayload.items.push(it);
+            cartPayload.total += (Number(it.price) || 0) * (Number(it.qty) || 0);
+            cartPayload.totalItems += Number(it.qty) || 0;
+          }
+        });
+      }
+    } catch (e) {}
+
     try {
       sessionStorage.setItem(CART_KEY, JSON.stringify(cartPayload));
     } catch (e) {

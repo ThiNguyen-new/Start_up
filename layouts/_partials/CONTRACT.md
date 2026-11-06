@@ -58,6 +58,8 @@ Người 3 phụ trách front-end Hugo (template, partial, styling component và
   - `survivalKitCart`: sau khi xác nhận ở bước cuối, payload được gộp vào giỏ hàng demo (`cart-demo/`):
     - Đơn đặt lịch: chứa object `schedule: { orderCode, deadline, deadlineLabel, receive, slot, contact, createdAt }`
     - Đơn gửi tặng: chứa object `gift: { orderCode, giftType, giftTypeName, recipient, card, createdAt }`
+    - Kit mua sẵn (nút "Add to cart", `assets/js/demo-cart.js`, thay Snipcart): thêm vào `items[]` dạng `{ id, name, category, price, image, qty, source: "product" }`. Build Your Own Kit giữ lại các item `source: "product"` khi ghi giỏ.
+    - Checkout ở `cart-demo/` (thông tin giao hàng, MoMo/ZaloPay) chỉ là mô phỏng: thông tin nhập vào không được lưu; khi "thanh toán thành công" giỏ hàng bị xóa.
 - **Trang chủ (USP Redirection):**
   - Form `#schedule` chuyển sang method GET dẫn tới `/schedule-rescue/?deadline=...&receive=...`.
   - Form `#gifting` chuyển sang method GET dẫn tới `/send-rescue/?type=...&recipient=...&message=...`.

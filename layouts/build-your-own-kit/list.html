@@ -9,9 +9,9 @@
     <div class="row mb-4">
       <div class="col-12">
         <div class="sk-disclaimer-alert d-flex align-items-center" role="note">
-          <i class="ti-info-alt text-primary mr-3 h4 mb-0" aria-hidden="true"></i>
+          {{ partial "icon-info.html" (dict "Class" "text-primary mr-3 flex-shrink-0" "Size" 26) }}
           <div>
-            <strong>{{ or (i18n "sk_demo_notice") "Bản demo tương tác" }}:</strong>
+            <strong>{{ strings.TrimSuffix "." (or (i18n "sk_demo_notice") "Bản demo tương tác") }}:</strong>
             <span>{{ or (i18n "sk_demo_disclaimer") "Giá, số lượng và đơn hàng chỉ mang tính minh họa. Không có thanh toán thật hay lưu dữ liệu lên máy chủ." }}</span>
           </div>
         </div>
@@ -55,14 +55,66 @@
       {{/* Left Column: Categorized Products List */}}
       <div class="col-lg-8">
         {{ $products := site.Data.survival_kit.products }}
-        {{ $categories := slice 
-            (dict "id" "drinks" "title" "1. Đồ uống tỉnh táo & Giải khát" "icon" "ti-cup")
-            (dict "id" "snacks" "title" "2. Năng lượng & Đồ ăn nhẹ" "icon" "ti-gift")
-            (dict "id" "study" "title" "3. Dụng cụ học tập & Ghi chú" "icon" "ti-pencil-alt")
-            (dict "id" "ergonomics" "title" "4. Chăm sóc cơ thể & Công thái học" "icon" "ti-heart")
-            (dict "id" "mood" "title" "5. Thư giãn & Động viên tinh thần" "icon" "ti-face-smile")
-            (dict "id" "packaging" "title" "6. Đóng gói & Thiệp nhắn gửi" "icon" "ti-package")
+        {{ $categories := slice
+            (dict "id" "drinks" "title" "1. Đồ uống tỉnh táo & Giải khát" "icon" "ti-cup" "short" "Đồ uống")
+            (dict "id" "snacks" "title" "2. Năng lượng & Đồ ăn nhẹ" "icon" "ti-gift" "short" "Đồ ăn nhẹ")
+            (dict "id" "study" "title" "3. Dụng cụ học tập & Ghi chú" "icon" "ti-pencil-alt" "short" "Học tập")
+            (dict "id" "ergonomics" "title" "4. Chăm sóc cơ thể & Công thái học" "icon" "ti-heart" "short" "Chăm sóc cơ thể")
+            (dict "id" "mood" "title" "5. Thư giãn & Động viên tinh thần" "icon" "ti-face-smile" "short" "Thư giãn")
+            (dict "id" "packaging" "title" "6. Đóng gói & Thiệp nhắn gửi" "icon" "ti-package" "short" "Đóng gói & thiệp")
         }}
+
+        {{/* Độ phổ biến = số kit gợi ý (kits.json, mọi loại kit × level) có chứa món đó.
+             Nếu products.json có `popularity_score` thì dùng giá trị đó thay thế. */}}
+        {{ $popularity := dict }}
+        {{ range site.Data.survival_kit.kits }}
+          {{ range $lvl, $kit := .levels }}
+            {{ range $pid, $qty := $kit.items }}
+              {{ $popularity = merge $popularity (dict $pid (add (index $popularity $pid | default 0) 1)) }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{/* Thanh lọc / tìm kiếm / sắp xếp (assets/js/byok-filter.js) */}}
+        <div class="sk-byok-filter js-byok-filter" role="search" aria-label="Lọc và tìm món">
+          <div class="sk-byok-filter-pills" role="group" aria-label="Lọc theo nhóm">
+            <button type="button" class="sk-filter-pill js-filter-pill is-active" data-filter-category="all" aria-pressed="true">
+              Tất cả <span class="sk-filter-count">{{ len $products }}</span>
+            </button>
+            {{ range $categories }}
+            {{ $n := len (where $products "category" .id) }}
+            {{ if gt $n 0 }}
+            <button type="button" class="sk-filter-pill js-filter-pill" data-filter-category="{{ .id }}" aria-pressed="false">
+              {{ .short }} <span class="sk-filter-count">{{ $n }}</span>
+            </button>
+            {{ end }}
+            {{ end }}
+          </div>
+          <div class="sk-byok-filter-row">
+            <div class="sk-filter-search">
+              <label for="byok-search" class="sr-only">Tìm món</label>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input type="search" id="byok-search" class="sk-input js-filter-search" placeholder="Tìm món, VD: cà phê, sticker..." autocomplete="off" maxlength="40">
+            </div>
+            <div class="sk-filter-sort">
+              <label for="byok-sort" class="sk-filter-sort-label">Sắp xếp</label>
+              <select id="byok-sort" class="sk-input js-filter-sort">
+                <option value="popular">Phổ biến nhất</option>
+                <option value="price_asc">Giá thấp → cao</option>
+                <option value="price_desc">Giá cao → thấp</option>
+                <option value="name_asc">Tên A → Z</option>
+              </select>
+            </div>
+          </div>
+          <p class="sk-filter-status small text-muted mb-0 js-filter-status" aria-live="polite"></p>
+        </div>
+
+        <div class="sk-filter-empty js-filter-empty" hidden>
+          <svg viewBox="0 0 64 64" width="72" height="72" aria-hidden="true"><rect x="10" y="22" width="44" height="32" rx="6" fill="none" stroke="currentColor" stroke-width="3"/><path d="M10 30h44M26 22l6-10 6 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><circle cx="46" cy="46" r="9" fill="var(--color-body)" stroke="currentColor" stroke-width="3"/><path d="M52.5 52.5l5 5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          <p class="mb-2 font-weight-bold">Không tìm thấy món đồ phù hợp.</p>
+          <p class="text-muted mb-3">Bạn thử tìm từ khóa khác nhé!</p>
+          <button type="button" class="sk-linkbtn js-filter-reset">Xóa bộ lọc</button>
+        </div>
 
         {{ range $categories }}
         {{ $catId := .id }}
@@ -81,7 +133,9 @@
                  data-id="{{ .id }}"
                  data-name="{{ .name }}"
                  data-price="{{ .price }}"
-                 data-category="{{ .category }}">
+                 data-category="{{ .category }}"
+                 data-popularity="{{ or .popularity_score (index $popularity .id) 0 }}"
+                 data-search="{{ .name }} {{ .description }}">
               
               {{/* Suggestion Badge (dynamically shown when matching current Panic Level recommendation) */}}
               <span class="sk-badge-suggested js-suggested-badge" hidden>
@@ -120,7 +174,7 @@
               {{/* Price & Quantity Controls */}}
               <div>
                 <div class="sk-byok-price-row">
-                  <span class="sk-byok-price">{{ lang.FormatNumberCustom 0 .price "- . ," }} ₫</span>
+                  <span class="sk-byok-price">{{ lang.FormatNumberCustom 0 .price "- , ." }} ₫</span>
                   <span class="text-muted small">Tối đa 20</span>
                 </div>
 
@@ -232,6 +286,10 @@
 {{ with resources.Get "js/build-your-own-kit.js" }}
 {{ $byokScript := . | minify }}
 <script src="{{ $byokScript.Permalink }}" defer></script>
+{{ end }}
+{{ with resources.Get "js/byok-filter.js" }}
+{{ $filterScript := . | minify }}
+<script src="{{ $filterScript.Permalink }}" defer></script>
 {{ end }}
 
 {{ end }}

@@ -34,11 +34,6 @@ name = "Contact"
 url = "contact/"
 weight = 7
 
-[[main]]
-name = "📦 Tải Setup (.zip)"
-url = "survival-kit-m0-m1-setup.zip"
-weight = 8
-
 ############################## Footer Menu ##############################
 [[footer]]
 name = "Survival Kits"
