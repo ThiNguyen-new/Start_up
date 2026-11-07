@@ -122,7 +122,8 @@
     if (/^(https?:|data:)/.test(path)) return path;
     var root = new URL(siteRoot());
     if (path.charAt(0) === '/' && path.indexOf(root.pathname) === 0) return root.origin + path;
-    return root.href + path.replace(/^\.?\//, '');
+    var base = root.href.replace(/\/?$/, '/');
+    return base + path.replace(/^(\.\.\/)+/, '').replace(/^\.?\//, '');
   }
 
   var toastTimer = null;
@@ -179,7 +180,8 @@
     clear: clear,
     formatVND: formatVND,
     updateBadge: updateBadge,
-    siteRoot: siteRoot
+    siteRoot: siteRoot,
+    resolveAsset: resolveAsset
   };
 
   if (document.readyState === 'loading') {

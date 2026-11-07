@@ -49,14 +49,23 @@
       var name = card.getAttribute('data-name') || '';
       var category = card.getAttribute('data-category') || '';
       var selectedImage = card.querySelector('.js-product-image-choice[aria-pressed="true"]');
+      var defaultImg = card.querySelector('.js-product-image');
+      var defaultSrc = (defaultImg && (defaultImg.currentSrc || defaultImg.src || defaultImg.getAttribute('src'))) || card.getAttribute('data-image') || '';
+      var imageSrc = defaultSrc;
+      var variantLabel = '';
+      if (selectedImage) {
+        var choiceImg = selectedImage.querySelector('img');
+        imageSrc = (choiceImg && (choiceImg.currentSrc || choiceImg.src)) || selectedImage.getAttribute('data-image-src') || defaultSrc;
+        variantLabel = selectedImage.getAttribute('data-variant-label') || '';
+      }
 
       productsCatalog[id] = {
         id: id,
         name: name,
         price: price,
         category: category,
-        image: selectedImage ? selectedImage.getAttribute('data-image-src') : '',
-        variant: selectedImage ? selectedImage.getAttribute('data-variant-label') : ''
+        image: imageSrc,
+        variant: variantLabel
       };
     });
   }
@@ -405,7 +414,9 @@
           productImage.alt = imageChoice.getAttribute('data-image-alt') || '';
           var productId = imageCard.getAttribute('data-id');
           if (productsCatalog[productId]) {
-            productsCatalog[productId].image = imageChoice.getAttribute('data-image-src');
+            var choiceImg = imageChoice.querySelector('img');
+            var choiceSrc = (choiceImg && (choiceImg.currentSrc || choiceImg.src)) || imageChoice.getAttribute('data-image-src') || '';
+            productsCatalog[productId].image = choiceSrc;
             productsCatalog[productId].variant = imageChoice.getAttribute('data-variant-label') || '';
           }
           imageCard.querySelectorAll('.js-product-image-choice').forEach(function (choice) {
