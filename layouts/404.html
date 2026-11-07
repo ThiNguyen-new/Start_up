@@ -1,0 +1,55 @@
+{{- /*
+  Trang 404 độc lập (không dùng baseof): GitHub Pages trả file /404.html cho MỌI đường dẫn sai,
+  ở bất kỳ độ sâu nào, nên đường dẫn tương đối của layout thường sẽ vỡ (mất CSS, link sai).
+  Script nhỏ trong <head> tìm gốc site (kể cả thư mục con /Start_up/ trên *.github.io)
+  rồi đặt <base>, nên các link "./..." bên dưới luôn đúng.
+*/ -}}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Không tìm thấy trang | {{ site.Title }}</title>
+  <script>
+    (function () {
+      var root = '/';
+      var seg = location.pathname.split('/').filter(Boolean)[0];
+      if (/\.github\.io$/.test(location.hostname) && seg) root = '/' + seg + '/';
+      document.write('<base href="' + root + '">');
+    })();
+  </script>
+  {{ with resources.Get "images/brand/favicon.svg" }}<link rel="icon" href=".{{ .RelPermalink }}" type="image/svg+xml">{{ end }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap">
+  <style>
+    :root { --primary: #c2412b; --secondary: #1c2740; --body: #fff7ed; --text: #3a332c; --border: #e8d9c8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 24px 16px; background: var(--body); color: var(--text);
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif; text-align: center; }
+    main { max-width: 520px; }
+    .code { font-family: "Oswald", sans-serif; font-weight: 600; font-size: clamp(5rem, 22vw, 8rem);
+      line-height: 1; color: var(--primary); letter-spacing: .04em; margin: 0; }
+    h1 { font-size: clamp(1.5rem, 5vw, 2rem); color: var(--secondary); margin: .5rem 0 .75rem; }
+    p { font-size: 1.0625rem; line-height: 1.6; margin: 0 0 1.75rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }
+    a.btn { display: inline-flex; align-items: center; min-height: 44px; padding: .7rem 1.4rem;
+      border-radius: 999px; font-weight: 700; text-decoration: none; border: 1px solid var(--primary); }
+    a.btn-primary { background: var(--primary); color: #fff7ed; }
+    a.btn-ghost { color: var(--primary); background: transparent; }
+    a.btn:focus-visible { outline: 3px solid var(--secondary); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="code" aria-hidden="true">404</p>
+    <h1>Trang này đã "chạy deadline" mất rồi</h1>
+    <p>Đường dẫn bạn mở không tồn tại hoặc đã được đổi. Quay về trang chủ hoặc xem các bộ Survival Kit nhé.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="./">Về trang chủ</a>
+      <a class="btn btn-ghost" href="./products/">Xem Survival Kits</a>
+    </div>
+  </main>
+</body>
+</html>

@@ -32,8 +32,10 @@ enable = true
 preloader = ""
 
 # Product Rating
+# Tắt: dịch vụ rating-widget.com không còn hoạt động (js.rating-widget.com không phân giải
+# được tên miền), làm mọi trang báo lỗi console. Bật lại chỉ khi có dịch vụ thay thế.
 [rating]
-enable = true
+enable = false
 websiteID = "444334"
 publicKey = "811cf0927332bf51f2e12f84608594ac"
 
