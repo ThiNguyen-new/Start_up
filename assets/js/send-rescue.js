@@ -816,7 +816,9 @@
         return {
           id: it.id,
           name: it.name,
+          category: it.category || 'Survival Kit',
           price: it.price,
+          image: it.image || '',
           qty: it.qty || 1,
           subtotal: it.subtotal || (it.price * (it.qty || 1))
         };

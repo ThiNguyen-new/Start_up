@@ -372,6 +372,19 @@
   </div>
 </section>
 
+{{/* Product image map for robust cart image resolution and legacy draft healing */}}
+{{ $productMap := dict }}
+{{ range site.Data.survival_kit.products }}
+  {{ $pid := .id }}
+  {{ $img := resources.Get .image }}
+  {{ with $img }}
+    {{ $productMap = merge $productMap (dict $pid .RelPermalink) }}
+  {{ end }}
+{{ end }}
+<script type="application/json" id="sk-cart-product-images">
+{{ $productMap | jsonify | safeJS }}
+</script>
+
 {{/* Cart Client-side Script */}}
 <script>
 (function () {
@@ -383,6 +396,31 @@
   };
   var WALLETS = { momo: 'MoMo', zalopay: 'ZaloPay' };
   var state = { step: 'cart', voucher: null, order: null, timer: null };
+  var productImages = {};
+  try {
+    var pEl = document.getElementById('sk-cart-product-images');
+    if (pEl) productImages = JSON.parse(pEl.textContent);
+  } catch (e) {}
+
+  function resolveAsset(path) {
+    if (window.DemoCart && window.DemoCart.resolveAsset) {
+      return window.DemoCart.resolveAsset(path);
+    }
+    if (!path) return '';
+    if (/^(https?:|data:)/.test(path)) return path;
+    var cartA = document.querySelector('a.cart[href]');
+    var cUrl = cartA ? cartA.href : new URL('cart-demo/', document.baseURI || window.location.href).href;
+    var sRoot = cUrl.replace(/cart-demo\/?(index\.html)?$/, '');
+    var root = new URL(sRoot);
+    if (path.charAt(0) === '/' && path.indexOf(root.pathname) === 0) return root.origin + path;
+    var base = root.href.replace(/\/?$/, '/');
+    return base + path.replace(/^(\.\.\/)+/, '').replace(/^\.?\//, '');
+  }
+
+  function resolveCartImage(it) {
+    var src = it.image || (it.id && productImages[it.id]) || '';
+    return resolveAsset(src);
+  }
 
   function formatVND(amt) {
     return (Math.round(Number(amt) || 0)).toLocaleString('vi-VN') + '₫';
@@ -450,12 +488,23 @@
 
     var thumb = document.createElement('div');
     thumb.className = 'sk-cart-thumb';
-    if (it.image) {
+    var finalImgSrc = resolveCartImage(it);
+    if (finalImgSrc) {
       var img = document.createElement('img');
-      img.src = it.image;
+      img.src = finalImgSrc;
       img.alt = '';
       img.loading = 'lazy';
-      img.onerror = function () { thumb.removeChild(img); thumb.classList.add('is-empty'); };
+      img.onerror = function () {
+        if (it.id && productImages[it.id]) {
+          var fb = resolveAsset(productImages[it.id]);
+          if (fb && img.src !== fb) {
+            img.src = fb;
+            return;
+          }
+        }
+        thumb.removeChild(img);
+        thumb.classList.add('is-empty');
+      };
       thumb.appendChild(img);
     } else {
       thumb.classList.add('is-empty');
@@ -546,6 +595,17 @@
   function renderCart() {
     var cart = getCartData();
     if (!cart) { goStep('cart'); return; }
+
+    var healed = false;
+    cart.items.forEach(function (it) {
+      if (!it.image && it.id && productImages[it.id]) {
+        it.image = resolveAsset(productImages[it.id]);
+        healed = true;
+      }
+    });
+    if (healed) {
+      saveCart(cart);
+    }
 
     var panicBadge = $('.js-cart-panic-badge');
     var catBadge = $('.js-cart-category-badge');

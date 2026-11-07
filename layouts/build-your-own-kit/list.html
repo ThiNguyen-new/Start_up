@@ -134,6 +134,7 @@
                  data-name="{{ .name }}"
                  data-price="{{ .price }}"
                  data-category="{{ .category }}"
+                 data-image="{{ with resources.Get .image }}{{ .RelPermalink }}{{ end }}"
                  data-popularity="{{ or .popularity_score (index $popularity .id) 0 }}"
                  data-search="{{ .name }} {{ .description }}">
               
