@@ -48,20 +48,20 @@
 {{ end }}
 
 {{ if hugo.Data.contact.map.enable }}
-{{/* Ghi đè theme chỉ để sửa ảnh ghim bản đồ:
-     - ảnh nằm trong assets/ nên phải resources.Get mới được xuất ra;
-     - data-marker không được Hugo (relativeURLs) đổi đường dẫn, nên tự tạo đường dẫn
-       tương đối theo độ sâu của trang (chạy đúng cả ở / lẫn /Start_up/ trên GitHub Pages). */}}
-{{ $marker := "" }}
-{{ with site.Params.mapMarker }}{{ with resources.Get . }}
-  {{ $depth := len (split (strings.Trim (strings.TrimPrefix site.Home.RelPermalink $.RelPermalink) "/") "/") }}
-  {{ $marker = printf "%s%s" (strings.Repeat $depth "../") (strings.TrimPrefix site.Home.RelPermalink .RelPermalink) }}
-{{ end }}{{ end }}
+{{/* Ghi đè theme: dùng Google Maps nhúng (iframe, không cần API key) thay cho
+     Google Maps JavaScript API + gmap.js của theme (key mẫu bị từ chối: "Permission Denied").
+     Ưu tiên tìm theo địa chỉ (mapQuery) để bản đồ có nhãn địa điểm; không có thì dùng tọa độ. */}}
+{{ $q := or site.Params.mapQuery (printf "%s,%s" site.Params.mapLatitude site.Params.mapLongitude) }}
 <section class="section pt-0">
   <div class="container">
-    <div id="map_canvas" data-latitude="{{ with site.Params.mapLatitude }} {{ . }} {{ end }}"
-      data-longitude="{{ with site.Params.mapLongitude }} {{ . }} {{ end }}"
-      data-marker="{{ $marker }}" data-marker-name="{{ site.Title }}"></div>
+    <div class="sk-map">
+      <iframe
+        src="https://www.google.com/maps?q={{ $q | urlquery }}&z=16&hl=vi&output=embed"
+        title="Bản đồ: {{ site.Params.location }}"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+    </div>
   </div>
 </section>
 {{ end }}
