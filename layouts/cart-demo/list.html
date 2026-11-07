@@ -136,7 +136,7 @@
           {{/* CTA Box if neither schedule nor gift exists */}}
           <div class="alert alert-light border js-cart-rescue-cta mb-4" hidden role="region" aria-label="Gợi ý tính năng cứu trợ">
             <div class="d-flex align-items-center mb-2">
-              <i class="ti-bolt text-warning mr-2 h5 mb-0" aria-hidden="true"></i>
+              {{ partial "icon-bolt.html" (dict "Class" "text-warning mr-2 flex-shrink-0" "Size" 20) }}
               <strong class="text-dark">Nâng cao trải nghiệm tiếp sức:</strong>
             </div>
             <p class="text-muted small mb-3">

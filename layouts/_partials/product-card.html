@@ -38,7 +38,7 @@
     </div>
     {{ $thumb := "" }}
     {{ range first 1 .Params.images }}
-    {{ with resources.Get .image }}{{ $thumb = (.Fill "160x160 webp").RelPermalink }}{{ end }}
+    {{ with resources.Get .image }}{{ $thumb = (.Fill "160x160 webp Center").RelPermalink }}{{ end }}
     {{ end }}
     {{ with .Params.productID }}
     <button type="button" class="js-add-to-cart sk-btn sk-btn-primary sk-focusable" data-item-id="{{ . }}"
