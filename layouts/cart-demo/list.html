@@ -136,7 +136,7 @@
           {{/* CTA Box if neither schedule nor gift exists */}}
           <div class="alert alert-light border js-cart-rescue-cta mb-4" hidden role="region" aria-label="Gợi ý tính năng cứu trợ">
             <div class="d-flex align-items-center mb-2">
-              <i class="ti-bolt text-warning mr-2 h5 mb-0" aria-hidden="true"></i>
+              {{ partial "icon-bolt.html" (dict "Class" "text-warning mr-2 flex-shrink-0" "Size" 20) }}
               <strong class="text-dark">Nâng cao trải nghiệm tiếp sức:</strong>
             </div>
             <p class="text-muted small mb-3">
@@ -390,6 +390,7 @@
 (function () {
   'use strict';
   var CART_KEY = 'survivalKitCart';
+  var MAX_QTY = (window.DemoCart && window.DemoCart.MAX_QTY) || 20; // đồng bộ với Build Your Own Kit
   var VOUCHERS = {
     DEADLINE10: { type: 'percent', value: 10, max: 30000, label: 'Giảm 10% (tối đa 30.000₫)' },
     FREESHIP: { type: 'ship', label: 'Miễn phí giao hàng' }
@@ -539,6 +540,8 @@
     plus.textContent = '+';
     plus.setAttribute('aria-label', 'Tăng số lượng ' + it.name);
     minus.disabled = it.qty <= 1;
+    plus.disabled = it.qty >= MAX_QTY;
+    if (plus.disabled) plus.title = 'Tối đa ' + MAX_QTY + ' sản phẩm';
     minus.addEventListener('click', function () { changeQty(it.id, it.name, -1); });
     plus.addEventListener('click', function () { changeQty(it.id, it.name, 1); });
     qty.appendChild(minus);
@@ -574,7 +577,7 @@
     var cart = getCartData();
     if (!cart) return;
     cart.items.forEach(function (it) {
-      if (matchItem(it, id, name)) it.qty = Math.max(1, Math.min(99, (Number(it.qty) || 1) + delta));
+      if (matchItem(it, id, name)) it.qty = Math.max(1, Math.min(MAX_QTY, (Number(it.qty) || 1) + delta));
     });
     saveCart(cart);
     renderCart();
@@ -876,10 +879,14 @@
     var clearBtn = $('.js-btn-clear-cart');
     if (clearBtn) {
       clearBtn.addEventListener('click', function () {
-        if (window.confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?')) {
+        var ask = window.SkConfirm
+          ? window.SkConfirm({ title: 'Xóa toàn bộ giỏ hàng?', message: 'Tất cả sản phẩm trong giỏ sẽ bị xóa. Bạn không thể hoàn tác.', confirmText: 'Xóa giỏ', cancelText: 'Giữ lại', danger: true })
+          : Promise.resolve(window.confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?'));
+        ask.then(function (ok) {
+          if (!ok) return;
           if (window.DemoCart) window.DemoCart.clear(); else { try { sessionStorage.removeItem(CART_KEY); } catch (e) {} }
           goStep('cart');
-        }
+        });
       });
     }
 

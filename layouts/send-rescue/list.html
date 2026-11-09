@@ -184,10 +184,10 @@
                   {{/* Fast selection buttons when deadline is chosen */}}
                   <div class="rescue-quick-dates js-quick-dates-container" hidden>
                     <button type="button" class="rescue-quick-btn js-btn-quick-gift-date" data-offset="1">
-                      <i class="ti-bolt mr-1" aria-hidden="true"></i> Giao trước 1 ngày
+                      {{ partial "icon-bolt.html" (dict "Class" "mr-1 align-text-bottom" "Size" 14) }} Giao trước 1 ngày
                     </button>
                     <button type="button" class="rescue-quick-btn js-btn-quick-gift-date" data-offset="2">
-                      <i class="ti-bolt mr-1" aria-hidden="true"></i> Giao trước 2 ngày
+                      {{ partial "icon-bolt.html" (dict "Class" "mr-1 align-text-bottom" "Size" 14) }} Giao trước 2 ngày
                     </button>
                   </div>
                 </div>

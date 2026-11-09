@@ -10,6 +10,8 @@
   'use strict';
 
   var CART_KEY = 'survivalKitCart';
+  // Tối đa mỗi món trong giỏ, đồng bộ với Build Your Own Kit (QA web-error 1.3).
+  var MAX_QTY = 20;
 
   function load() {
     try {
@@ -27,7 +29,7 @@
     var qty = 0;
     var total = 0;
     cart.items.forEach(function (it) {
-      it.qty = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1));
+      it.qty = Math.max(1, Math.min(MAX_QTY, parseInt(it.qty, 10) || 1));
       it.price = Number(it.price) || 0;
       it.subtotal = it.price * it.qty;
       qty += it.qty;
@@ -58,8 +60,11 @@
     cart.items.forEach(function (it) {
       if (it.id === item.id) existing = it;
     });
+    var capped = false;
     if (existing) {
-      existing.qty = (existing.qty || 0) + (item.qty || 1);
+      var wanted = (existing.qty || 0) + (item.qty || 1);
+      capped = wanted > MAX_QTY;
+      existing.qty = Math.min(MAX_QTY, wanted);
     } else {
       cart.items.push({
         id: item.id,
@@ -71,7 +76,8 @@
         source: 'product'
       });
     }
-    return save(cart);
+    save(cart);
+    return { cart: cart, capped: capped };
   }
 
   function setQty(id, qty) {
@@ -162,13 +168,15 @@
       var pageImg = scope.querySelector('img[src]');
       image = pageImg ? (pageImg.currentSrc || pageImg.src) : '';
     }
-    addItem({
+    var result = addItem({
       id: btn.getAttribute('data-item-id') || name,
       name: name,
       price: btn.getAttribute('data-item-price'),
       image: image
     });
-    toast('Đã thêm “' + name + '” vào giỏ.');
+    toast(result.capped
+      ? '“' + name + '” đã đạt tối đa ' + MAX_QTY + ' sản phẩm trong giỏ.'
+      : 'Đã thêm “' + name + '” vào giỏ.');
   });
 
   window.DemoCart = {
@@ -180,6 +188,7 @@
     clear: clear,
     formatVND: formatVND,
     updateBadge: updateBadge,
+    MAX_QTY: MAX_QTY,
     siteRoot: siteRoot,
     resolveAsset: resolveAsset
   };

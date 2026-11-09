@@ -950,16 +950,21 @@
         var sampleText = sampleBtn.textContent.trim();
         var msgInput = document.querySelector('.js-input-message');
         if (msgInput) {
+          var insertSample = function () {
+            msgInput.value = sampleText;
+            state.card.message = sampleText;
+            updateCharCount();
+            updateCardPreview();
+            saveCurrentDraft();
+          };
           if (msgInput.value && msgInput.value.trim().length > 0) {
-            if (!confirm('Bạn có muốn thay thế lời nhắn hiện tại bằng gợi ý này không?')) {
-              return;
-            }
+            var ask = window.SkConfirm
+              ? window.SkConfirm({ title: 'Thay lời nhắn?', message: 'Lời nhắn bạn đang viết sẽ được thay bằng gợi ý này.', confirmText: 'Thay lời nhắn' })
+              : Promise.resolve(window.confirm('Bạn có muốn thay thế lời nhắn hiện tại bằng gợi ý này không?'));
+            ask.then(function (ok) { if (ok) insertSample(); });
+          } else {
+            insertSample();
           }
-          msgInput.value = sampleText;
-          state.card.message = sampleText;
-          updateCharCount();
-          updateCardPreview();
-          saveCurrentDraft();
         }
         return;
       }

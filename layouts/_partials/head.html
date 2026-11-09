@@ -1,11 +1,15 @@
 <head>
   <meta charset="UTF-8">
-  <title>{{ .Title }}</title>
+  {{/* Ưu tiên meta_title trong front matter để mỗi trang có title riêng (QA test plan mục 5). */}}
+  <title>{{ or .Params.meta_title .Title }}</title>
 
   {{ "<!-- Mobile Responsive Meta -->" | safeHTML }}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}">
   {{ with site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+
+  {{ "<!-- SEO: canonical, Open Graph, Twitter -->" | safeHTML }}
+  {{ partial "seo-meta.html" . }}
   {{ hugo.Generator }}
 
   <!-- theme meta -->
@@ -39,6 +43,8 @@
   {{ end }}
 
   {{ "<!-- Favicon -->" | safeHTML }}
-  <link rel="shortcut icon" href="{{ `images/favicon.png` | absURL }} " type="image/x-icon">
-  <link rel="icon" href="{{ `images/favicon.png` | absURL }} " type="image/x-icon">
+  {{/* Ảnh nằm trong assets/ nên phải qua resources.Get mới được xuất ra public/. */}}
+  {{ with resources.Get "images/brand/favicon.svg" }}<link rel="icon" href="{{ .RelPermalink }}" type="image/svg+xml">{{ end }}
+  {{ with resources.Get "images/brand/favicon.png" }}<link rel="icon" href="{{ .RelPermalink }}" type="image/png">{{ end }}
+  {{ with resources.Get "images/brand/apple-touch-icon.png" }}<link rel="apple-touch-icon" href="{{ .RelPermalink }}">{{ end }}
 </head>

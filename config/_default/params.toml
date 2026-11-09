@@ -3,11 +3,14 @@ logo = "images/logo.png"
 home = "Home"
 
 # SEO & Meta Data
+# Địa chỉ production chính thức (GitHub Pages). Chỉ dùng cho canonical, Open Graph,
+# robots.txt và sitemap — KHÔNG đổi baseURL ("/") để site vẫn chạy ở localhost/Vercel.
+siteURL = "https://thinguyen-new.github.io/Start_up/"
 description = "Survival Kit - Trạm cứu hộ deadline dành cho sinh viên. Mô hình kết hợp thương mại điện tử, đặt lịch giao kit theo deadline (Schedule Your Rescue) và tặng quà cá nhân hóa (Send a Rescue)."
 author = "Survival Kit Team - HCMUS"
 
 # Contact Information
-location = "227 Nguyễn Văn Cừ, Phường 4, Quận 5, TP. Hồ Chí Minh"
+location = "227 Nguyễn Văn Cừ, Phường Chợ Quán, TP. Hồ Chí Minh"
 email = "contact@survivalkit.vn"
 mobile = "0901 234 567"
 copyright = "| Copyright &copy; 2026 [Survival Kit - HCMUS](/) All Rights Reserved |"
@@ -17,11 +20,12 @@ currencySymbol = "₫"
 # Snipcart đã được thay bằng giỏ hàng demo nội bộ (assets/js/demo-cart.js),
 # thanh toán MoMo/ZaloPay chỉ mô phỏng, không thu tiền thật.
 
-# Google Maps API
-gmapAPI = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"
+# Bản đồ trang Contact: Google Maps nhúng (iframe), không cần API key.
+# Đã bỏ Google Maps JavaScript API: key mẫu của theme bị Google từ chối ("Permission Denied")
+# và script đó bị tải ở mọi trang dù chỉ trang Contact có bản đồ.
+mapQuery = "Trường Đại học Khoa học Tự nhiên, 227 Nguyễn Văn Cừ, Phường Chợ Quán, TP. Hồ Chí Minh"
 mapLatitude = "10.762913"
 mapLongitude = "106.682171"
-mapMarker = "images/marker.png"
 
 # Google Analytics
 googleAnalyticsID = ""
@@ -32,8 +36,10 @@ enable = true
 preloader = ""
 
 # Product Rating
+# Tắt: dịch vụ rating-widget.com không còn hoạt động (js.rating-widget.com không phân giải
+# được tên miền), làm mọi trang báo lỗi console. Bật lại chỉ khi có dịch vụ thay thế.
 [rating]
-enable = true
+enable = false
 websiteID = "444334"
 publicKey = "811cf0927332bf51f2e12f84608594ac"
 
@@ -92,5 +98,3 @@ link = "plugins/jQuery/jquery.min.js"
 link = "plugins/bootstrap/bootstrap.min.js"
 [[plugins.js]]
 link = "plugins/slick/slick.min.js"
-[[plugins.js]]
-link = "plugins/google-map/gmap.js"
