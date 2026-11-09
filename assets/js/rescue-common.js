@@ -84,6 +84,15 @@
     }
 
     var deadlineVsToday = diffDays(deadline, today);
+    // Giới hạn đặt trước tối đa (mặc định 60 ngày ~ 2 tháng), chặn ngày vô lý như 5555-05-05.
+    var maxAdvance = Number.isInteger(rules.maxAdvanceDays) ? rules.maxAdvanceDays : 60;
+    if (deadlineVsToday > maxAdvance || diffDays(receive, today) > maxAdvance) {
+      return {
+        isValid: false,
+        error: 'Chỉ đặt lịch trước tối đa ' + maxAdvance + ' ngày (khoảng 2 tháng) kể từ hôm nay.',
+        leadDays: diffDays(deadline, receive)
+      };
+    }
     if (deadlineVsToday < prepDays + minLead) {
       return {
         isValid: false,
@@ -132,6 +141,14 @@
     }
 
     var receiveVsToday = diffDays(receive, today);
+    var maxAdvanceGift = Number.isInteger(rules.maxAdvanceDays) ? rules.maxAdvanceDays : 60;
+    if (receiveVsToday > maxAdvanceGift ||
+        (recipientDeadline && parseISODate(recipientDeadline) && diffDays(recipientDeadline, today) > maxAdvanceGift)) {
+      return {
+        isValid: false,
+        error: 'Chỉ đặt giao trước tối đa ' + maxAdvanceGift + ' ngày (khoảng 2 tháng) kể từ hôm nay.'
+      };
+    }
     if (receiveVsToday < prepDays) {
       return {
         isValid: false,

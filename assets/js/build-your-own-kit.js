@@ -230,12 +230,18 @@
 
   function applyReco() {
     if (!currentReco) { return; }
-    if (getTotals().totalItems > 0 &&
-        !window.confirm('Thay các món đang chọn bằng kit gợi ý?')) { return; }
-    clearQuantities();
-    currentReco.items.forEach(function (it) { updateItemQty(it.id, it.qty); });
-    renderSummary();
-    renderPreview();
+    var reco = currentReco;
+    function doApply() {
+      clearQuantities();
+      reco.items.forEach(function (it) { updateItemQty(it.id, it.qty); });
+      renderSummary();
+      renderPreview();
+    }
+    if (getTotals().totalItems === 0) { doApply(); return; }
+    var ask = window.SkConfirm
+      ? window.SkConfirm({ title: 'Thay bằng kit gợi ý?', message: 'Các món bạn đang chọn sẽ được thay bằng các món trong kit gợi ý.', confirmText: 'Thay kit' })
+      : Promise.resolve(window.confirm('Thay các món đang chọn bằng kit gợi ý?'));
+    ask.then(function (ok) { if (ok) doApply(); });
   }
 
   // ?apply=1 (từ nút "Xây kit này" ở trang chủ): chỉ tự áp dụng khi giỏ trống.

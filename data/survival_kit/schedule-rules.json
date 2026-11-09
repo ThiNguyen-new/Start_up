@@ -2,6 +2,7 @@
   "minLeadDays": 1,
   "maxLeadDays": 2,
   "prepDays": 1,
+  "maxAdvanceDays": 60,
   "changeWindowHours": 24,
   "blackoutDates": ["2027-01-01"],
   "slots": [

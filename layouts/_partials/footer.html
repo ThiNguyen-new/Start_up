@@ -44,6 +44,12 @@
           </li>
           {{ end }}
         </ul>
+        {{/* QA web-error.md (đề xuất 2): thông tin liên hệ là minh họa cho đồ án. */}}
+        <p class="sk-footer-note small mb-4">
+          {{ partial "icon-info.html" (dict "Class" "mr-1 align-text-bottom" "Size" 14) }}
+          Thông tin liên hệ chỉ mang tính minh họa cho dự án sinh viên.
+          <a class="sk-focusable" href="{{ "contact/" | relLangURL }}">Xem trang Liên hệ</a>
+        </p>
         <ul class="list-inline">
           {{ range site.Params.social }}
           <li class="list-inline-item"><a class="sk-focusable" href="{{ .link | safeURL }}" {{ with .title }}aria-label="{{ . }}"{{ end }}><i class="{{ .icon }} text-primary" aria-hidden="true"></i></a></li>
@@ -99,6 +105,19 @@
 {{ with resources.Get "js/kit-recommend.js" }}
 {{ $recoScript := . | minify }}
 <script src="{{ $recoScript.Permalink }}"></script>
+{{ end }}
+
+{{ "<!-- Giới hạn ngày (min/max) cho mọi input[type=date] -->" | safeHTML }}
+{{ $rules := index hugo.Data.survival_kit "schedule-rules" }}
+{{ with resources.Get "js/date-limits.js" }}
+{{ $dateScript := . | minify }}
+<script src="{{ $dateScript.Permalink }}" data-prep-days="{{ $rules.prepDays | default 1 }}" data-max-advance-days="{{ $rules.maxAdvanceDays | default 60 }}"></script>
+{{ end }}
+
+{{ "<!-- Hộp thoại xác nhận dùng chung (thay window.confirm) -->" | safeHTML }}
+{{ with resources.Get "js/sk-confirm.js" }}
+{{ $confirmScript := . | minify }}
+<script src="{{ $confirmScript.Permalink }}"></script>
 {{ end }}
 
 {{ "<!-- Demo Cart Script -->" | safeHTML }}
