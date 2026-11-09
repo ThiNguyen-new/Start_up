@@ -70,10 +70,37 @@ test.describe('P — Sản phẩm và giỏ hàng', () => {
     await expect(page.locator('.js-cart-total-price')).not.toHaveText(before);
     await first.getByRole('button', { name: /^Xóa/ }).click();
     await expect(page.locator('.sk-cart-item')).toHaveCount(1);
-    page.once('dialog', (d) => d.accept());
+    // Hộp thoại xác nhận của site (thay window.confirm theo QA web-error.md, đề xuất 1).
+    let nativeDialog = false;
+    page.on('dialog', (d) => { nativeDialog = true; d.dismiss(); });
     await page.locator('.js-btn-clear-cart').click();
+    const modal = page.getByRole('alertdialog', { name: 'Xóa toàn bộ giỏ hàng?' });
+    await expect(modal).toBeVisible();
+    await expect(modal.getByRole('button', { name: 'Giữ lại' })).toBeFocused(); // hành động xóa: focus nút an toàn
+    await page.keyboard.press('Escape');
+    await expect(modal).toBeHidden();
+    await expect(page.locator('.sk-cart-item')).toHaveCount(1); // Esc = hủy, giỏ còn nguyên
+    await page.locator('.js-btn-clear-cart').click();
+    await modal.getByRole('button', { name: 'Xóa giỏ' }).click();
+    expect(nativeDialog, 'Không dùng window.confirm của trình duyệt').toBe(false);
     await expect(page.locator('.js-cart-empty-view')).toBeVisible();
     await expect(page.locator('.js-cart-empty-view')).toContainText('Giỏ hàng đang trống');
+  });
+
+  test('[P5b] Số lượng trong giỏ tối đa 20 (QA web-error 1.3)', async ({ page }) => {
+    const btn = page.locator('.js-add-to-cart').first();
+    const name = await btn.getAttribute('data-item-name');
+    await btn.click();
+    await page.goto('cart-demo/');
+    const plus = page.locator('.sk-qty button').last();
+    for (let i = 0; i < 25 && await plus.isEnabled(); i++) await plus.click();
+    await expect(page.locator('.sk-qty span')).toHaveText('20');
+    await expect(plus).toBeDisabled();
+    await page.goto('products/');
+    await page.locator('.js-add-to-cart').first().click();
+    await expect(page.locator('.sk-cart-toast')).toContainText(`“${name}” đã đạt tối đa 20`);
+    await page.goto('cart-demo/');
+    await expect(page.locator('.sk-qty span')).toHaveText('20');
   });
 
   test('[P6] Ảnh trong giỏ hiện và vuông', async ({ page }) => {

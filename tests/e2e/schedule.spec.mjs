@@ -65,6 +65,34 @@ test.describe('S — Schedule Rescue', () => {
     await expect(step(page, 2)).toBeVisible();
   });
 
+  test('[S3b] Chặn ngày quá xa (QA web-error 1.1: tối đa ~2 tháng, vd 5555-05-05)', async ({ page }) => {
+    await expect(page.locator('.js-input-deadline-date')).toHaveAttribute('max', isoDate(60));
+    await expect(page.locator('.js-input-deadline-date')).toHaveAttribute('min', isoDate(1));
+    await next(page).click();
+    await page.locator('.js-input-deadline-date').fill('5555-05-05');
+    await page.locator('.js-input-receive-date').fill('5555-05-04');
+    await next(page).click();
+    await expect(page.locator('.js-error-receive')).toContainText('tối đa 60 ngày');
+    await expect(step(page, 2)).toBeVisible();
+    await fillStep2(page, isoDate(61), isoDate(60)); // ngày nhận vẫn trong 60 nhưng deadline vượt
+    await next(page).click();
+    await expect(page.locator('.js-error-receive')).toContainText('tối đa 60 ngày');
+    await fillStep2(page, isoDate(60), isoDate(59)); // đúng giới hạn: hợp lệ
+    await next(page).click();
+    await expect(step(page, 3)).toBeVisible();
+  });
+
+  test('[S3c] Form "Lên lịch" ở trang chủ không gửi được ngày 5555-05-05', async ({ page }) => {
+    await page.goto('');
+    const d = page.locator('#deadline');
+    await expect(d).toHaveAttribute('max', isoDate(60));
+    await d.fill('5555-05-05');
+    await page.locator('#receive').fill(isoDate(5));
+    await page.locator('#schedule button[type="submit"]').click();
+    await expect(page).not.toHaveURL(/schedule-rescue/);
+    expect(await d.evaluate((el) => el.validity.rangeOverflow)).toBe(true);
+  });
+
   test('[S4] Bước 3: validate tên, SĐT, địa chỉ, cam kết', async ({ page }) => {
     await next(page).click();
     await fillStep2(page);

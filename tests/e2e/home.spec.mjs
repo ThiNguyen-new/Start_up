@@ -103,6 +103,20 @@ test.describe('H — Trang chủ', () => {
     await expect(page.locator('.js-input-gift-type[value="love"]')).toBeChecked();
   });
 
+  test('[H8b] Tiêu đề "Lên lịch"/"Gửi tặng" không bị trang trí đè trên mobile (QA web-error, đề xuất 3)', async ({ page }) => {
+    for (const id of ['schedule', 'gifting']) {
+      const h = page.locator(`#${id}-heading`);
+      await h.scrollIntoViewIfNeeded();
+      const hb = await h.boundingBox();
+      const decos = await page.locator(`#${id} .sk-usp-deco, #${id} .sk-usp-dot`).evaluateAll((els) => els
+        .filter((e) => getComputedStyle(e).display !== 'none')
+        .map((e) => { const r = e.getBoundingClientRect(); return { x: r.x, y: r.y + window.scrollY, w: r.width, h: r.height, c: e.getAttribute('class') }; }));
+      const top = hb.y + (await page.evaluate(() => window.scrollY));
+      const hit = decos.filter((d) => d.x < hb.x + hb.width && d.x + d.w > hb.x && d.y < top + hb.height && d.y + d.h > top);
+      expect(hit.map((d) => d.c), `Trang trí đè tiêu đề #${id}`).toEqual([]);
+    }
+  });
+
   test('[H10] Testimonial slider chuyển được', async ({ page }) => {
     const slider = page.locator('.testimonial-slider');
     await slider.scrollIntoViewIfNeeded();

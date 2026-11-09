@@ -80,6 +80,15 @@ test.describe('R — Send a Rescue', () => {
     await expect(page.locator('.js-error-delivery-date')).toBeVisible();
   });
 
+  test('[R3b] Chặn ngày giao quá 60 ngày', async ({ page }) => {
+    await toStep(page, 3);
+    await page.locator('.js-input-recipient-deadline').fill('');
+    await page.locator('.js-input-delivery-date').fill('5555-05-05');
+    await next(page).click();
+    await expect(page.locator('.js-error-delivery-date')).toContainText('tối đa 60 ngày');
+    await expect(step(page, 3)).toBeVisible();
+  });
+
   test('[R4] Thiệp: preview cập nhật, HTML hiện dạng chữ', async ({ page }) => {
     await toStep(page, 4);
     await page.locator('.js-input-message').fill('<img src=x onerror=alert(1)> chúc thi tốt');

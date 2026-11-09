@@ -38,6 +38,21 @@ test.describe('B — Build Your Own Kit', () => {
     expect(Number(await page.locator('.js-summary-items-count').first().textContent())).toBeGreaterThan(0);
   });
 
+  test('[B3b] Áp dụng kit khi đã chọn món: hỏi bằng hộp thoại của site', async ({ page }) => {
+    let nativeDialog = false;
+    page.on('dialog', (d) => { nativeDialog = true; d.dismiss(); });
+    await card(page, 'cafe-phin').locator('.js-qty-plus').click();
+    await page.locator('.js-apply-reco').click();
+    const modal = page.getByRole('alertdialog', { name: 'Thay bằng kit gợi ý?' });
+    await expect(modal).toBeVisible();
+    await modal.getByRole('button', { name: 'Hủy' }).click();
+    await expect(card(page, 'cafe-phin').locator('.js-qty-input')).toHaveValue('1');
+    await page.locator('.js-apply-reco').click();
+    await modal.getByRole('button', { name: 'Thay kit' }).click();
+    await expect(modal).toBeHidden();
+    expect(nativeDialog).toBe(false);
+  });
+
   test('[B4] Số lượng giới hạn 0–20', async ({ page }) => {
     const c = card(page, 'cafe-phin');
     const input = c.locator('.js-qty-input');

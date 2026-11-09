@@ -97,6 +97,41 @@ test.describe('G — Toàn site', () => {
     await expect(page.locator('a[href]').first()).toBeVisible();
   });
 
+  test('[SEO] robots.txt và sitemap dùng URL tuyệt đối (QA-001)', async ({ page }) => {
+    const robots = await page.request.get('robots.txt');
+    expect(robots.status()).toBe(200);
+    const text = await robots.text();
+    expect(text).toContain('User-agent: *');
+    expect(text).toMatch(/Sitemap: https:\/\/[^\s]+\/sitemap\.xml/);
+    const sm = await (await page.request.get('sitemap.xml')).text();
+    const locs = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    expect(locs.length).toBeGreaterThan(0);
+    for (const l of locs) expect(l).toMatch(/^https:\/\//);
+  });
+
+  test('[SEO] Mỗi trang có title riêng, canonical và Open Graph (QA-002)', async ({ page }) => {
+    const titles = new Map();
+    for (const path of PAGES) {
+      await page.goto(path);
+      const t = await page.title();
+      expect(titles.has(t), `Title trùng: "${t}" ở /${path} và /${titles.get(t)}`).toBe(false);
+      titles.set(t, path);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', new RegExp(`^https://[^/]+/.*${path.replace(/\//g, '\\/')}$`));
+      for (const p of ['og:title', 'og:description', 'og:image', 'og:url']) {
+        await expect(page.locator(`meta[property="${p}"]`), `${p} ở /${path}`).toHaveAttribute('content', /\S/);
+      }
+      await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /^https:\/\/.+\.(png|jpe?g|webp)$/);
+    }
+  });
+
+  test('[A11y] Ảnh có alt (rỗng nếu trang trí), mỗi trang nội dung có đúng 1 h1 (QA-003, QA-004)', async ({ page }) => {
+    for (const path of PAGES) {
+      await page.goto(path);
+      expect(await page.locator('img:not([alt])').count(), `img thiếu alt ở /${path}`).toBe(0);
+      await expect(page.locator('h1'), `h1 ở /${path}`).toHaveCount(1);
+    }
+  });
+
   test('[G*] Không có cuộn ngang ở mọi trang', async ({ page }) => {
     const wide = [];
     for (const path of PAGES) {
