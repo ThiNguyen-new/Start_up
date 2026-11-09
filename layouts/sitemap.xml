@@ -1,0 +1,15 @@
+{{- /* Sitemap từng ngôn ngữ, URL tuyệt đối từ site.Params.siteURL. Bỏ trang redirect và giỏ hàng demo. */ -}}
+{{- $base := printf "%s/" (strings.TrimSuffix "/" (site.Params.siteURL | default "")) -}}
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{- range where .Pages "Sitemap.Disable" "ne" true }}
+  {{- if and .RelPermalink (not (strings.Contains .RelPermalink "/cart-demo/")) }}
+  <url>
+    <loc>{{ $base }}{{ strings.TrimPrefix "/" .RelPermalink }}</loc>
+    {{- if not .Lastmod.IsZero }}
+    <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</lastmod>
+    {{- end }}
+  </url>
+  {{- end }}
+  {{- end }}
+</urlset>

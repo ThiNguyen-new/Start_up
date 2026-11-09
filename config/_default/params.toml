@@ -3,6 +3,9 @@ logo = "images/logo.png"
 home = "Home"
 
 # SEO & Meta Data
+# Địa chỉ production chính thức (GitHub Pages). Chỉ dùng cho canonical, Open Graph,
+# robots.txt và sitemap — KHÔNG đổi baseURL ("/") để site vẫn chạy ở localhost/Vercel.
+siteURL = "https://thinguyen-new.github.io/Start_up/"
 description = "Survival Kit - Trạm cứu hộ deadline dành cho sinh viên. Mô hình kết hợp thương mại điện tử, đặt lịch giao kit theo deadline (Schedule Your Rescue) và tặng quà cá nhân hóa (Send a Rescue)."
 author = "Survival Kit Team - HCMUS"
 

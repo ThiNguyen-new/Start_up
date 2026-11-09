@@ -1,0 +1,13 @@
+{{- /* Sitemap index với URL tuyệt đối từ site.Params.siteURL (baseURL "/" chỉ cho đường dẫn tương đối, không hợp lệ trong sitemap). */ -}}
+{{- $base := printf "%s/" (strings.TrimSuffix "/" (site.Params.siteURL | default "")) -}}
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{- range . }}
+  <sitemap>
+    <loc>{{ $base }}{{ .Language.Lang }}/sitemap.xml</loc>
+    {{- if not .Lastmod.IsZero }}
+    <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</lastmod>
+    {{- end }}
+  </sitemap>
+  {{- end }}
+</sitemapindex>

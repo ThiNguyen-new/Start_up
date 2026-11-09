@@ -1,0 +1,10 @@
+{{- $base := printf "%s/" (strings.TrimSuffix "/" (site.Params.siteURL | default "")) -}}
+# Survival Kit — robots.txt (QA-001)
+User-agent: *
+Allow: /
+# Giỏ hàng/checkout demo không cần lập chỉ mục.
+Disallow: /cart-demo/
+Disallow: /Start_up/cart-demo/
+{{ with site.Params.siteURL }}
+Sitemap: {{ $base }}sitemap.xml
+{{- end }}

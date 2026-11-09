@@ -1,0 +1,39 @@
+{{- /*
+  SEO: canonical + Open Graph + Twitter card (QA-002).
+  baseURL của site là "/" (để chạy được ở localhost, GitHub Pages /Start_up/, Vercel...),
+  nên URL tuyệt đối được ghép từ site.Params.siteURL (địa chỉ production chính thức).
+  Không có siteURL thì bỏ qua các thẻ cần URL tuyệt đối.
+*/ -}}
+{{- $base := site.Params.siteURL | default "" -}}
+{{- if $base }}{{ $base = printf "%s/" (strings.TrimSuffix "/" $base) }}{{ end -}}
+{{- $path := strings.TrimPrefix site.Home.RelPermalink .RelPermalink -}}
+{{- $title := or .Params.meta_title .Title site.Title -}}
+{{- $desc := or .Description .Params.description site.Params.description -}}
+
+{{- /* Ảnh chia sẻ: ảnh đầu tiên của trang (sản phẩm/bài viết), cắt 1200x630; không có thì dùng ảnh brand. */ -}}
+{{- $imgPath := .Params.image -}}
+{{- with .Params.images }}{{ with index . 0 }}{{ with .image }}{{ $imgPath = . }}{{ end }}{{ end }}{{ end -}}
+{{- $img := "" -}}
+{{- /* SVG không cắt được và mạng xã hội không nhận SVG làm ảnh chia sẻ → dùng ảnh brand. */ -}}
+{{- with $imgPath }}{{ with resources.Get . }}{{ if reflect.IsImageResourceProcessable . }}{{ $img = .Fill "1200x630 jpg Center" }}{{ end }}{{ end }}{{ end -}}
+{{- if not $img }}{{ with resources.Get "images/brand/og-image.png" }}{{ $img = . }}{{ end }}{{ end -}}
+
+{{- if $base }}
+  <link rel="canonical" href="{{ $base }}{{ $path }}">
+  <meta property="og:url" content="{{ $base }}{{ $path }}">
+{{- end }}
+  <meta property="og:site_name" content="{{ site.Title }}">
+  <meta property="og:title" content="{{ $title }}">
+  <meta property="og:description" content="{{ $desc | plainify | truncate 200 }}">
+  <meta property="og:type" content="{{ if and .IsPage (eq .Section "blog") }}article{{ else }}website{{ end }}">
+  <meta property="og:locale" content="vi_VN">
+{{- with $img }}{{ if $base }}
+  <meta property="og:image" content="{{ $base }}{{ strings.TrimPrefix site.Home.RelPermalink .RelPermalink }}">
+  <meta property="og:image:width" content="{{ .Width }}">
+  <meta property="og:image:height" content="{{ .Height }}">
+  <meta property="og:image:alt" content="{{ $title }}">
+  <meta name="twitter:image" content="{{ $base }}{{ strings.TrimPrefix site.Home.RelPermalink .RelPermalink }}">
+{{- end }}{{ end }}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ $title }}">
+  <meta name="twitter:description" content="{{ $desc | plainify | truncate 200 }}">

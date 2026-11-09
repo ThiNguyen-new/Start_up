@@ -1,11 +1,15 @@
 <head>
   <meta charset="UTF-8">
-  <title>{{ .Title }}</title>
+  {{/* Ưu tiên meta_title trong front matter để mỗi trang có title riêng (QA test plan mục 5). */}}
+  <title>{{ or .Params.meta_title .Title }}</title>
 
   {{ "<!-- Mobile Responsive Meta -->" | safeHTML }}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}">
   {{ with site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+
+  {{ "<!-- SEO: canonical, Open Graph, Twitter -->" | safeHTML }}
+  {{ partial "seo-meta.html" . }}
   {{ hugo.Generator }}
 
   <!-- theme meta -->

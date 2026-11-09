@@ -8,6 +8,8 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 relativeURLs = true
 canonifyURLs = false
+# Tạo /robots.txt từ layouts/robots.txt (QA-001).
+enableRobotsTXT = true
 
 # Post pagination & excerpt
 pagination.pagerSize = 10
