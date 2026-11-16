@@ -1421,3 +1421,142 @@ select.form-control.sk-input {
 
 .sk-footer-note { color: var(--color-text-light); line-height: 1.5; }
 .sk-footer-note .sk-icon-info { color: var(--color-primary); }
+
+/* ==========================================================================
+   A. "Bạn đang ở trang nào": menu đang chọn, giỏ hàng, footer, dải tiêu đề
+   (docs: ui-ux-story-plan — hạng mục A). Không dùng JS.
+   ========================================================================== */
+
+/* Mục menu của trang hiện tại (header.html gắn aria-current="page") */
+.navbar-light .navbar-nav .nav-link {
+  position: relative;
+}
+.navbar-light .navbar-nav .nav-link[aria-current="page"] {
+  color: var(--color-primary);
+}
+
+@media (min-width: 992px) {
+  /* Hover và active dùng chung một "ngôn ngữ": gạch chân 3px bo tròn dưới chữ. */
+  .navbar-light .navbar-nav .nav-link::after,
+  .sk-nav-indicator {
+    content: "";
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 10px;
+    height: 3px;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+  }
+  /* Mục khác: gạch chân mọc từ giữa ra khi hover / focus bàn phím. */
+  .navbar-light .navbar-nav .nav-link::after {
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.2s ease;
+  }
+  .navbar-light .navbar-nav .nav-link:hover::after,
+  .navbar-light .navbar-nav .nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+  /* Mục đang chọn dùng phần tử thật (.sk-nav-indicator) để trượt được khi chuyển trang. */
+  .navbar-light .navbar-nav .nav-link[aria-current="page"]::after {
+    display: none;
+  }
+  .sk-nav-indicator {
+    view-transition-name: sk-nav-indicator;
+  }
+}
+
+@media (max-width: 991.98px) {
+  /* Menu xổ dọc: nền nhạt + thanh dọc bên trái thay cho gạch chân. */
+  .sk-nav-indicator { display: none; }
+  .navbar-light .navbar-nav .nav-link {
+    display: flex;
+    justify-content: center;
+    border-left: 4px solid transparent;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .navbar-light .navbar-nav .nav-link[aria-current="page"] {
+    background: var(--color-light);
+    border-left-color: var(--color-primary);
+  }
+}
+
+/* Nút giỏ hàng khi đang ở trang giỏ */
+a.cart.sk-btn[aria-current="page"] {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverted);
+}
+a.cart.sk-btn[aria-current="page"] .badge {
+  background: var(--color-secondary);
+}
+
+/* Footer: link của trang hiện tại */
+footer a[aria-current="page"] {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Dải tiêu đề trang con: nền nhạt + vạch màu nhấn riêng mỗi trang (body[data-page]). */
+.sk-page-band {
+  --page-accent: var(--color-primary);
+  position: relative;
+  margin-bottom: var(--space-6);
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--page-accent) 10%, var(--color-body)) 0%,
+    color-mix(in srgb, var(--page-accent) 3%, var(--color-body)) 100%);
+  border-bottom: 1px solid color-mix(in srgb, var(--page-accent) 22%, var(--color-border));
+}
+.sk-page-band::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--page-accent);
+}
+.sk-page-band h1 {
+  margin-bottom: var(--space-2);
+}
+.sk-page-band .breadcrumb {
+  margin-bottom: 0;
+}
+body[data-page="build-your-own-kit"] .sk-page-band { --page-accent: var(--color-secondary); }
+body[data-page="schedule-rescue"] .sk-page-band { --page-accent: var(--color-info); }
+body[data-page="send-rescue"] .sk-page-band { --page-accent: var(--color-primary); }
+body[data-page="blog"] .sk-page-band { --page-accent: var(--color-success); }
+body[data-page="contact"] .sk-page-band { --page-accent: var(--color-secondary); }
+body[data-page="cart-demo"] .sk-page-band { --page-accent: var(--color-warning); }
+body[data-page="terms-conditions"] .sk-page-band { --page-accent: var(--color-text-light); }
+
+/* Preloader của theme (z-index 99999) phủ cả header mỗi lần tải trang, làm header nháy và
+   che mất gạch chân đang trượt. Hạ xuống dưới header (z-index 9): nội dung vẫn được che,
+   header đứng yên giữa các trang. */
+.preloader {
+  z-index: 8;
+}
+
+/* Chuyển trang mượt (tăng cường dần): gạch chân trượt từ mục cũ sang mục mới.
+   Trình duyệt không hỗ trợ cross-document view transition thì bỏ qua, không lỗi. */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.18s;
+}
+::view-transition-group(sk-nav-indicator) {
+  animation-duration: 0.28s;
+  animation-timing-function: cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+  .navbar-light .navbar-nav .nav-link::after {
+    transition: none;
+  }
+}

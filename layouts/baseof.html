@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ with site.Language.Locale }}{{ . }}{{ else }}en{{ end }}">
   {{- partial "head.html" . -}}
-  <body>
+  {{/* data-page: tên section ("home", "blog", "products"...) để CSS/test nhận biết trang. */}}
+  <body data-page="{{ .Section | default "home" }}">
     {{- partial "preloader.html" . -}}
     {{- partial "header.html" . -}}
     {{- block "main" . }}{{- end }}

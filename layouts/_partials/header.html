@@ -36,9 +36,13 @@
             </div>
           </li>
           {{ else }}
-          {{ $isCurrent := or (eq $.RelPermalink (.URL | relLangURL)) (eq $.Section .Identifier) }}
+          {{ $isCurrent := partial "is-current.html" (dict "page" $ "url" .URL) }}
           <li class="nav-item{{ if $isCurrent }} active{{ end }}">
-            <a class="nav-link sk-focusable" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+            <a class="nav-link sk-focusable" href="{{ .URL | relLangURL }}"{{ if $isCurrent }} aria-current="page"{{ end }}>
+              {{- .Name -}}
+              {{/* Gạch chân của mục đang chọn là phần tử thật để view transition trượt được giữa các trang. */}}
+              {{- if $isCurrent }}<span class="sk-nav-indicator" aria-hidden="true"></span>{{ end -}}
+            </a>
           </li>
           {{ end }}
           {{ end }}
@@ -46,7 +50,7 @@
         </ul>
       </div>
       {{/* Giỏ hàng demo (VND, MoMo/ZaloPay mô phỏng) — xem assets/js/demo-cart.js */}}
-      <a href="{{ "cart-demo/" | relLangURL }}" class="cart sk-btn sk-btn-ghost sk-focusable" aria-label="{{ or (i18n "cart") "Giỏ hàng" }}">
+      <a href="{{ "cart-demo/" | relLangURL }}" class="cart sk-btn sk-btn-ghost sk-focusable" aria-label="{{ or (i18n "cart") "Giỏ hàng" }}"{{ if partial "is-current.html" (dict "page" . "url" "cart-demo/") }} aria-current="page"{{ end }}>
         <i class="ti-shopping-cart" aria-hidden="true"></i>
         <span class="badge badge-primary js-cart-count" hidden>0</span>
       </a>

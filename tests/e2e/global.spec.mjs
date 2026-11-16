@@ -23,6 +23,68 @@ test.describe('G — Toàn site', () => {
     }
   });
 
+  test('[A1] Menu đánh dấu đúng trang hiện tại (aria-current), trang chủ không mục nào', async ({ page }) => {
+    const current = page.locator('#navigation a.nav-link[aria-current="page"]');
+    const cases = [
+      ['', null, 'home'],
+      ['products/', 'Survival Kits', 'products'],
+      ['products/club-survival-kit/', 'Survival Kits', 'products'],
+      ['build-your-own-kit/', 'Build Your Own Kit', 'build-your-own-kit'],
+      ['schedule-rescue/', 'Schedule Rescue', 'schedule-rescue'],
+      ['send-rescue/', 'Send a Rescue', 'send-rescue'],
+      ['blog/', 'Blog', 'blog'],
+      ['blog/chay-deadline-nhom/', 'Blog', 'blog'],
+      ['faq/', 'FAQ', 'faq'],
+      ['contact/', 'Contact', 'contact'],
+      ['cart-demo/', null, 'cart-demo'],
+    ];
+    for (const [path, name, section] of cases) {
+      await page.goto(path);
+      await expect(page.locator('body'), `/${path}`).toHaveAttribute('data-page', section);
+      if (name) {
+        await expect(current, `/${path}`).toHaveCount(1);
+        await expect(current, `/${path}`).toHaveText(name);
+        await expect(page.locator('footer a[aria-current="page"]'), `footer /${path}`).toHaveText(name);
+      } else {
+        await expect(current, `/${path}`).toHaveCount(0);
+      }
+    }
+  });
+
+  test('[A2] Nút giỏ hàng có aria-current khi ở trang giỏ, không có ở trang khác', async ({ page }) => {
+    await page.goto('cart-demo/');
+    await expect(page.locator('a.cart')).toHaveAttribute('aria-current', 'page');
+    await page.goto('products/');
+    await expect(page.locator('a.cart')).not.toHaveAttribute('aria-current', 'page');
+  });
+
+  test('[A3] Mục đang chọn nổi bật: gạch chân (desktop) hoặc nền + thanh dọc (mobile)', async ({ page }) => {
+    await page.goto('blog/');
+    const link = page.locator('#navigation a.nav-link[aria-current="page"]');
+    const other = page.locator('#navigation a.nav-link:not([aria-current])').first();
+    if (isCollapsedNav(page)) {
+      await page.locator('.navbar-toggler').click();
+      await expect(link).toBeVisible();
+      const [bg, otherBg, bar] = await Promise.all([
+        link.evaluate((e) => getComputedStyle(e).backgroundColor),
+        other.evaluate((e) => getComputedStyle(e).backgroundColor),
+        link.evaluate((e) => getComputedStyle(e).borderLeftColor),
+      ]);
+      expect(bg).not.toBe(otherBg);
+      expect(bar).not.toBe('rgba(0, 0, 0, 0)');
+    } else {
+      const ind = link.locator('.sk-nav-indicator');
+      await expect(ind).toBeVisible();
+      const lb = await link.boundingBox();
+      const ib = await ind.boundingBox();
+      expect(ib.height).toBe(3);
+      expect(ib.y, 'gạch chân nằm dưới chữ, trong mục menu').toBeGreaterThan(lb.y + lb.height / 2);
+      expect(ib.y + ib.height).toBeLessThanOrEqual(lb.y + lb.height);
+    }
+    const [c1, c2] = await Promise.all([link, other].map((l) => l.evaluate((e) => getComputedStyle(e).color)));
+    expect(c1).not.toBe(c2);
+  });
+
   test('[G2] Menu mobile ☰ mở/đóng được', async ({ page }) => {
     test.skip(!isCollapsedNav(page), 'Chỉ áp dụng dưới 992px');
     await page.goto('');

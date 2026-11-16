@@ -22,7 +22,7 @@
             {{ $show = false }}
           {{ end }}
           {{ if $show }}
-          <li class="mb-3"><a class="text-color sk-focusable" href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+          <li class="mb-3"><a class="text-color sk-focusable" href="{{ .URL | relLangURL }}"{{ if partial "is-current.html" (dict "page" $ "url" .URL) }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
           {{ end }}
           {{ end }}
         </ul>

@@ -1,0 +1,12 @@
+{{- /*
+  Mục menu này có phải "trang hiện tại" không? Dùng chung cho header và footer để không lệch nhau.
+  Tham số: dict "page" <Page> "url" <menu .URL>
+  So section của trang với đoạn đầu của URL menu, và chỉ khi section khác rỗng:
+    - trang chủ (section rỗng)        → không mục nào
+    - /blog/<bài>/                    → "Blog"
+    - /products/<kit>/                → "Survival Kits"
+  (Điều kiện cũ so với .Identifier — menu không khai identifier nên trang chủ sáng cả 7 mục.)
+*/ -}}
+{{- $section := .page.Section -}}
+{{- $first := index (split (strings.Trim .url "/") "/") 0 -}}
+{{- return (and (ne $section "") (eq $section $first)) -}}
