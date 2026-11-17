@@ -12,8 +12,14 @@
             <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
           </ol>
         </nav>
+        {{/* FAQ có header riêng (căn giữa) nên tự hiện khối `story` thay vì dùng page-title.html. */}}
+        {{ $story := .Params.story | default dict }}
+        {{ with $story.icon }}{{ with resources.Get . }}
+        <img class="sk-page-icon d-block mx-auto mb-3" src="{{ .RelPermalink }}" alt="" width="72" height="72">
+        {{ end }}{{ end }}
         <h1 id="faq-heading" class="sk-faq-title mb-3">{{ .Title }}</h1>
-        {{ with .Description }}<p class="sk-usp-lead mx-auto mb-0">{{ . }}</p>{{ end }}
+        {{ with $story.eyebrow }}<p class="sk-page-eyebrow"{{ with $story.accent }} data-accent="{{ . }}"{{ end }}>{{ . }}</p>{{ end }}
+        {{ with or $story.lead .Description }}<p class="sk-usp-lead sk-page-lead mx-auto mb-0">{{ . }}</p>{{ end }}
       </div>
     </div>
 

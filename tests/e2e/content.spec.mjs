@@ -1,6 +1,38 @@
 // QA_PLAN mục 7: Nội dung (C1–C5)
 import { test, expect } from './helpers.mjs';
 
+test.describe('D — Câu dẫn đầu mỗi trang (ui-ux-story-plan D)', () => {
+  const STORY_PAGES = ['products/', 'build-your-own-kit/', 'schedule-rescue/', 'send-rescue/', 'blog/', 'faq/', 'contact/', 'cart-demo/'];
+
+  test('[D1] Mỗi trang con có nhãn + câu dẫn + icon, vẫn đúng một h1', async ({ page }) => {
+    const leads = new Set();
+    for (const path of STORY_PAGES) {
+      await page.goto(path);
+      await expect(page.locator('h1'), `h1 ở /${path}`).toHaveCount(1);
+      await expect(page.locator('.sk-page-eyebrow'), `nhãn ở /${path}`).toHaveText(/\S/);
+      const lead = page.locator('.sk-page-lead');
+      await expect(lead, `câu dẫn ở /${path}`).toBeVisible();
+      const text = (await lead.textContent()).trim();
+      expect(text.length, `câu dẫn ở /${path}`).toBeGreaterThan(20);
+      leads.add(text);
+      const icon = page.locator('.sk-page-icon');
+      await expect(icon).toHaveAttribute('alt', ''); // trang trí
+      expect(await icon.evaluate((i) => i.complete && i.naturalWidth > 0), `icon ở /${path}`).toBe(true);
+    }
+    expect(leads.size, 'mỗi trang một câu dẫn riêng').toBe(STORY_PAGES.length);
+  });
+
+  test('[D2] Trang con của section (bài blog, kit) thừa hưởng màu + icon, không lặp câu dẫn', async ({ page }) => {
+    await page.goto('blog/chay-deadline-nhom/');
+    await expect(page.locator('.sk-page-band')).toHaveAttribute('data-accent', 'success');
+    await expect(page.locator('.sk-page-icon')).toBeVisible();
+    await expect(page.locator('.sk-page-lead')).toHaveCount(0);
+    await page.goto('terms-conditions/'); // không khai story: hiển thị như cũ
+    await expect(page.locator('.sk-page-band h1')).toBeVisible();
+    await expect(page.locator('.sk-page-lead, .sk-page-eyebrow, .sk-page-icon')).toHaveCount(0);
+  });
+});
+
 test.describe('C — Nội dung', () => {
   test('[C1] FAQ: 7 thẻ, 2 cột desktop / 1 cột mobile', async ({ page }) => {
     await page.goto('faq/');

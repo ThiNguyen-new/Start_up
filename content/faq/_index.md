@@ -4,6 +4,12 @@ meta_title: "Câu hỏi thường gặp | Survival Kit"
 date: 2026-11-01T00:00:00+07:00
 draft: false
 description: "Thông tin về ý tưởng đặt lịch giao kit, gửi quà động viên, thành phần và phạm vi bản demo Survival Kit."
+# Câu dẫn ở dải tiêu đề (layouts/_partials/page-title.html)
+story:
+  eyebrow: "Hỏi trước cho đỡ lo"
+  lead: "Giao khi nào, đổi lịch ra sao, gửi ẩn danh thế nào."
+  icon: "images/icons/faq.svg"
+  accent: "info"
 ---
 ### Survival Kit là gì?
 

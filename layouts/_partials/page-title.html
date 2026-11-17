@@ -1,9 +1,32 @@
-{{/* Dải tiêu đề trang con: nền nhạt + màu nhấn theo trang (xem .sk-page-band trong custom.css). */}}
-<section class="sk-section-sm sk-page-band">
+{{- /*
+  Dải tiêu đề trang con.
+  Front matter (tùy chọn) của trang / section:
+    story:
+      eyebrow: "Nhãn nhỏ"            # chỉ hiện ở chính trang khai báo
+      lead:    "1–2 câu dẫn"          # chỉ hiện ở chính trang khai báo
+      icon:    "images/icons/x.svg"   # trong assets/; trang con (bài blog, kit) thừa hưởng từ section
+      accent:  primary | secondary | info | success | warning | accent   # như icon
+  Trang không khai `story` hiển thị như cũ (tiêu đề + breadcrumb). Luôn đúng một <h1>.
+*/ -}}
+{{- $own := .Params.story | default dict -}}
+{{- $sec := dict -}}
+{{- with .CurrentSection }}{{ with .Params.story }}{{ $sec = . }}{{ end }}{{ end -}}
+{{- $accent := or $own.accent $sec.accent -}}
+{{- $icon := or $own.icon $sec.icon -}}
+<section class="sk-section-sm sk-page-band"{{ with $accent }} data-accent="{{ . }}"{{ end }}>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
+    <div class="sk-page-head">
+      {{- with $icon }}{{ with resources.Get . }}
+      <img class="sk-page-icon" src="{{ .RelPermalink }}" alt="" width="72" height="72">
+      {{- end }}{{ end }}
+      <div class="sk-page-head-text">
         <h1>{{ .Title }}</h1>
+        {{- with $own.eyebrow }}
+        <p class="sk-page-eyebrow">{{ . }}</p>
+        {{- end }}
+        {{- with $own.lead }}
+        <p class="sk-page-lead">{{ . }}</p>
+        {{- end }}
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent p-0">
             <li class="breadcrumb-item"><a class="text-dark sk-focusable" href="{{ site.Home.RelPermalink }}">{{ or site.Params.home "Home" }}</a></li>

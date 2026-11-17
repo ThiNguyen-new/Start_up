@@ -1523,13 +1523,47 @@ footer a[aria-current="page"] {
 .sk-page-band .breadcrumb {
   margin-bottom: 0;
 }
-body[data-page="build-your-own-kit"] .sk-page-band { --page-accent: var(--color-secondary); }
-body[data-page="schedule-rescue"] .sk-page-band { --page-accent: var(--color-info); }
-body[data-page="send-rescue"] .sk-page-band { --page-accent: var(--color-primary); }
-body[data-page="blog"] .sk-page-band { --page-accent: var(--color-success); }
-body[data-page="contact"] .sk-page-band { --page-accent: var(--color-secondary); }
-body[data-page="cart-demo"] .sk-page-band { --page-accent: var(--color-warning); }
-body[data-page="terms-conditions"] .sk-page-band { --page-accent: var(--color-text-light); }
+/* Màu nhấn khai trong front matter (story.accent) → data-accent. Mặc định: primary. */
+[data-accent="secondary"] { --page-accent: var(--color-secondary); }
+[data-accent="info"] { --page-accent: var(--color-info); }
+[data-accent="success"] { --page-accent: var(--color-success); }
+[data-accent="warning"] { --page-accent: var(--color-warning); }
+[data-accent="accent"] { --page-accent: var(--color-accent); }
+
+/* D. Câu dẫn đầu trang (story trong front matter): icon + nhãn nhỏ + 1–2 câu */
+.sk-page-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+.sk-page-head-text { min-width: 0; flex: 1; }
+.sk-page-icon {
+  flex: 0 0 auto;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+}
+.sk-page-eyebrow {
+  margin: 0 0 var(--space-1);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Trong dải tiêu đề: thừa hưởng màu nhấn của dải; đứng riêng (FAQ): data-accent trên chính nó. */
+  color: var(--page-accent, var(--color-primary));
+}
+.sk-page-lead {
+  max-width: 44rem;
+  margin: 0 0 var(--space-3);
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--color-text-dark);
+}
+@media (max-width: 575.98px) {
+  .sk-page-head { gap: var(--space-4); }
+  .sk-page-icon { width: 52px; height: 52px; border-radius: 12px; }
+}
 
 /* Preloader của theme (z-index 99999) phủ cả header mỗi lần tải trang, làm header nháy và
    che mất gạch chân đang trượt. Hạ xuống dưới header (z-index 9): nội dung vẫn được che,
