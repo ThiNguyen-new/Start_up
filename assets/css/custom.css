@@ -1594,3 +1594,157 @@ footer a[aria-current="page"] {
     transition: none;
   }
 }
+
+/* ==========================================================================
+   B. Câu chuyện trang chủ (layouts/_partials/home-story.html)
+   ========================================================================== */
+.sk-story {
+  padding-top: var(--space-6);
+}
+.sk-story-head {
+  max-width: 46rem;
+  margin: 0 auto var(--space-6);
+  text-align: center;
+}
+.sk-story-eyebrow {
+  margin: 0 0 var(--space-2);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.sk-story-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+  line-height: 1.2;
+}
+
+/* Ba nhịp kể chuyện: một dòng thời gian ngang trên desktop, dọc trên mobile */
+.sk-story-beats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: 0 0 var(--space-7);
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+.sk-story-beat {
+  position: relative;
+  padding-top: var(--space-5);
+  border-top: 3px solid var(--color-border);
+}
+.sk-story-beat:last-child {
+  border-top-color: var(--color-primary);
+}
+.sk-story-num {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-primary);
+}
+.sk-story-beat-title {
+  margin: 0 0 var(--space-2);
+  font-size: 1.25rem;
+}
+.sk-story-beat-text {
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--color-text-light);
+}
+
+/* Ba thẻ "vấn đề → cách giải" */
+.sk-story-paths {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sk-story-path {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+.sk-story-path-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--space-3);
+  border-radius: 12px;
+}
+.sk-story-problem {
+  margin: 0 0 var(--space-2);
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--color-text-dark);
+}
+.sk-story-solution {
+  margin: 0 0 var(--space-4);
+  line-height: 1.6;
+  color: var(--color-text-light);
+}
+.sk-story-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: auto;
+}
+.sk-story-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+.sk-story-link span {
+  margin-left: 0.35em; /* minify bỏ khoảng trắng trước mũi tên */
+  transition: transform 0.2s ease;
+}
+.sk-story-link:hover span,
+.sk-story-link:focus-visible span {
+  transform: translateX(4px);
+}
+
+@media (max-width: 991.98px) {
+  .sk-story-beats,
+  .sk-story-paths {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sk-story-beats { gap: var(--space-4); }
+  .sk-story-beat {
+    padding: 0 0 0 var(--space-5);
+    border-top: 0;
+    border-left: 3px solid var(--color-border);
+  }
+  .sk-story-beat:last-child { border-left-color: var(--color-primary); }
+}
+
+/* Hiện dần khi cuộn tới. Trình duyệt không hỗ trợ animation-timeline thì hiện sẵn. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sk-reveal {
+      animation: sk-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+@keyframes sk-reveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sk-story-link span { transition: none; }
+}

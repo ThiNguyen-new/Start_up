@@ -9,6 +9,34 @@ test.describe('H — Trang chủ', () => {
     await expect(page).toHaveURL(/\/products\/$/);
   });
 
+  test('[B1] Câu chuyện "Vì sao có Survival Kit?" ngay dưới hero, trước Panic Level', async ({ page }) => {
+    const story = page.locator('#story');
+    await expect(story.locator('h2')).toContainText('2 giờ sáng');
+    await expect(story.locator('.sk-story-beat')).toHaveCount(3);
+    await expect(story.locator('.sk-story-num')).toHaveText(['01', '02', '03']);
+    const order = await page.evaluate(() => {
+      const pos = (sel) => document.querySelector(sel).getBoundingClientRect().top + scrollY;
+      return [pos('.sk-hero'), pos('#story'), pos('#panic')];
+    });
+    expect(order[0]).toBeLessThan(order[1]);
+    expect(order[1]).toBeLessThan(order[2]);
+    await expect(page.locator('h1')).toHaveCount(1); // story dùng h2/h3, không thêm h1
+  });
+
+  test('[B2] Ba thẻ "vấn đề → cách giải" dẫn đúng trang, hiện ra khi cuộn tới', async ({ page }) => {
+    const cards = page.locator('#story .sk-story-path');
+    await expect(cards).toHaveCount(3);
+    const expected = [['schedule-rescue/'], ['products/', 'build-your-own-kit/'], ['send-rescue/']];
+    for (let i = 0; i < 3; i++) {
+      const hrefs = await cards.nth(i).locator('a.sk-story-link').evaluateAll((as) => as.map((a) => new URL(a.href).pathname));
+      expect(hrefs.map((h) => h.replace(/^.*?\/(?=[^/]+\/$)/, ''))).toEqual(expected[i]);
+      await cards.nth(i).evaluate((e) => e.scrollIntoView({ block: 'center' }));
+      await expect.poll(() => cards.nth(i).evaluate((e) => Number(getComputedStyle(e).opacity))).toBeGreaterThan(0.95);
+    }
+    await cards.nth(2).locator('a.sk-story-link').click();
+    await expect(page).toHaveURL(/send-rescue\/$/);
+  });
+
   test('[H2] Slider Panic Level 1→7 cập nhật tiêu đề, badge, aria', async ({ page }) => {
     const slider = page.locator('#panic-meter-range');
     for (let n = 1; n <= 7; n++) {

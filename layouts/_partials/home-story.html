@@ -1,0 +1,42 @@
+{{- /*
+  Câu chuyện trang chủ (ui-ux-story-plan B): vì sao có Survival Kit.
+  Nội dung: data/homepage.yml → story. Đặt ngay dưới hero, trước Panic Level.
+  Ba "nhịp" kể chuyện + ba thẻ "vấn đề → cách giải" dẫn sang đúng trang.
+*/ -}}
+{{- with hugo.Data.homepage.story }}{{ if .enable }}
+<section class="sk-section sk-story" id="story" aria-labelledby="story-heading">
+  <div class="container">
+    <div class="sk-story-head">
+      {{ with .eyebrow }}<p class="sk-story-eyebrow">{{ . }}</p>{{ end }}
+      <h2 id="story-heading" class="sk-story-title">{{ .title }}</h2>
+    </div>
+
+    <ol class="sk-story-beats">
+      {{- range $i, $beat := .beats }}
+      <li class="sk-story-beat sk-reveal">
+        <span class="sk-story-num" aria-hidden="true">{{ printf "%02d" (add $i 1) }}</span>
+        <h3 class="sk-story-beat-title">{{ $beat.title }}</h3>
+        <p class="sk-story-beat-text">{{ $beat.content }}</p>
+      </li>
+      {{- end }}
+    </ol>
+
+    {{- with .paths }}
+    <ul class="sk-story-paths" aria-label="Survival Kit giải quyết thế nào">
+      {{- range . }}
+      <li class="sk-story-path sk-reveal">
+        {{ with .icon }}{{ with resources.Get . }}<img class="sk-story-path-icon" src="{{ .RelPermalink }}" alt="" width="48" height="48">{{ end }}{{ end }}
+        <p class="sk-story-problem">“{{ .problem }}”</p>
+        <p class="sk-story-solution">{{ .solution }}</p>
+        <div class="sk-story-links">
+          {{- range .links }}
+          <a class="sk-story-link sk-focusable" href="{{ .url | relLangURL }}">{{ .label }} <span aria-hidden="true">→</span></a>
+          {{- end }}
+        </div>
+      </li>
+      {{- end }}
+    </ul>
+    {{- end }}
+  </div>
+</section>
+{{- end }}{{ end -}}

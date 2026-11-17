@@ -18,6 +18,9 @@
   </div>
 </section>
 
+{{/* Vì sao có Survival Kit (data/homepage.yml → story) */}}
+{{ partial "home-story.html" . }}
+
 {{ if site.Params.features.enable_panic_level }}
 {{ partial "panic-selector.html" . }}
 {{ end }}

@@ -1,99 +1,39 @@
-############################ banner ##########################
-banner:
+######################## Câu chuyện trang chủ ##########################
+# layouts/_partials/home-story.html — hiện ngay dưới hero, trước Panic Level.
+# Nhịp 02 là bản nháp: nhóm thay bằng chuyện thật của mình nếu có.
+# (Đã bỏ banner/about/cta/material/advantage/video/products: lorem ipsum của theme gốc, không trang nào dùng.)
+story:
   enable : true
-  title : "Best Beauty Cream For Your Skin"
-  content : "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed dia"
-  image : "images/banner.png"
-  # button
-  button:
-    enable : true
-    label : "All Products"
-    link : "products/"
-  # demo video
-  video:
-    enable : true
-    videoURL : "https://www.youtube.com/embed/wf4F2-9UXUo"
-
-########################## About ##############################
-about:
-  enable : true
-  title : "About Our Product"
-  content : "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-          clita kasd gubergren,"
-  image : "images/about.png"
-
-
-###################### Call to action ########################
-cta:
-  enable : true
-  title : "Buy one Get One Free Taba Cream"
-  content : "Available for limited time only. Grab one while you still can!"
-  image : "images/cta.png"
-  overlayImage : "images/cta-overlay.png"
-  button:
-    label : "All Products"
-    link : "products/"
-
-######################## raw material #######################
-material:
-  enable : true
-  title : "Ingredients Of Our Products"
-  subtitle : "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dol."
-  materialItem:
-    # material item loop
-    - title : "Matcha Seeds"
-      image : "images/material/material-1.png"
-      content : "Lorem ipsum dolor sit amet,be consetetur sadipscing elitr, sed diam nonumy eirmod tem"
-      
-    # material item loop
-    - title : "Aloe Vera"
-      image : "images/material/material-2.png"
-      content : "Lorem ipsum dolor sit amet,be consetetur sadipscing elitr, sed diam nonumy eirmod tem"
-      
-    # material item loop
-    - title : "Turmeric"
-      image : "images/material/material-3.png"
-      content : "Lorem ipsum dolor sit amet,be consetetur sadipscing elitr, sed diam nonumy eirmod tem"
-      
-    # material item loop
-    - title : "Tulshi leaf"
-      image : "images/material/material-4.png"
-      content : "Lorem ipsum dolor sit amet,be consetetur sadipscing elitr, sed diam nonumy eirmod tem"
-
-########################### Advantage #########################
-advantage:
-  enable : true
-  title : "Advantages Of Using <br> Our Product"
-  subtitle : "Lorem ipsum dolor sit amet, da decal consetetur<br> sadipscing elitr, sed diam nonumya eirmod"
-  image : "images/advantage.png"
-  advantageList:
-    # advantage list loop
-    - listItem : "Extremely lightweight"
-    - listItem : "Excellent breathability"
-    - listItem : "Can increase Cell activation"
-    - listItem : "Glowing Skin In 7 Days"
-    - listItem : "Increasing Glow Of Face"
-    - listItem : "More Beautiful Face Skin"
-
-
-######################## Promo Video ##########################
-video:
-  enable : true
-  title : "How To Use This Product?"
-  content : "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et."
-  videoThumb : "images/video-thumb.jpg"
-  videoURL : "https://www.youtube.com/embed/wf4F2-9UXUo"
-
-
-######################## Products #############################
-products:
-  enable : true
-  title : "Products List"
-  # product item comes from "content/products"
+  eyebrow : "Vì sao có Survival Kit?"
+  title : "2 giờ sáng. Deadline còn 7 tiếng. Trong phòng chỉ còn nửa gói mì."
+  beats:
+    - title : "Chuyện mùa nào cũng gặp"
+      content : "Sinh viên không thiếu quyết tâm. Thứ thiếu là ly cà phê lúc 2 giờ sáng, cây bút dạ quang còn mực, và một người nói “ráng thêm chút nữa”. Lúc cần nhất lại là lúc không ai còn thời gian đi mua."
+    - title : "Tụi mình cũng chạy deadline như bạn"
+      content : "Survival Kit là đồ án của một nhóm sinh viên HCMUS. Tụi mình nhận ra vấn đề không phải là thiếu đồ, mà là thiếu đúng lúc: tới đêm cuối mới nhớ ra thì đã muộn."
+    - title : "Nên tụi mình đóng gói sẵn sự tiếp sức"
+      content : "Đồ uống, đồ ăn nhẹ, dụng cụ học và một lời nhắn, gom vào một chiếc hộp, chọn theo mức hoảng của bạn và tới trước deadline."
+  paths:
+    - problem : "Sát giờ mới nhớ ra chưa chuẩn bị gì."
+      solution : "Đặt từ hôm nay, kit tới trước deadline 1–2 ngày."
+      icon : "images/icons/schedule-rescue.svg"
+      links:
+        - label : "Schedule a Rescue"
+          url : "schedule-rescue/"
+    - problem : "Không biết mua gì, mỗi thứ một nơi."
+      solution : "Kit phối sẵn theo Panic Level 1–7, hoặc tự phối từng món."
+      icon : "images/icons/survival-kits.svg"
+      links:
+        - label : "Survival Kits"
+          url : "products/"
+        - label : "Build Your Own Kit"
+          url : "build-your-own-kit/"
+    - problem : "Muốn động viên bạn mà không biết nói sao."
+      solution : "Gửi một chiếc hộp kèm thiệp viết tay hộ bạn."
+      icon : "images/icons/send-rescue.svg"
+      links:
+        - label : "Send a Rescue"
+          url : "send-rescue/"
 
 
 ########################## Testimonial ########################
