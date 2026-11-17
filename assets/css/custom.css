@@ -1748,3 +1748,187 @@ footer a[aria-current="page"] {
 @media (prefers-reduced-motion: reduce) {
   .sk-story-link span { transition: none; }
 }
+
+/* ==========================================================================
+   C. Phân biệt Build (cho mình) và Send (cho người khác)
+   ========================================================================== */
+
+/* Phụ đề "cho ai" dưới <h1> */
+.sk-page-subtitle {
+  margin: calc(var(--space-1) * -1) 0 var(--space-3);
+  font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+  font-weight: 600;
+  color: var(--page-accent, var(--color-primary));
+}
+
+/* Tấm thiệp mẫu ở dải tiêu đề trang Send */
+.sk-page-card {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 260px;
+  margin: 0 0 0 auto;
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  background: #fffaf3;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-shadow: 0 18px 32px -18px rgba(28, 39, 64, 0.45);
+  transform: rotate(3deg);
+  background-image: repeating-linear-gradient(transparent 0 27px, rgba(194, 65, 43, 0.12) 27px 28px);
+}
+.sk-page-card blockquote {
+  margin: 0 0 var(--space-3);
+  font-size: 1.0625rem;
+  font-style: italic;
+  line-height: 28px;
+  color: var(--color-text-dark);
+}
+.sk-page-card figcaption {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: right;
+}
+@media (max-width: 991.98px) {
+  .sk-page-card { display: none; }
+}
+
+/* Thanh "chọn đúng lối" */
+.sk-paths {
+  margin-bottom: var(--space-6);
+}
+.sk-paths-q {
+  margin: 0 0 var(--space-3);
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+.sk-paths--home .sk-paths-q {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+.sk-paths-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sk-paths--home .sk-paths-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.sk-path {
+  position: relative;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.sk-path-link,
+.sk-path.is-here {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 100%;
+  padding: var(--space-4) var(--space-5);
+  color: inherit;
+  text-decoration: none !important;
+}
+.sk-path:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.sk-path.is-here {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+  transform: none;
+  box-shadow: none;
+}
+.sk-path[data-path="build"].is-here {
+  border-color: var(--color-secondary);
+  background: color-mix(in srgb, var(--color-secondary) 6%, var(--color-surface));
+}
+.sk-path-icon {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+}
+.sk-path-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.sk-path-who {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.sk-path[data-path="build"] .sk-path-who { color: var(--color-secondary); }
+.sk-path-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+.sk-path-desc {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-text-light);
+}
+.sk-path-arrow {
+  flex: 0 0 auto;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  transition: transform 0.15s ease;
+}
+.sk-path:hover .sk-path-arrow { transform: translateX(4px); }
+.sk-path-here {
+  flex: 0 0 auto;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-text-inverted);
+}
+.sk-path[data-path="build"] .sk-path-here { background: var(--color-secondary); }
+@media (max-width: 767.98px) {
+  .sk-paths-list,
+  .sk-paths--home .sk-paths-list { grid-template-columns: minmax(0, 1fr); }
+  .sk-path-link, .sk-path.is-here { padding: var(--space-4); gap: var(--space-3); }
+}
+.sk-paths-section { padding-bottom: 0; }
+
+/* Gợi ý dẫn chéo Build ↔ Send */
+.sk-gift-hint {
+  margin: var(--space-2) 0 var(--space-4);
+  color: var(--color-text-light);
+  line-height: 1.5;
+}
+.sk-gift-hint .sk-icon-info { color: var(--color-primary); }
+
+/* Chú thích tiếng Việt dưới tên mục menu: chỉ ở menu mobile */
+.sk-nav-hint {
+  display: none;
+}
+@media (max-width: 991.98px) {
+  .navbar-nav .nav-item { text-align: center; }
+  .sk-nav-hint {
+    display: block;
+    /* Không dùng margin âm: link (position: relative) sẽ đè lên chú thích. */
+    margin: 0.15rem 0 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--color-text-light);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-path, .sk-path-arrow { transition: none; }
+  .sk-path:hover { transform: none; }
+}

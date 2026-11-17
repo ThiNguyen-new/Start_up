@@ -37,6 +37,31 @@ test.describe('H — Trang chủ', () => {
     await expect(page).toHaveURL(/send-rescue\/$/);
   });
 
+  test('[C3] Trang chủ: 3 lối "phối sẵn / cho mình / cho người khác", trước Featured', async ({ page }) => {
+    const paths = page.locator('.sk-paths--home .sk-path');
+    await expect(paths).toHaveCount(3);
+    await expect(paths.locator('.sk-path-who')).toHaveText(['Cần nhanh', 'Cho mình', 'Cho người khác']);
+    const hrefs = await paths.locator('a').evaluateAll((as) => as.map((a) => new URL(a.href).pathname.split('/').filter(Boolean).pop()));
+    expect(hrefs).toEqual(['products', 'build-your-own-kit', 'send-rescue']);
+    await expect(page.locator('.sk-path.is-here')).toHaveCount(0);
+    const [p, f] = await Promise.all(['.sk-paths-section', '#featured-kits'].map((s) => page.locator(s).evaluate((e) => e.getBoundingClientRect().top)));
+    expect(p).toBeLessThan(f);
+  });
+
+  test('[C4] Menu: chú thích tiếng Việt cho Build/Send (title + dòng nhỏ ở mobile), tên giữ nguyên', async ({ page }) => {
+    const build = page.locator('#navigation a.nav-link', { hasText: 'Build Your Own Kit' });
+    await expect(build).toHaveAttribute('title', 'Tự phối kit cho chính mình');
+    await expect(page.locator('#navigation a.nav-link', { hasText: 'Send a Rescue' })).toHaveAttribute('title', 'Gửi kit tiếp sức cho người khác');
+    const hints = page.locator('#navigation .sk-nav-hint');
+    await expect(hints).toHaveCount(2);
+    if ((page.viewportSize()?.width || 1440) < 992) {
+      await page.locator('.navbar-toggler').click();
+      await expect(hints.first()).toBeVisible();
+    } else {
+      await expect(hints.first()).toBeHidden();
+    }
+  });
+
   test('[H2] Slider Panic Level 1→7 cập nhật tiêu đề, badge, aria', async ({ page }) => {
     const slider = page.locator('#panic-meter-range');
     for (let n = 1; n <= 7; n++) {

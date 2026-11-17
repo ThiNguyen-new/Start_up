@@ -25,6 +25,13 @@
 {{ partial "panic-selector.html" . }}
 {{ end }}
 
+{{/* Chọn đúng lối: mua kit phối sẵn / tự phối cho mình / gửi cho người khác (ui-ux-story-plan C) */}}
+<section class="sk-section-sm sk-paths-section" aria-label="Chọn cách bắt đầu">
+  <div class="container">
+    {{ partial "path-chooser.html" (dict "current" "home") }}
+  </div>
+</section>
+
 {{/* Top 3 bán chạy: sắp theo front matter `bestseller_rank` (1 = cao nhất).
      Không phụ thuộc Panic Level. Nếu chưa kit nào có rank thì lấy 3 kit đầu. */}}
 {{ $products := where site.RegularPages "Type" "products" }}

@@ -8,6 +8,7 @@ weight = 1
 name = "Build Your Own Kit"
 url = "build-your-own-kit/"
 weight = 2
+params = { hint = "Tự phối kit cho chính mình" }
 
 [[main]]
 name = "Schedule Rescue"
@@ -18,6 +19,7 @@ weight = 3
 name = "Send a Rescue"
 url = "send-rescue/"
 weight = 4
+params = { hint = "Gửi kit tiếp sức cho người khác" }
 
 [[main]]
 name = "Blog"

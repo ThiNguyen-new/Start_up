@@ -1,0 +1,40 @@
+{{- /*
+  Thanh "chọn đúng lối" (ui-ux-story-plan C).
+  Build = tự phối cho MÌNH. Send = gửi quà kèm thiệp cho NGƯỜI KHÁC.
+  Tham số: dict "current" ("build" | "send" | "home")
+  - Ở Build/Send: hai thẻ, thẻ của trang hiện tại không phải link, gắn "Bạn đang ở đây".
+  - Ở trang chủ: thêm lối thứ ba "Mua kit phối sẵn".
+*/ -}}
+{{- $current := .current | default "home" -}}
+{{- $paths := slice
+  (dict "key" "ready" "who" "Cần nhanh" "title" "Mua kit phối sẵn" "desc" "Chọn theo mức hoảng, bỏ vào giỏ là xong." "url" "products/" "icon" "images/icons/survival-kits.svg")
+  (dict "key" "build" "who" "Cho mình" "title" "Build Your Own Kit" "desc" "Tự chọn từng món cho chính mình, thấy tổng tiền ngay." "url" "build-your-own-kit/" "icon" "images/icons/kit.svg")
+  (dict "key" "send" "who" "Cho người khác" "title" "Send a Rescue" "desc" "Chọn người nhận, viết thiệp, kit tới đúng lúc bạn ấy cần." "url" "send-rescue/" "icon" "images/icons/send-rescue.svg")
+-}}
+<div class="sk-paths{{ if eq $current "home" }} sk-paths--home{{ end }}" role="group" aria-labelledby="sk-paths-q-{{ $current }}">
+  <p class="sk-paths-q" id="sk-paths-q-{{ $current }}">
+    {{- if eq $current "home" }}Bạn đang tìm kit cho ai?{{ else }}Kit này dành cho ai?{{ end -}}
+  </p>
+  <ul class="sk-paths-list">
+    {{- range $paths }}
+    {{- if or (eq $current "home") (ne .key "ready") }}
+    {{- $here := eq .key $current }}
+    <li class="sk-path{{ if $here }} is-here{{ end }}" data-path="{{ .key }}">
+      {{- if not $here }}<a class="sk-path-link sk-focusable" href="{{ .url | relLangURL }}">{{ end }}
+        {{ with resources.Get .icon }}<img class="sk-path-icon" src="{{ .RelPermalink }}" alt="" width="44" height="44">{{ end }}
+        <span class="sk-path-body">
+          <span class="sk-path-who">{{ .who }}</span>
+          <span class="sk-path-title">{{ .title }}</span>
+          <span class="sk-path-desc">{{ .desc }}</span>
+        </span>
+        {{- if $here }}
+        <span class="sk-path-here" aria-current="page">Bạn đang ở đây</span>
+        {{- else }}
+        <span class="sk-path-arrow" aria-hidden="true">→</span>
+        {{- end }}
+      {{- if not $here }}</a>{{ end }}
+    </li>
+    {{- end }}
+    {{- end }}
+  </ul>
+</div>

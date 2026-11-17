@@ -2,6 +2,8 @@
   Dải tiêu đề trang con.
   Front matter (tùy chọn) của trang / section:
     story:
+      subtitle: "Cho ai"             # phụ đề ngay dưới <h1> (Build / Send)
+      card: { text, from }           # tấm thiệp mẫu bên phải (Send)
       eyebrow: "Nhãn nhỏ"            # chỉ hiện ở chính trang khai báo
       lead:    "1–2 câu dẫn"          # chỉ hiện ở chính trang khai báo
       icon:    "images/icons/x.svg"   # trong assets/; trang con (bài blog, kit) thừa hưởng từ section
@@ -21,6 +23,9 @@
       {{- end }}{{ end }}
       <div class="sk-page-head-text">
         <h1>{{ .Title }}</h1>
+        {{- with $own.subtitle }}
+        <p class="sk-page-subtitle">{{ . }}</p>
+        {{- end }}
         {{- with $own.eyebrow }}
         <p class="sk-page-eyebrow">{{ . }}</p>
         {{- end }}
@@ -34,6 +39,13 @@
           </ol>
         </nav>
       </div>
+      {{- /* Tấm thiệp mẫu (story.card) — trang trí, dùng ở Send để nhấn vào người nhận. */}}
+      {{- with $own.card }}
+      <figure class="sk-page-card" aria-hidden="true">
+        <blockquote>{{ .text }}</blockquote>
+        {{ with .from }}<figcaption>{{ . }}</figcaption>{{ end }}
+      </figure>
+      {{- end }}
     </div>
   </div>
 </section>

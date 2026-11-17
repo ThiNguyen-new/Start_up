@@ -7,6 +7,21 @@ const visibleNames = (page) => page.locator('.js-byok-card:visible').evaluateAll
 test.describe('B — Build Your Own Kit', () => {
   test.beforeEach(async ({ page }) => { await freshSession(page, 'build-your-own-kit/'); });
 
+  test('[C1] Build = cho mình: path-chooser, phụ đề, lời nhắn cho chính mình, link sang Send', async ({ page }) => {
+    await expect(page.locator('.sk-page-subtitle')).toHaveText('Tự phối kit cho chính mình');
+    const paths = page.locator('.sk-paths .sk-path');
+    await expect(paths).toHaveCount(2);
+    const here = page.locator('.sk-path.is-here');
+    await expect(here).toHaveAttribute('data-path', 'build');
+    await expect(here.locator('a')).toHaveCount(0); // thẻ hiện tại không phải link
+    await expect(here.locator('[aria-current="page"]')).toHaveText('Bạn đang ở đây');
+    await expect(page.locator('label[for="kit-custom-message"]')).toContainText('Lời nhắn cho chính mình');
+    await expect(page.locator('.js-kit-message-input')).toHaveAttribute('maxlength', '120');
+    await expect(page.locator('.sk-gift-hint a')).toHaveAttribute('href', /send-rescue\/$/);
+    await page.locator('.sk-path[data-path="send"] a').click();
+    await expect(page).toHaveURL(/send-rescue\/$/);
+  });
+
   test('[B1] Chọn level đổi câu mô tả và màu khung', async ({ page }) => {
     const msg = page.locator('[data-panic-level-message]').first();
     await page.locator('label[for="panic-radio-1"]').click();

@@ -5,6 +5,9 @@
 
 <section class="section pt-4" data-cart-url="{{ "cart-demo/" | relLangURL }}">
   <div class="container">
+    {{/* Send = cho người khác; Build = cho mình (ui-ux-story-plan C) */}}
+    {{ partial "path-chooser.html" (dict "current" "send") }}
+
     {{/* Demo Disclaimer Notice */}}
     <div class="row mb-4">
       <div class="col-12">
@@ -91,6 +94,10 @@
             <legend class="rescue-step-legend">Bước 2: Chọn Bộ Kit Tiếp Sức</legend>
             <p class="text-muted small mb-3">
               Chọn mức độ căng thẳng của người nhận. Chúng mình sẽ chuẩn bị bộ kit phù hợp nhất để gửi tới tay họ!
+            </p>
+            <p class="sk-gift-hint small mb-3">
+              {{ partial "icon-info.html" (dict "Class" "mr-1 align-text-bottom" "Size" 14) }}
+              Muốn tự chọn từng món? Phối ở <a class="sk-focusable" href="{{ "build-your-own-kit/" | relLangURL }}">Build Your Own Kit</a>, thêm vào giỏ rồi quay lại đây chọn “Kit trong giỏ hàng”.
             </p>
             {{ partial "rescue-kit-step.html" . }}
           </fieldset>

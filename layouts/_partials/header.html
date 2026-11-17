@@ -38,11 +38,14 @@
           {{ else }}
           {{ $isCurrent := partial "is-current.html" (dict "page" $ "url" .URL) }}
           <li class="nav-item{{ if $isCurrent }} active{{ end }}">
-            <a class="nav-link sk-focusable" href="{{ .URL | relLangURL }}"{{ if $isCurrent }} aria-current="page"{{ end }}>
+            <a class="nav-link sk-focusable" href="{{ .URL | relLangURL }}"{{ if $isCurrent }} aria-current="page"{{ end }}{{ with .Params.hint }} title="{{ . }}"{{ end }}>
               {{- .Name -}}
               {{/* Gạch chân của mục đang chọn là phần tử thật để view transition trượt được giữa các trang. */}}
               {{- if $isCurrent }}<span class="sk-nav-indicator" aria-hidden="true"></span>{{ end -}}
             </a>
+            {{- /* Chú thích tiếng Việt (menus.en.toml → params.hint), chỉ hiện ở menu mobile.
+                  Đặt ngoài <a> để tên mục giữ nguyên (header/footer/test bám theo tên). */}}
+            {{- with .Params.hint }}<span class="sk-nav-hint" aria-hidden="true">{{ . }}</span>{{ end }}
           </li>
           {{ end }}
           {{ end }}

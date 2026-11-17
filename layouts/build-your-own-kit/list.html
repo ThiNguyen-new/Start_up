@@ -5,6 +5,9 @@
 
 <section class="section pt-4" data-cart-url="{{ "cart-demo/" | relLangURL }}">
   <div class="container">
+    {{/* Build = cho mình; Send = cho người khác (ui-ux-story-plan C) */}}
+    {{ partial "path-chooser.html" (dict "current" "build") }}
+
     {{/* Demo Disclaimer Alert */}}
     <div class="row mb-4">
       <div class="col-12">
@@ -237,15 +240,21 @@
           {{/* Personalized Message */}}
           <div class="sk-message-section">
             <label for="kit-custom-message" class="font-weight-bold text-dark small mb-1 d-block">
-              Lời nhắn cá nhân / Thiệp gửi gắm:
+              Lời nhắn cho chính mình:
             </label>
             <textarea id="kit-custom-message"
                       class="form-control sk-input js-kit-message-input mb-1"
                       rows="3"
                       maxlength="120"
-                      placeholder="Nhập lời nhắn động viên bản thân hoặc bạn bè (tối đa 120 ký tự)..."></textarea>
+                      placeholder="VD: Ráng lên, xong đồ án là được ngủ (tối đa 120 ký tự)..."></textarea>
             <span class="sk-message-counter js-message-char-count">0/120 ký tự</span>
           </div>
+
+          {{/* Build là cho mình; muốn tặng thì dẫn sang Send (Send đọc được kit tự phối trong giỏ). */}}
+          <p class="sk-gift-hint small">
+            {{ partial "icon-info.html" (dict "Class" "mr-1 align-text-bottom" "Size" 14) }}
+            Muốn tặng người khác? Thêm kit vào giỏ, rồi ở <a class="sk-focusable" href="{{ "send-rescue/" | relLangURL }}">Send a Rescue</a> chọn “Kit trong giỏ hàng” và viết thiệp.
+          </p>
 
           {{/* Live Preview Box */}}
           <div class="sk-kit-preview-box">

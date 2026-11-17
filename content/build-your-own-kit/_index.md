@@ -4,6 +4,7 @@ description: "Tự tay thiết kế và phối chọn các món đồ tiếp s�
 layout: "build-your-own-kit"
 # Câu dẫn ở dải tiêu đề (layouts/_partials/page-title.html)
 story:
+  subtitle: "Tự phối kit cho chính mình"
   eyebrow: "Bạn hiểu mình nhất"
   lead: "Có người sống nhờ cà phê, có người chỉ cần trà và một xấp giấy note. Tự chọn từng món, thấy tổng tiền ngay."
   icon: "images/icons/kit.svg"

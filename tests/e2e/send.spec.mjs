@@ -47,6 +47,20 @@ async function toStep(page, target, { type = 'bestie', anonymous = false } = {})
 test.describe('R — Send a Rescue', () => {
   test.beforeEach(async ({ page }) => { await freshSession(page, 'send-rescue/'); });
 
+  test('[C2] Send = cho người khác: path-chooser, phụ đề, thiệp mẫu, link ngược sang Build', async ({ page }) => {
+    await expect(page.locator('.sk-page-subtitle')).toHaveText('Gửi kit tiếp sức cho người khác');
+    const here = page.locator('.sk-path.is-here');
+    await expect(here).toHaveAttribute('data-path', 'send');
+    await expect(here.locator('a')).toHaveCount(0);
+    await expect(page.locator('.sk-path[data-path="build"] a')).toHaveAttribute('href', /build-your-own-kit\/$/);
+    const card = page.locator('.sk-page-card');
+    if ((page.viewportSize()?.width || 1440) >= 992) await expect(card).toBeVisible();
+    else await expect(card).toBeHidden(); // thiệp mẫu chỉ hiện ở desktop
+    await expect(card).toHaveAttribute('aria-hidden', 'true');
+    await toStep(page, 2);
+    await expect(step(page, 2).locator('.sk-gift-hint a')).toHaveAttribute('href', /build-your-own-kit\/$/);
+  });
+
   test('[R1] Nhận dữ liệu từ URL', async ({ page }) => {
     await page.goto('send-rescue/?type=love&recipient=Minh%20Anh&message=Co%20len');
     await expect(page.locator('.js-input-gift-type[value="love"]')).toBeChecked();
